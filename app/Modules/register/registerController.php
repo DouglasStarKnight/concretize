@@ -4,17 +4,15 @@ namespace App\Modules\register\registerController;
 
 use app\Http\Controllers\Controller;
 use app\Modules\register\registerService;  // Corrija a namespace se necessário
+use App\Services\RegisterService as ServicesRegisterService;
 use Illuminate\Http\Request;
 
 class registerController extends Controller
 {
-    // Variável para o serviço
-    private $registerService;
-
     // Injetando o serviço no controlador
-    public function __construct( $registerService)
+    public function __construct( private ServicesRegisterService $registerService)
     {
-        $this->registerService = $registerService;  // Atribuindo o serviço à variável
+        $this->registerService = $registerService;  
     }
 
     public function register(Request $request)
