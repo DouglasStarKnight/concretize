@@ -1,30 +1,31 @@
 <?php
 
-namespace App\Modules\register\registerController;
+namespace App\Modules\Register;
 
-use app\Http\Controllers\Controller;
-use app\Modules\register\registerService;  // Corrija a namespace se necessário
-use App\Services\RegisterService as ServicesRegisterService;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Modules\Register\registerService;
 
-class registerController extends Controller
+class RegisterController extends Controller
 {
-    // Injetando o serviço no controlador
-    public function __construct( private ServicesRegisterService $registerService)
+    public function __construct(private registerService $registerService) {}
+
+    public function showForm()
     {
-        $this->registerService = $registerService;  
+        return view('register');
     }
 
-    public function register(Request $request)
+    public function cria(Request $request)
     {
-        // Validando os dados recebidos na requisição
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+        'nome' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'data_nascimento' => 'required',
+        'bairro_id' => '',
+        'senha' => 'required|min:5',
         ]);
-
-        // Chamando o método cria do serviço RegisterService para fazer o registro
+        // dd($validated);
         return $this->registerService->cria($validated);
+
     }
 }
