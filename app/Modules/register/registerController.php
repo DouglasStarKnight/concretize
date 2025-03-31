@@ -24,7 +24,6 @@ class RegisterController extends Controller
         'bairro_id' => '',
         'senha' => 'required|min:5',
         ]);
-        // dd($validated);
         return $this->registerService->cria($validated);
 
     }

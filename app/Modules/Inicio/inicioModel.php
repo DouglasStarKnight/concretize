@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Register;
+namespace App\Modules\inicio;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class RegisterModel
+class inicioModel
 {
     use HasApiTokens, HasFactory, Notifiable;
 

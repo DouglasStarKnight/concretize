@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Modules\Register;
+namespace App\Modules\Login;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use App\Modules\Register\RegisterModel;
-class RegisterService
+use App\Modules\Login\loginModel;
+class LoginService
 {
 
-    public function __construct(private RegisterModel $registerModel){
-        $this->registerModel = $registerModel;
+    public function __construct(private loginModel $loginModel){
+        $this->loginModel = $loginModel;
     }
 
     // Método para criar um novo usuário
     public function cria(array $data)
     {
-        
+
         $user = user::create([
             'nome' => $data['nome'],
             'data_nascimento' => $data['data_nascimento'],
@@ -25,6 +25,8 @@ class RegisterService
             'senha' => Hash::make($data['senha']),
         ]);
 
-        return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso!');
+        // $this->registerModel->cria();
+        // redirect()->route('home')->with('success', 'Cadastro realizado com sucesso!')
+
     }
 }

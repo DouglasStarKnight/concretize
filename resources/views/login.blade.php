@@ -15,22 +15,9 @@
                     <img style="height: 150px; width:400px" src="{{ asset('image/logo.jpg') }}" alt="logo">
                 </div>
                 <div id="content">
-                    <form class="form-register d-flex justify-content-center row" method="POST" action="{{ route('register.submit') }}">
+                    <form class="form-register d-flex justify-content-center row" method="POST" action="{{ route('login.submit') }}">
                         @csrf
-                        <div class="col-12 text-center">
-                            <label for="nome">Nome:</label><br>
-                            <input type="text" id="nome" name="nome" value="{{ old('nome') }}" placeholder="Digite o nome"><br>
-                            @error('nome')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-12 text-center">
-                            <label for="data_nascimento">Data de nascimento:</label><br>
-                            <input type="date" id="nascimento" name="data_nascimento" value="{{ old('data_nascimento') }}"><br><br>
-                            @error('data_nascimento')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+
                         <div class="col-12 text-center">
                             <label for="email">E-mail:</label><br>
                             <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Digite seu E-mail"><br><br>
