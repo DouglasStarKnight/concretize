@@ -2,11 +2,12 @@
 
 namespace App\Modules\login;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Modules\Login\loginService;
-use App\Models\User;
-use App\Modules\login\auth;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
     public function __construct(private loginService $loginService) {}
@@ -23,11 +24,10 @@ class LoginController extends Controller
             'senha' => 'required',
         ]);
         // dd($validated);
-        if(user::attempt($validated)) {
+        if (Auth::attempt($validated)) {
             $request->session()->regenerate();
-
-            return redirect()->route('register');
         }
+        return redirect()->route('inicio');
 
         // return back()->with('error', 'Login Invalido.');
 
