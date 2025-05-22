@@ -19,11 +19,12 @@
     <!-- Estilos personalizados -->
     <style>
         #content {
-            height: 100vh;
+            height: 100%;
         }
         html, body {
         overflow-x: hidden;
         width: 100%;
+        height: 100%;
 }
 
 .container-fluid {
@@ -33,7 +34,7 @@
     </style>
 </head>
 <body>
-    <div id="content" class="h-100">
+    <div id="content">
         <!-- Header -->
         <div class="header border">
             <nav class="navbar bg-body-tertiary row" style="background-color: #E67F25">
@@ -56,10 +57,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown">
                             <!-- Botão do dropdown -->
-
-
-                                <img class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDropdown" role="button" src="{{ asset('image/profile-circle-svgrepo-com.svg') }}" alt="Perfil" height="60px" width="60px">
-
+                            <img class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDropdown" role="button" src="{{ asset('image/profile-circle-svgrepo-com.svg') }}" alt="Perfil" height="60px" width="60px">
                             <!-- Menu dropdown -->
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Ação</a></li>
@@ -74,12 +72,22 @@
         </div>
 
         <!-- Sub-Header -->
-        <div class="sub-header border mb-4 row">
-            <div class="categoria col-2">Materiais Básico</div>
-            <div class="categoria col-2">Acabamento</div>
-            <div class="categoria col-2">Elétrico</div>
-            <div class="categoria col-2">Tubulação</div>
-            <div class="categoria col-2">Conexões</div>
+        <div class="sub-header border mb-4 row bg-dark bg-gradient">
+            <div class="categoria col-2 text-dark">
+                <a class="text-decoration-none text-light" href="{{route('inicio.index')}}">Materiais Básico</a>
+            </div>
+            <div class="categoria col-2 Dark-link">
+                <a class="text-dark" href="{{route('inicio.index')}}">Materiais Acabamento</a>
+            </div>
+            <div class="categoria col-2 Dark link">
+                <a class="text-decoration-none" href="{{route('inicio.index')}}">Materiais Elétricos</a>
+            </div>
+            <div class="categoria col-2 Dark link">
+                <a class="text-decoration-none" href="{{route('inicio.index')}}">Materiais Tubulações</a>
+            </div>
+            <div class="categoria col-2 Dark link">
+                <a class="text-decoration-none" href="{{route('inicio.index')}}">Materiais conexções</a>
+            </div>
         </div>
 
         <!-- Conteúdo Dinâmico -->

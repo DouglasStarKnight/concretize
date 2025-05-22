@@ -23,13 +23,11 @@ class LoginController extends Controller
             'email' => 'required|email',
             'senha' => 'required',
         ]);
-        // dd($validated);
+        
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
         }
-        return redirect()->route('inicio');
-
-        // return back()->with('error', 'Login Invalido.');
+        return redirect()->route('inicio.index');
 
     }
 }

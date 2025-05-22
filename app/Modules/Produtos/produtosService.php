@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Inicio;
+namespace App\Modules\Produtos;
 
 use App\Models\User;
 use App\Modules\Admin\AdminModel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use App\Modules\Inicio\InicioModel;
-class InicioService
+class ProdutosService
 {
 
     public function __construct(private InicioModel $registerModel, private AdminModel $adminModel){
@@ -17,10 +17,8 @@ class InicioService
 
     public function index() {
         $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
-    
-        return view('inicio' ,['produtos' => $produtos]);
-    }
-    public function findAll(){
 
+        return view('produtos' ,['produtos' => $produtos]);
     }
+ 
 }

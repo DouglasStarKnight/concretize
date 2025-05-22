@@ -1,18 +1,50 @@
 <x-layout>
-    <form action="{{ route('admin.cria') }}" method="POST">
+    <div class="d-flex">
+        <button class="bg-primary bg-gradient" style="width: 300px; height: 100px;" data-bs-toggle="modal" data-bs-target="#novoProduto">
+            Inserir produto
+        </button>
+<x-modal  modal_id="novoProduto">
+    <form action="{{ route('admin.cria') }}" method="POST" enctype="multipart/form-data">
         @csrf
-    <label for="material">Qual material deseja adicionar? </label>
-    <input name="nome" type="text" placeholder="digite o nome do material">
-</br>
-
-    <select name="categoria" id="category">
-        <option value="1">básico</option>
-        <option value="2">Acabamento</option>
-        <option value="3">eletrico</option>
-        <option value="4">conexção</option>
-    </select>
-
-
-    <button type="submit">salvar</button>
+        @include('forms')
     </form>
+
+</x-modal>
+
+    </div>
+
 </x-layout>
+<style>
+.criaProdutos {
+    /* height: 300px; */
+}
+input {
+    /* width: 100px; */
+    height: 40px;
+    border-radius: 5px;
+}
+select {
+   border-radius: 5px
+}
+button {
+   border-radius: 5px;
+
+}
+</style>
+<script>
+    function previewImagem(event) {
+        const input = event.target;
+        const preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

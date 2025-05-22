@@ -8,11 +8,17 @@ use App\Modules\inicio\InicioService;
 
 class InicioController extends Controller
 {
-    public function __construct(private InicioService $inicioService) {}
+    public function __construct(private InicioService $inicioService) {
+        $this->inicioService = $inicioService;
+    }
 
     public function showForm()
     {
-        return view('inicio');
+        return $this->inicioService->index();
+    }
+
+    public function findAll() {
+        return $this->inicioService->findAll();
     }
 
 }

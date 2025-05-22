@@ -16,7 +16,7 @@ class RegisterService
     // Método para criar um novo usuário
     public function cria(array $data)
     {
-        
+
         $user = user::create([
             'nome' => $data['nome'],
             'data_nascimento' => $data['data_nascimento'],
@@ -25,6 +25,6 @@ class RegisterService
             'senha' => Hash::make($data['senha']),
         ]);
 
-        return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso!');
+        return redirect()->route('login.index')->with('success', 'Cadastro realizado com sucesso!');
     }
 }

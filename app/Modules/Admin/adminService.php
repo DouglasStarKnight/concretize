@@ -14,20 +14,26 @@ class AdminService
     }
 
     // Método para criar um novo usuário
-    public function cria(array $data)
-    {
-
-// dd($data);
-
-        if (!isset($data['nome']) || !isset($data['categoria'])) {
-            throw new \InvalidArgumentException('Campos obrigatórios faltando.');
-        }
+    public function cria(array $data){
 
         $produto = $this->adminModel::create([
             'nome' => $data['nome'],
-            'categoria_id' => $data['categoria'],
+            'categoria_id' => $data['categoria_id'],
+            'valor_produto' => $data['valor_produto'],
+            'image' => $data['image']
         ]);
-// dd($produto);
-        return redirect()->route('inicio.index')->with('success', 'Cadastro realizado com sucesso!');
+        // dd($produto);
+
+        return redirect()->route('admin.index')->with('success', 'Cadastro realizado com sucesso!');
+    }
+
+    public function findAll(){
+        $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
+
+
+        return view('criaProdutos',
+    [
+        'produtos' => $produtos
+    ]);
     }
 }

@@ -18,10 +18,12 @@ class AdminModel extends Model
  protected $fillable = [
    'nome',
    'categoria_id',
+   'valor_produto',
+   'image'
  ];
  public function findAll($querys)  {
       DB::table("produtos as produtos")
-      ->select("produtos.id","produtos.nome", "produtos.categoria_id")
+      ->select("produtos.id","produtos.nome", "produtos.categoria_id", "produtos.valor_produto", "produtos.image")
       ->leftjoin("categoria", "produtos.categoria_id", "=", "categoria.id")
       ->get();
  }
