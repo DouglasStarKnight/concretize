@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Admin;
+namespace app\Modules\Admin;
 
 
 use Illuminate\Support\Facades\DB;

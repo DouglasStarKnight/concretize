@@ -5,9 +5,9 @@
             <h4 class="text-light">Inserir Produtos</h4>
         </button>
         {{-- botão para excluir Produto --}}
-        <button id="btnTableExcluir" class="bg-primary bg-gradient" style="width: 300px; height: 100px;">
+        <x-botaoModal id_button="btnTableExcluir" id_modal="deletaProduto" class="bg-primary bg-gradient" style="width: 300px; height: 100px;" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
            <h4 class="text-light">Deletar Produto</h4>
-        </button>
+        </x-botaoModal>
 
         {{-- botão para  mandar Produto --}}
         <button class="bg-primary bg-gradient" style="width: 300px; height: 100px;" data-bs-toggle="modal" data-bs-target="#especificaPagina">
@@ -30,7 +30,7 @@
     <form id="formDeletar" method="POST" action="">
         @csrf
         @method('DELETE')
-        @include('administracao.forms.formdeleta')
+        {{-- @include('administracao.forms.formdeleta') --}}
         <p id="textoConfirmacao"></p>
         <x-slot name="footer">
             <button type="submit" class="btn btn-danger">Excluir</button>
@@ -75,16 +75,6 @@
                         data-nome="{{ $produto->nome }}">
                         Excluir
                     </button>
-
-
-                    {{-- <button type="button"
-                    class="btn btn-danger"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deletaProduto"
-                    data-id="{{ $produto->id }}"
-                    data-nome="{{ $produto->nome }}">
-                    Excluir
-                </button> --}}
             </th>
         </tr>
             @endforeach
@@ -110,23 +100,12 @@ button {
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#btnTableExcluir').click(function() {
-            $('#tableExcluir').toggle();
-        });
 
-        // Script do modal para deletar
-        $('#deletaProduto').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var nome = button.data('nome');
-            // console.log(nome, button, id)
-console.log($('#formDeletar').length)
-            // $('#formDeletar').attr('action', `/admin/delete/${id}`);
-             const urlDeleteBase = "{{ url('admin/delete') }}"; // monta a URL base corretamente
-             $('#formDeletar').attr('action', urlDeleteBase + '/' + id);
-
-            $('#textoConfirmacao').text(`Tem certeza que deseja excluir o produto "${nome}"?`);
-        });
-    });
+    function manipulacao_modais(element, dados){
+        if(element.id == "btnTableExcluir"){
+            console.log(element, dados)
+            $("formDeletar").attr('action', "{route('admin.delete') !!}" + "/" + dados.id);
+        }
+    }
+    //         $('#textoConfirmacao').text(`Tem certeza que deseja excluir o produto "${nome}"?`);
 </script>

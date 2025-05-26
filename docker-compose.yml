@@ -1,0 +1,54 @@
+services:
+ app:
+   image: myimage
+   container_name: todo
+   ports:
+     - "8080:80"
+   volumes:
+     - ./:/var/www/html
+   depends_on:
+     - mysql
+   networks:
+     - laravelnet
+
+
+ mysql:
+   image: mysql:8.0
+   container_name: mysql
+   ports:
+     - "3306:3306"
+   environment:
+     MYSQL_ROOT_PASSWORD: root
+     MYSQL_DATABASE: laravel
+
+
+     MYSQL_ROOT_HOST: "%"  # Permitir conexões externas
+   volumes:
+     - mysql_data:/var/lib/mysql
+   networks:
+     - laravelnet
+
+
+ phpmyadmin:
+   image: phpmyadmin/phpmyadmin
+   container_name: phpmyadmin
+   ports:
+     - "8081:80"
+   environment:
+     PMA_HOST: mysql  # Nome do serviço
+     PMA_PORT: 3306
+   depends_on:
+     - mysql
+   networks:
+     - laravelnet
+
+
+volumes:
+ mysql_data:
+
+
+networks:
+ laravelnet:
+   driver: bridge
+
+

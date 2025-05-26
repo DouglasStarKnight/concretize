@@ -4,7 +4,7 @@ namespace App\Modules\Inicio;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Modules\inicio\InicioService;
+use App\Modules\Inicio\InicioService;
 
 class InicioController extends Controller
 {
