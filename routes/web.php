@@ -34,10 +34,11 @@ route::prefix('admin')->name('admin.')->group(function(){
     route::get('/index', [adminController::class, 'index'])->name('index');
     route::post('/cria', [AdminController::class, 'cria'])->name('cria');
     route::get('/findAll', [AdminController::class, 'findAll'])->name('findAll');
+    route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('delete');
 });
 
 route::prefix('produtos')->name('produtos.')->group(function(){
     route::get('/index', [produtosController::class, 'index'])->name('index');
-    // route::post('/cria', [AdminController::class, 'cria'])->name('cria');
+    route::get('/listagem', [ProdutosController::class, 'listagem'])->name('listagem');
     route::get('/findAll', [produtosController::class, 'findAll'])->name('findAll');
 });

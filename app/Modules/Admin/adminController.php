@@ -16,9 +16,10 @@ class AdminController extends Controller
 
     public function index()
     {
-        $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
-
-        return view('criaProdutos', [
+        // $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
+$produtos = $this->adminModel->findAll();
+// dd($produtos);
+        return view('administracao.criaProdutos', [
             'produtos' => $produtos
         ]);
     }
@@ -47,9 +48,9 @@ class AdminController extends Controller
         return $this->adminService->cria($data);
     }
 
-    // public function findAll(){
-
-    //     return $this->adminService->findAll();
-    // }
+    public function delete(Request $request, $id){
+        dd($id);
+        return $this->adminService->excluir($request, $id);
+    }
 
 }

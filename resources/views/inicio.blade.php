@@ -32,8 +32,8 @@
         </a>
     </div>
     <div class="maisvendidos mt-5 border-top border-bottom">
-        <div class="titlemaisvendidos">
-            <h2 class="ms-3">Promoções</h2>
+        <div class="titlemaisvendidos bg-primary ms-3 rounded">
+            <h2 class="text-center text-light" >Promoções</h2>
         </div>
               <div class="contentmaisvendidos">
                 <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
@@ -48,6 +48,11 @@
                         <div class="fw-bold d-flex justify-content-center">
                             R$ {{$p->valor_produto}}
                         </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="ph ph-minus-square col-1 p-0 justify-content-center d-flex" style="font-size: 25px;"></div>
+                            <div class="col-2"><h6 class="">10</h6></div>
+                            <div class="ph ph-plus-square col-1 p-0 justify-content-center d-flex" style="font-size: 25px;"></div>
+                        </div>
                         <div class="d-flex justify-content-center">
                           <button>adicionar ao carrinho</button>
                       </div>
@@ -57,8 +62,8 @@
             </div>
         </div>
       <div class="maisvendidos mt-5 border-top border-bottom">
-        <div class="titlemaisvendidos">
-          <h2 class="ms-3">mais vendidos</h2>
+        <div class="titlemaisvendidos bg-primary ms-3 rounded">
+          <h2 class="text-center text-light">mais vendidos</h2>
         </div>
           <div class="contentmaisvendidos">
             <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
@@ -72,35 +77,13 @@
                       </div>
                     <div class="fw-bold d-flex justify-content-center">
                       R$ {{$p->valor_produto}}
+                    </div>
+                    <div>
+                        quantidade
                     </div>
                     <div class="d-flex justify-content-center">
                       <button>adicionar ao carrinho</button>
                   </div>
-                </div>
-                    @endforeach
-            </div>
-          </div>
-      </div>
-      <div class="maisvendidos mt-5 border-top border-bottom">
-        <div class="titlemaisvendidos">
-          <h2 class="ms-3">teste 3</h2>
-        </div>
-          <div class="contentmaisvendidos">
-            <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
-              @foreach($produtos as $p)
-                <div class="col-2 border my-1 mx-2">
-                  <div class="image">
-                    <img src="{{ $p->image }}" alt="Imagem do Produto" class="img-fluid" />
-                  </div>
-                  <div class="fw-bold d-flex justify-content-center">
-                    {{$p->nome}}
-                      </div>
-                    <div class="fw-bold d-flex justify-content-center">
-                      R$ {{$p->valor_produto}}
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button>adicionar ao carrinho</button>
-                    </div>
                 </div>
                     @endforeach
             </div>

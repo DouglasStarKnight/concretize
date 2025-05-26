@@ -18,7 +18,7 @@ class ProdutosService
     public function index() {
         $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
 
-        return view('produtos' ,['produtos' => $produtos]);
+        return view('listagem' ,['produtos' => $produtos]);
     }
- 
+
 }

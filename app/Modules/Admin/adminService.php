@@ -28,12 +28,18 @@ class AdminService
     }
 
     public function findAll(){
-        $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
+        // $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image', 'categoria.nome as nome_categoria')->leftJoin("categoria", "produtos.categoria_id", "=", "categoria.id")->get();
+        $produtos = $this->adminModel->findAll();
+// dd($produtos);
 
-
-        return view('criaProdutos',
+        return view('administracao.criaProdutos',
     [
-        'produtos' => $produtos
+        // 'produtos' => $produtos
     ]);
+    }
+
+    public function excluir($request, $id){
+        $this->adminModel->excluir($id);
+        return redirect()->back()->with('success', 'Produto excluído com sucesso!');
     }
 }
