@@ -48,15 +48,20 @@
                         <div class="fw-bold d-flex justify-content-center">
                             R$ {{$p->valor_produto}}
                         </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="ph ph-minus-square col-1 p-0 justify-content-center d-flex" style="font-size: 25px;"></div>
-                            <div class="col-2"><h6 class="">10</h6></div>
-                            <div class="ph ph-plus-square col-1 p-0 justify-content-center d-flex" style="font-size: 25px;"></div>
+
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <button class="btn btn-light col-2 p-0 fw-bold btn-minus" data-id="{{ $p->id }}">-</button>
+                            <div class="col-3 text-center">
+                                <span class="quantidade" data-id="{{ $p->id }}">1</span>
+                            </div>
+                            <button class="btn btn-light col-2 p-0 fw-bold btn-plus" data-id="{{ $p->id }}">+</button>
                         </div>
-                        <div class="d-flex justify-content-center">
-                          <button>adicionar ao carrinho</button>
-                      </div>
+
+                        <div class="d-flex justify-content-center mt-2">
+                            <button class="btn btn-primary">Adicionar ao carrinho</button>
+                        </div>
                     </div>
+
                     @endforeach
                 </div>
             </div>
@@ -90,3 +95,28 @@
           </div>
       </div>
 </x-layout>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.btn-plus').click(function() {
+            let id = $(this).data('id');
+            let quantidadeSpan = $('.quantidade[data-id="' + id + '"]');
+            let quantidade = parseInt(quantidadeSpan.text());
+            quantidade++;
+            quantidadeSpan.text(quantidade);
+        });
+
+        $('.btn-minus').click(function() {
+            let id = $(this).data('id');
+            let quantidadeSpan = $('.quantidade[data-id="' + id + '"]');
+            let quantidade = parseInt(quantidadeSpan.text());
+            if (quantidade > 1) {
+                quantidade--;
+                quantidadeSpan.text(quantidade);
+            }
+        });
+
+    });
+</script>
