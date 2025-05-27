@@ -14,13 +14,14 @@ class AdminService
     }
 
     // Método para criar um novo usuário
-    public function cria(array $data){
-
+    public function cria($data){
+dd($data);
         $produto = $this->adminModel::create([
             'nome' => $data['nome'],
             'categoria_id' => $data['categoria_id'],
             'valor_produto' => $data['valor_produto'],
-            'image' => $data['image']
+            'image' => $data['image'],
+            'promoções_id' => null
         ]);
         // dd($produto);
 
@@ -28,9 +29,7 @@ class AdminService
     }
 
     public function findAll(){
-        // $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image', 'categoria.nome as nome_categoria')->leftJoin("categoria", "produtos.categoria_id", "=", "categoria.id")->get();
         $produtos = $this->adminModel->findAll();
-// dd($produtos);
 
         return view('administracao.criaProdutos',
     [
@@ -38,6 +37,17 @@ class AdminService
     ]);
     }
 
+    public function edita($id, $data){
+         $produto = ([
+            'nome' => $data['nome'],
+            'categoria_id' => $data['categoria_id'],
+            'valor_produto' => $data['valor_produto'],
+            'image' => $data['image'],
+            'promoções_id' => null
+        ]);
+        $this->adminModel->edita($produto);
+        return redirect()->back()->with('success', 'Produto editado com sucesso!');
+    }
     public function excluir($request, $id){
         $this->adminModel->excluir($id);
         return redirect()->back()->with('success', 'Produto excluído com sucesso!');

@@ -19,7 +19,8 @@ class AdminModel extends Model
    'nome',
    'categoria_id',
    'valor_produto',
-   'image'
+   'image',
+   'promocoes_id',
  ];
 public function findAll()
 {
@@ -29,6 +30,7 @@ public function findAll()
             'produtos.nome',
             'produtos.categoria_id',
             'produtos.valor_produto',
+            'produtos.promocoes_id',
             'produtos.image',
             'categoria.nome as categoria_nome'
         )
@@ -37,6 +39,10 @@ public function findAll()
 // dd($produtos);
     return $produtos;
 }
+
+// public function edita($id){
+//     return DB::table('produtos')->where('id', $id)->update();
+// }
 
 public function excluir($id) {
     return DB::table('produtos')->where('id', $id)->delete();

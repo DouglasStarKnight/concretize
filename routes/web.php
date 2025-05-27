@@ -12,13 +12,13 @@ use App\Modules\Register\RegisterController;
 //     return view('welcome');
 // });
 
-Route::prefix('register')->name('register.')->group(function () {
+Route::prefix('register')->as('register.')->group(function () {
     Route::get('/index', [ RegisterController::class, 'showForm'])->name('index');
     Route::post('/registrando', [RegisterController::class, 'cria'])->name('submit');
 
 });
 
-route::prefix('login')->name('login.')->group(function(){
+route::prefix('login')->as('login.')->group(function(){
     Route::get('/index', [ LoginController::class, 'showForm'])->name('index');
     Route::post('/logando', [LoginController::class, 'login'])->name('submit');
 });
@@ -34,10 +34,11 @@ route::prefix('admin')->as('admin.')->group(function(){
     route::get('/index', [AdminController::class, 'index'])->name('index');
     route::post('/cria', [AdminController::class, 'cria'])->name('cria');
     route::get('/findAll', [AdminController::class, 'findAll'])->name('findAll');
-    route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('delete');
+    route::patch('/edita/{id?}', [AdminController::class, 'edita'])->name('edita');
+    route::delete('/delete/{id?}', [AdminController::class, 'delete'])->name('delete');
 });
 
-route::prefix('produtos')->name('produtos.')->group(function(){
+route::prefix('produtos')->as('produtos.')->group(function(){
     route::get('/index', [produtosController::class, 'index'])->name('index');
     route::get('/listagem', [ProdutosController::class, 'listagem'])->name('listagem');
     route::get('/findAll', [produtosController::class, 'findAll'])->name('findAll');

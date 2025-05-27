@@ -12,6 +12,8 @@
     <!-- Slick Slider -->
     <link rel="stylesheet"type="text/css"href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
     <link rel="stylesheet"type="text/css"href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick-theme.css') }}"/> --}}
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>

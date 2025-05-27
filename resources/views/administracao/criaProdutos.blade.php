@@ -1,18 +1,15 @@
 <x-layout>
-    <div class="d-flex justify-content-evenly">
-{{-- botão para criar produto --}}
-        <button class="bg-primary bg-gradient" style="width: 300px; height: 100px;" data-bs-toggle="modal" data-bs-target="#novoProduto">
-            <h4 class="text-light">Inserir Produtos</h4>
-        </button>
-        {{-- botão para excluir Produto --}}
-        <x-botaoModal  class="bg-primary bg-gradient" style="width: 300px; height: 100px;" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
-           <h4 class="text-light">Deletar Produto</h4>
-        </x-botaoModal>
-
-        {{-- botão para  mandar Produto --}}
-        <button class="bg-primary bg-gradient" style="width: 300px; height: 100px;" data-bs-toggle="modal" data-bs-target="#especificaPagina">
-            <h4 class="text-light">principais</h4>
-        </button>
+    {{-- @dd($produtos) --}}
+    <div class=" bg-primary border rounded mb-5 row mx-2">
+        <div class="col-10">
+            <h2 class="text-light text-center m-0 py-2">ADMINISTRAÇÃO DE PRODUTOS</h2>
+        </div>
+        <div class="col-2 d-flex justify-content-end">
+            <x-botaoModal id_button="btnCriaProduto" modal_id="novoProduto" class="btn-info" style="margin: 5px" title="Insira as informações">
+                <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
+            </x-botaoModal>
+        </div>
+    </div>
 
     {{--  modal para criar produtos --}}
     <x-modal  modal_id="novoProduto" title="Insira as informações">
@@ -20,63 +17,71 @@
             @csrf
             @include('administracao.forms.formCria')
             <x-slot name="footer">
-                <button type="submit" class="btn btn-primary" form="formCria">Salvar</button>
+                <button id="confirmaCria" type="submit" class="btn btn-primary" id form="formCria">Salvar</button>
             </x-slot>
         </form>
     </x-modal>
+    
+    {{--  modal para editar produtos --}}
+    <form method="POST" id="formEditaProduto" enctype="multipart/form-data">
+        <x-modal  modal_id="editaProduto" title="Editar">
+            @csrf
+            <input hidden name="_method" id="_method_editar_produtos" />
+            @include('administracao.forms.formEdita')
+            <x-slot name="footer">
+                <button type="submit" class="btn btn-primary" form="formEditaProduto">Salvar</button>
+            </x-slot>
+        </x-modal>
+    </form>
 
      {{-- modal para excluir produtos --}}
-    <x-modal modal_id="deletaProduto" title="Confirmar Exclusão">
-    <form id="formDeletar" method="POST" action="">
-        @csrf
-        @method('DELETE')
-        <p id="textoConfirmacao"></p>
-        <x-slot name="footer">
-            <button type="submit" class="btn btn-danger">Excluir</button>
-        </x-slot>
-    </form>
-</x-modal>
-
-    {{--  modal para mandar produtos para página específica --}}
-    <x-modal  modal_id="especificaPagina" title="Insira as informações">
-        <form action="{{ route('admin.cria') }}" method="POST" enctype="multipart/form-data">
+    <form id="formDeletar" method="POST" >
+        <x-modal modal_id="deletaProduto" title="Confirmar Exclusão">
             @csrf
-            @include('administracao.forms.formEspecifico')
-        </form>
-        <x-slot name="footer">
-            <button type="submit" class="btn btn-primary">Salvar</button>
-        </x-slot>
-    </x-modal>
- </div>
-<div id="tableExcluir" >
+            <input hidden name="_method" id="_method_excluir_produtos" />
+            <p id="textoConfirmacao"></p>
+            <x-slot name="footer">
+                <button id="confirmaExclusao" type="submit" class="btn btn-danger">Excluir</button>
+            </x-slot>
+        </x-modal>
+    </form>
+
+<div id="tableExcluir" class="mx-2">
     <table class="table">
         <thead>
-            <tr>
-                <th class="col-auto">#</th>
-                <th class="col-auto">nome</th>
-                <th class="col-auto">valor</th>
-                <th class="col-auto">Categoria</th>
+            <tr class="bg-primary">
+                <th class="col-auto text-light">#</th>
+                <th class="col-auto text-light">NOME</th>
+                <th class="col-auto text-light">VALOR</th>
+                <th class="col-auto text-light">CATEGORIA</th>
+                <th class="col-auto text-light">AÇÕES</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($produtos as $produto)
             <tr>
-                <th class="col-3">{{$produto->id}}</th>
-                <th class="col-3">{{$produto->nome}}</th>
-                <th class="col-3">{{$produto->valor_produto}}</th>
-                <th class="col-3">{{$produto->categoria_nome}}</th>
-                <th class="col-3">
-                    <button
-
+                <th class="col-1">{{$produto->id}}</th>
+                <th class="col-2">{{$produto->nome}}</th>
+                <th class="col-2">{{$produto->valor_produto}}</th>
+                <th class="col-2">{{$produto->categoria_nome}}</th>
+                <th class="col-1">
+                    <x-botaoModal
+                    id_button="btnTableEdita"
+                    modal_id="editaProduto"
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
+                    <i class="fa-solid fa-pencil"></i>
+                </x-botaoModal>
+                    <x-botaoModal
+                        id_button="btnTableExcluir"
+                        modal_id="deletaProduto"
                         type="button"
                         class="btn btn-danger"
-                        data-bs-toggle="modal" data-bs-target="#deletaProduto"
-                        onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})"
-                        data-id="{{ $produto->id }}"
-                        data-nome="{{ $produto->nome }}">
-                        Excluir
-                    </button>
-            </th>
+                        onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
+                        <i class="fa-solid fa-trash"></i>
+                    </x-botaoModal>
+                </th>
         </tr>
             @endforeach
         </tbody>
@@ -102,19 +107,17 @@ button {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-    // function manipulacao_modais(element, dados){
-    //     console.log("element")
-    //     if(element.id == "btnTableExcluir"){
-    //         $("#formDeletar").attr('action', "{route('admin.delete') !!}" + "/" + dados.id);
-    //         $('#textoConfirmacao').text(`Tem certeza que deseja excluir o produto "${nome}"?`);
-    //     }
-    // }
-    function manipulacao_modais(element) {
-    const id = element.getAttribute('data-id');
-    const nome = element.getAttribute('data-nome');
-    const url = "{{ url('admin/delete') }}/" + id;
-console
-    $("#formDeletar").attr('action', url);
-    $('#textoConfirmacao').text(`Tem certeza que deseja excluir o produto "${nome}"?`);
-}
+    function manipulacao_modais(element, dados){
+        // console.log(element.id == "btnTableExcluir")
+        if(element.id == "btnTableExcluir"){
+            $("#_method_excluir_produtos").attr('value', 'delete');
+            $("#formDeletar").attr('action', "{{route('admin.delete')}}" + "/" + dados.id);
+            $('#textoConfirmacao').text("Tem certeza que deseja excluir o produto " + dados.nome + "?");
+        }
+        if(element.id == "btnTableEdita"){
+            // $("#_method_excluir_produtos").attr('value', 'delete');
+            $("#_method_editar_produtos").attr('value', 'patch');
+            $("#formEditaProduto").attr('action', "{{route('admin.edita')}}" + "/" + dados.id);
+        }
+    }
 </script>
