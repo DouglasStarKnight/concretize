@@ -5,7 +5,7 @@ namespace App\Modules\Admin;
 use Illuminate\Http\Request;
 use App\Modules\Admin\AdminService;
 use App\Http\Controllers\Controller;
-use App\Modules\Admin\dto\createAdmin;
+use App\Modules\Admin\dto\CreateAdmin;
 use App\Modules\Admin\dto\UpdateAdmin;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,7 +24,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function cria(Request $request) {
+    public function cria(CreateAdmin $request) {
         dd($request);
         $data = $request->validated();
         return $this->adminService->cria($data);

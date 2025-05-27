@@ -64,17 +64,8 @@
                 </div>
                 <div class="entrega col-2"><p>Entregamos em toda a cidade</p></div>
                 <div class="carrinho d-flex justify-content-center col-1">
-                    <x-modal modal_id="carrinhoModal">
-                        @csrf
-                        @include('layouts.formCarrinho')
-                        <x-slot name="footer">
-                            <button type="submit" class="btn btn-primary" form="formCria">Salvar</button>
-                         </x-slot>
-                    </x-modal>
-                    {{-- <x-botao modal_id="carrinhoModal" id_button="openModalCarrinho"> --}}
-                        <i class="ph ph-shopping-cart" style="font-size: 35px;" data-bs-toggle="modal"
-   data-bs-target="#carrinhoModal"  id="openModalCarrinho" ></i>
-                    {{-- </x-botao> --}}
+                    <i class="ph ph-shopping-cart" style="font-size: 35px;" id="openModalCarrinho"></i>
+                    <span id="cart-count" class="badge bg-primary rounded-circle" style="font-size: 14px; height:20px; width:20px; display: flex; align-items:center; justify-content:center;">0</span>
                 </div>
                 <div class="perfil col-2">
                   <ul class="navbar-nav">
@@ -136,9 +127,14 @@
         });
     });
 
-    $(document).ready(function() {
-    $('#openModalCarrinho').on('click', function() {
-        $('#carrinhoModal').modal('show');
-    });
-});
+    // $(document).ready(function(){
+    //     let cartCount = 0;
+
+    //     // Toda vez que clicar no botão de adicionar ao carrinho
+    //     $(document).on('click', '.add-to-cart-btn', function(){
+    //         cartCount++;
+    //         $('#cart-count').text(cartCount);
+    //     });
+    // });
+
 </script>

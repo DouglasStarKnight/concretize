@@ -1,8 +1,12 @@
-<?php namespace App\Modules\Admin\dto;
+<?php
+
+namespace App\Modules\Admin\dto;
+
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class createAdmin extends FormRequest {
+class CreateAdmin extends FormRequest{
+
   public function authorize(): bool {
     return true;
   }

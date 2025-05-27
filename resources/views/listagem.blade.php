@@ -13,7 +13,7 @@
                   R$ {{$p->valor_produto}}
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button>adicionar ao carrinho</button>
+                  <button class="add-to-cart-btn">adicionar ao carrinho</button>
               </div>
             </div>
                 @endforeach

@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="d-flex justify-content-center mt-2">
-                            <button class="btn btn-primary">Adicionar ao carrinho</button>
+                            <button class="btn btn-primary add-to-cart-btn">Adicionar ao carrinho</button>
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@
                         quantidade
                     </div>
                     <div class="d-flex justify-content-center">
-                      <button>adicionar ao carrinho</button>
+                      <button class="add-to-cart-btn">adicionar ao carrinho</button>
                   </div>
                 </div>
                     @endforeach
@@ -99,6 +99,13 @@
 
 <script>
     $(document).ready(function() {
+
+        let cartCount = 0;
+
+        $('.add-to-cart-btn').on('click', function(){
+            cartCount++;
+            $('#cart-count').text(cartCount);
+        });
 
         $('.btn-plus').click(function() {
             let id = $(this).data('id');
@@ -119,4 +126,5 @@
         });
 
     });
+
 </script>
