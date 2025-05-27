@@ -55,14 +55,24 @@
                 <div class="container-fluid col-6">
                     <form class="d-flex justify-content-center w-100" role="search">
                         <input class="form-control me-2 w-75" type="search" placeholder="Digite o produto que deseja" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">
-                            <img src="{{ asset('image/search-alt-2-svgrepo-com.svg') }}" alt="search" height="35px" width="35px">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="ph ph-magnifying-glass" style="font-size: 35px"></i>
                         </button>
                     </form>
                 </div>
                 <div class="entrega col-2"><p>Entregamos em toda a cidade</p></div>
                 <div class="carrinho d-flex justify-content-center col-1">
-                    <img src="{{ asset('image/shopping-cart-free-15-svgrepo-com.svg') }}" alt="Carrinho" height="35px" width="35px">
+                    <x-modal modal_id="carrinhoModal">
+                        @csrf
+                        @include('layouts.formCarrinho')
+                        <x-slot name="footer">
+                            <button type="submit" class="btn btn-primary" form="formCria">Salvar</button>
+                         </x-slot>
+                    </x-modal>
+                    {{-- <x-botao modal_id="carrinhoModal" id_button="openModalCarrinho"> --}}
+                        <i class="ph ph-shopping-cart" style="font-size: 35px;" data-bs-toggle="modal"
+   data-bs-target="#carrinhoModal"  id="openModalCarrinho" ></i>
+                    {{-- </x-botao> --}}
                 </div>
                 <div class="perfil col-2">
                   <ul class="navbar-nav">
@@ -123,4 +133,10 @@
             });
         });
     });
+
+    $(document).ready(function() {
+    $('#openModalCarrinho').on('click', function() {
+        $('#carrinhoModal').modal('show');
+    });
+});
 </script>
