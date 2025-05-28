@@ -19,22 +19,5 @@ class ProdutosController extends Controller
         return $this->produtosService->index();
     }
 
-    // public function cria(Request $request) {
-
-    //     $data = [
-    //         'nome' => $request->input('nome'),
-    //         'categoria_id' => $request->input('categoria'),
-    //         'valor_produto' => $request->input('valor'),
-    //         // 'image' =>  $request->file('image')
-    //     ];
-    //     if($request->hasfile('image') && $request->file('image')->isValid()) {
-    //         $imagem = $request->file('image');
-    //         $nomeImagem = time() . '.' . $imagem->getClientOriginalExtension(); // ex: 1712345678.jpg
-    //         $caminho = $imagem->storeAs('produtos', $nomeImagem, 'public'); // pasta: storage/app/public/produtos
-
-    //         $data['image'] = $caminho;
-    //     }
-    // }
-
 
 }

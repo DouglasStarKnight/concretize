@@ -1,6 +1,9 @@
-<?php namespace App\Modules\_baseRepository;
+<?php namespace App\Modules\CrudBase;
 
-class RepositoryBase implements ICrudBase {
+use App\Modules\CrudBase\IcrudBase;
+
+
+class RepositoryBase implements IcrudBase {
 
   public function create($model, array $data) {
     return $model->create($data);
@@ -18,7 +21,7 @@ class RepositoryBase implements ICrudBase {
     $upd->update($data);
     return $upd;
   }
-
+  
   public function delete($model, int $id) {
     return $model->destroy($id);
   }

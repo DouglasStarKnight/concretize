@@ -16,7 +16,7 @@ class CreateAdmin extends FormRequest{
       'nome' => 'required|string',
       'valor_produto' => 'required|string',
       'categoria_id' => 'required|numeric',
-      'image' => 'required|string',
+      'image' => 'required|image|mimes:jpeg,png,jpg,webp',
     ];
   }
 

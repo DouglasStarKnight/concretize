@@ -36,16 +36,19 @@ public function findAll()
         )
         ->leftJoin('categoria', 'produtos.categoria_id', '=', 'categoria.id')
         ->get();
-// dd($produtos);
     return $produtos;
+}
+
+public function cria(){
+
 }
 
 // public function edita($id){
 //     return DB::table('produtos')->where('id', $id)->update();
 // }
 
-public function excluir($id) {
-    return DB::table('produtos')->where('id', $id)->delete();
-}
+// public function delete($id) {
+//     return DB::table('produtos')->where('id', $id)->delete();
+// }
 
 }

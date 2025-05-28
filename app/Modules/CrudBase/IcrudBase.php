@@ -1,4 +1,4 @@
-<?php namespace App\Modules\_baseRepository;
+<?php namespace App\Modules\CrudBase;
 interface ICrudBase {
   public function create(string $model, array $data);
   public function findById(string $model, int $id);

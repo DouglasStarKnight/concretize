@@ -32,8 +32,8 @@
         </a>
     </div>
     <div class="maisvendidos mt-5 border-top border-bottom">
-        <div class="titlemaisvendidos bg-primary ms-3 rounded">
-            <h2 class="text-center text-light" >Promoções</h2>
+        <div class="titlemaisvendidos alpha-color mx-3 rounded">
+            <h2 class="text-center text-light border border-2 border-dark rounded" >Promoções</h2>
         </div>
               <div class="contentmaisvendidos">
                 <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="d-flex justify-content-center mt-2">
-                            <button class="btn btn-primary add-to-cart-btn">Adicionar ao carrinho</button>
+                            <button class="btn subHeader-color border rounded text-white add-to-cart-btn bg-gradient">Adicionar ao carrinho</button>
                         </div>
                     </div>
 
@@ -67,8 +67,8 @@
             </div>
         </div>
       <div class="maisvendidos mt-5 border-top border-bottom">
-        <div class="titlemaisvendidos bg-primary ms-3 rounded">
-          <h2 class="text-center text-light">mais vendidos</h2>
+        <div class="titlemaisvendidos alpha-color mx-3 rounded">
+          <h2 class="text-center text-light border border-2 border-dark rounded">Mais Vendidos</h2>
         </div>
           <div class="contentmaisvendidos">
             <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
@@ -83,11 +83,15 @@
                     <div class="fw-bold d-flex justify-content-center">
                       R$ {{$p->valor_produto}}
                     </div>
-                    <div>
-                        quantidade
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <button class="btn btn-light col-2 p-0 fw-bold btn-minus" data-id="{{ $p->id }}">-</button>
+                            <div class="col-3 text-center">
+                                <span class="quantidade" data-id="{{ $p->id }}">1</span>
+                            </div>
+                        <button class="btn btn-light col-2 p-0 fw-bold btn-plus" data-id="{{ $p->id }}">+</button>
                     </div>
-                    <div class="d-flex justify-content-center">
-                      <button class="add-to-cart-btn">adicionar ao carrinho</button>
+                    <div class="d-flex justify-content-center mt-2">
+                      <button class="btn subHeader-color border rounded text-white add-to-cart-btn bg-gradient">adicionar ao carrinho</button>
                   </div>
                 </div>
                     @endforeach
@@ -95,6 +99,14 @@
           </div>
       </div>
 </x-layout>
+<style>
+    .alpha-color{
+    background-color: #fd7e14;
+}
+.subHeader-color{
+    background-color:#000080;
+}
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>

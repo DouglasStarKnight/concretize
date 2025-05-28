@@ -9,19 +9,19 @@ class UpdateAdmin extends FormRequest {
 
   public function rules(): array{
     return [
-      'nome' => 'required|string',
-      'valor_produto' => 'required|string',
-      'categoria_id' => 'required|numeric',
-      'image' => 'required|string',
+      'nome' => 'string',
+      'valor_produto' => 'string',
+      'categoria_id' => 'numeric',
+      'image' => 'mimes:jpeg,png,jpg,webp',
     ];
   }
 
   public function messages(): array {
     return [
-      'nome.required' => 'O nome do produto precisar ser texto.',
-      'valor_produto.required' => 'Digite um valor para o Produto.',
-      'image.required' => 'Selecione uma imagem.',
-      'categoria_id.required' => 'Escolha uma categoria para o produto.',
+      'nome.string' => 'O nome do produto precisar ser texto.',
+      'valor_produto.string' => 'Digite um valor para o Produto.',
+      'image.image' => 'Modelo de imagem não aceita.',
+      'categoria_id.numeric' => 'Escolha uma categoria para o produto.',
     ];
   }
 }
