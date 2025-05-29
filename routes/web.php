@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Modules\Admin\AdminController;
 use App\Modules\login\LoginController;
 use App\Modules\Inicio\InicioController;
-use App\Modules\Produtos\produtosController;
+use App\Modules\Produtos\ProdutosController;
 use App\Modules\Register\RegisterController;
 
 // Route::get('/', function () {
@@ -39,7 +39,7 @@ route::prefix('admin')->as('admin.')->group(function(){
 });
 
 route::prefix('produtos')->as('produtos.')->group(function(){
-    route::get('/index', [produtosController::class, 'index'])->name('index');
+    route::get('/index', [ProdutosController::class, 'index'])->name('index');
     route::get('/listagem', [ProdutosController::class, 'listagem'])->name('listagem');
-    route::get('/findAll', [produtosController::class, 'findAll'])->name('findAll');
+    route::get('/findAll', [ProdutosController::class, 'findAll'])->name('findAll');
 });

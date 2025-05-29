@@ -12,13 +12,13 @@
          </div>
          <div class="row d-flex justify-content-end m-2">
             <div class="col-2 d-flex justify-content-end">
-               <x-botaoModal id_button="btnCriaProduto" modal_id="novoProduto" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações">
-                  <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
-               </x-botaoModal>
-            </div>
-            <div class="col-2 d-flex justify-content-end">
                 <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações">
                     <h2 style="font-size: 15px">TROCAR SLIDES</h2>
+                </x-botaoModal>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+                <x-botaoModal id_button="btnCriaProduto" modal_id="novoProduto" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações">
+                   <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
                 </x-botaoModal>
             </div>
         </div>

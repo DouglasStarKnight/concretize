@@ -65,7 +65,7 @@ background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 4
                   </div>
                   <div class="container-fluid col-5">
                       <form class="d-flex justify-content-center w-100" role="search">
-                          <input class="form-control me-2 w-75" type="search" placeholder="Digite o produto que deseja" aria-label="Search">
+                          <input class="form-control me-2 w-75" name="find" placeholder="Digite o produto que deseja" aria-label="Search">
                           <button class="btn btn-outline-dark" type="submit">
                               <i class="ph ph-magnifying-glass" style="font-size: 35px;color:aliceblue"></i>
                           </button>
@@ -137,7 +137,6 @@ background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 4
         });
     });
     widthWindow = screen.width
-    console.log(widthWindow)
     if(widthWindow < 768){
         $('#entregamos').hide()
     }else{

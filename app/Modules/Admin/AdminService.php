@@ -19,35 +19,19 @@ class AdminService
 
     public function cria($data){
 
-        // $data['image'] já é UploadedFile
-  // Salva a imagem no S3 e pega o caminho
-    $path = Storage::disk('s3')->putFile('produtos', $data['image']);
-    // dd($path);
+    $path = Storage::disk('s3')->put('produtos', $data['image']);
 
     if (!$path) {
         return ['message' => 'Falha ao salvar imagem.'];
     }
 
-    // Monta os dados para salvar no banco, usando o caminho da imagem no S3
     $body = [
         'nome' => $data['nome'],
         'categoria_id' => $data['categoria_id'],
         'valor_produto' => $data['valor_produto'],
-        'image' => $path, // aqui salva só o path (ex: 'produtos/arquivo.jpg')
+        'image' => $path,
     ];
-
-    // Salva no banco usando o repository
-    $produtoCriado = $this->adminRepository->cria($body); // Atenção ao nome do método correto
-
-    if ($produtoCriado) {
-        // Retorna sucesso e URL completa da imagem no S3
-        $url = Storage::disk('s3')->url($path);
-        // return [
-        //     'produto' => $produtoCriado,
-        //     'image_url' => $url,
-        //     'message' => 'Produto criado e imagem salva com sucesso!',
-        // ];
-    }
+    $produtoCriado = $this->adminRepository->cria($body);
 
     return redirect()->route('admin.index');
     }

@@ -39,16 +39,5 @@ public function findAll()
     return $produtos;
 }
 
-public function cria(){
-
-}
-
-// public function edita($id){
-//     return DB::table('produtos')->where('id', $id)->update();
-// }
-
-// public function delete($id) {
-//     return DB::table('produtos')->where('id', $id)->delete();
-// }
 
 }

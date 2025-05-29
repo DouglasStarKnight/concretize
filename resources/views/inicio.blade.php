@@ -1,4 +1,8 @@
 <x-layout>
+    <?php
+    $quantidadeP = 0;
+    ?>
+    
     <!-- SLIDER CORRIGIDO -->
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <!-- Indicadores -->
@@ -10,13 +14,13 @@
 
         <!-- Slides -->
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div id="slide1" class="carousel-item active">
                 <img src="{{ asset('image/slide.jpeg') }}" alt="Slide 1" class="d-block w-100" style="height: 300px;">
             </div>
-            <div class="carousel-item">
+            <div id="slide2" class="carousel-item">
                 <img src="{{ asset('image/cimento.heic') }}" alt="Slide 2" class="d-block w-100" style="height: 300px;">
             </div>
-            <div class="carousel-item">
+            <div id="slide3" class="carousel-item">
                 <img src="{{ asset('image/cimento.heic') }}" alt="Slide 3" class="d-block w-100" style="height: 300px;">
             </div>
         </div>
@@ -35,7 +39,7 @@
         <div class="titlemaisvendidos alpha-color mx-3 rounded">
             <h2 class="text-center text-light border border-2 border-dark rounded" >Promoções</h2>
         </div>
-              <div class="contentmaisvendidos">
+              <div id="contentpromocoes">
                 <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
                     @foreach($produtos as $p)
                     <div class="col-2 border my-1 mx-2">
@@ -48,14 +52,14 @@
                         <div class="fw-bold d-flex justify-content-center">
                             R$ {{$p->valor_produto}}
                         </div>
-
-                        <div class="row d-flex justify-content-center align-items-center">
-                            <button class="btn btn-light col-2 p-0 fw-bold btn-minus" data-id="{{ $p->id }}">-</button>
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <button class="btn btn-light col-2 p-0 fw-bold btn-minus" onclick="quantidade(this, {{$p->id}}, 'minus')">-</button>
                             <div class="col-3 text-center">
-                                <span class="quantidade" data-id="{{ $p->id }}">1</span>
+                                <input type="hidden" name="produtos_quantidade" id="input_qtd{{$p->id}}" value="{{$quantidadeP}}">
+                                <span class="spanQuantidade{{$p->id}}">{{$quantidadeP}}</span>
                             </div>
-                            <button class="btn btn-light col-2 p-0 fw-bold btn-plus" data-id="{{ $p->id }}">+</button>
-                        </div>
+                        <button class="btn btn-light col-2 p-0 fw-bold btn-plus" onclick="quantidade(this, {{$p->id}}, 'plus')">+</button>
+                    </div>
 
                         <div class="d-flex justify-content-center mt-2">
                             <button class="btn subHeader-color border rounded text-white add-to-cart-btn bg-gradient">Adicionar ao carrinho</button>
@@ -70,7 +74,7 @@
         <div class="titlemaisvendidos alpha-color mx-3 rounded">
           <h2 class="text-center text-light border border-2 border-dark rounded">Mais Vendidos</h2>
         </div>
-          <div class="contentmaisvendidos">
+          <div id="contentmaisvendidos">
             <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
               @foreach($produtos as $p)
                 <div class="col-2 border my-1 mx-2">
@@ -84,11 +88,12 @@
                       R$ {{$p->valor_produto}}
                     </div>
                     <div class="row d-flex justify-content-center align-items-center">
-                        <button class="btn btn-light col-2 p-0 fw-bold btn-minus" data-id="{{ $p->id }}">-</button>
+                        <button class="btn btn-light col-2 p-0 fw-bold btn-minus" onclick="quantidade(this, {{$p->id}}, 'minus')">-</button>
                             <div class="col-3 text-center">
-                                <span class="quantidade" data-id="{{ $p->id }}">1</span>
+                                <input type="hidden" name="produtos_quantidade" id="input_qtd{{$p->id}}" value="{{$quantidadeP}}">
+                                <span class="spanQuantidade{{$p->id}}">{{$quantidadeP}}</span>
                             </div>
-                        <button class="btn btn-light col-2 p-0 fw-bold btn-plus" data-id="{{ $p->id }}">+</button>
+                        <button class="btn btn-light col-2 p-0 fw-bold btn-plus" onclick="quantidade(this, {{$p->id}}, 'plus')">+</button>
                     </div>
                     <div class="d-flex justify-content-center mt-2">
                       <button class="btn subHeader-color border rounded text-white add-to-cart-btn bg-gradient">adicionar ao carrinho</button>
@@ -110,27 +115,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+    quantidadeP = 0;
+        
+    function quantidade(element, produtoId, action) {
+    const parent = $(element).closest('div.produtos'); 
+    const input = parent.find(`#input_qtd${produtoId}`);
+    const span = parent.find(`.spanQuantidade${produtoId}`);
 
-   $(document).ready(function() {
-    // Botão de incremento
-    $('.btn-plus').click(function() {
-            let id = $(this).data('id');
-            let quantidadeSpan = $('.quantidade[data-id="' + id + '"]');
-            let quantidade = parseInt(quantidadeSpan.text());
-            quantidade++;
-            quantidadeSpan.text(quantidade);
-        });
-        $('.btn-minus').click(function() {
-            let id = $(this).data('id');
-            let quantidadeSpan = $('.quantidade[data-id="' + id + '"]');
-            let quantidade = parseInt(quantidadeSpan.text());
-            if (quantidade > 1) {
-                quantidade--;
-                quantidadeSpan.text(quantidade);
-            }
-        });
+    let quantidadeP = parseInt(input.val());
 
-});
+    if (action === 'plus') {
+        quantidadeP++;
+    } else if (action === 'minus') {
+        if (quantidadeP > 0) {
+            quantidadeP--;
+        }
+    }
+    input.val(quantidadeP);
+    span.text(quantidadeP);
+
+
+};
 
 
 </script>
