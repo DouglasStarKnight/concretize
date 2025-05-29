@@ -17,7 +17,7 @@ class InicioService
 
     public function index() {
         $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
-    
+    // dump($produtos);
         return view('inicio' ,['produtos' => $produtos]);
     }
     public function findAll(){

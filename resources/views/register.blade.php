@@ -15,35 +15,39 @@
                     <img style="height: 150px; width:400px" src="{{ asset('image/logo.jpg') }}" alt="logo">
                 </div>
                 <div id="content">
-                    <form class="form-register d-flex justify-content-center row" method="POST" action="{{ route('register.submit') }}">
+                    <form class="form-register" method="POST" action="{{ route('register.submit') }}">
                         @csrf
-                        <div class="col-12 text-center">
-                            <label for="nome">Nome:</label><br>
-                            <input type="text" id="nome" name="nome" value="{{ old('nome') }}" placeholder="Digite o nome"><br>
-                            @error('nome')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="row m-2">
+                            <div class="col-12">
+                                <label for="password">Nome:</label><br>
+                            </div>
+                            <div class="col-12">
+                                <input type="password" id="senha" class="form-control" name="senha" placeholder="Digite uma senha">
+                            </div>
                         </div>
-                        <div class="col-12 text-center">
-                            <label for="data_nascimento">Data de nascimento:</label><br>
-                            <input type="date" id="nascimento" name="data_nascimento" value="{{ old('data_nascimento') }}"><br><br>
-                            @error('data_nascimento')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="row m-2">
+                            <div class="col-12">
+                                <label for="password">Data:</label><br>
+                            </div>
+                            <div class="col-12">
+                                <input type="password" id="senha" class="form-control" name="senha" placeholder="Digite uma senha">
+                            </div>
                         </div>
-                        <div class="col-12 text-center">
-                            <label for="email">E-mail:</label><br>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Digite seu E-mail"><br><br>
-                            @error('email')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="row m-2">
+                            <div class="col-12">
+                                <label for="email" class="text-center">E-mail:</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="email" id="email" class="form-control" name="email" placeholder="Digite seu E-mail"><br><br>
+                            </div>
                         </div>
-                        <div class="col-12 text-center">
-                            <label for="password">Senha:</label><br>
-                            <input type="password" id="senha" name="senha" placeholder="Digite uma senha"><br><br>
-                            @error('password')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="row m-2">
+                            <div class="col-12">
+                                <label for="password">Senha:</label><br>
+                            </div>
+                            <div class="col-12">
+                                <input type="password" id="senha" class="form-control" name="senha" placeholder="Digite uma senha">
+                            </div>
                         </div>
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary">Salvar</button>

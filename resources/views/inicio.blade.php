@@ -39,8 +39,8 @@
                 <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
                     @foreach($produtos as $p)
                     <div class="col-2 border my-1 mx-2">
-                        <div class="image">
-                            <img src="{{ $p->image }}" alt="Imagem do Produto" class="img-fluid" />
+                        <div class="image img-fluid">
+                            <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" class="img-fluid" />
                         </div>
                         <div class="fw-bold d-flex justify-content-center">
                             {{$p->nome}}
@@ -75,7 +75,7 @@
               @foreach($produtos as $p)
                 <div class="col-2 border my-1 mx-2">
                   <div class="image">
-                    <img src="{{ $p->image }}" alt="Imagem do Produto" class="img-fluid" />
+                    <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" class="img-fluid" />
                   </div>
                   <div class="fw-bold d-flex justify-content-center">
                     {{$p->nome}}
@@ -110,23 +110,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function() {
 
-        let cartCount = 0;
-
-        $('.add-to-cart-btn').on('click', function(){
-            cartCount++;
-            $('#cart-count').text(cartCount);
-        });
-
-        $('.btn-plus').click(function() {
+   $(document).ready(function() {
+    // Botão de incremento
+    $('.btn-plus').click(function() {
             let id = $(this).data('id');
             let quantidadeSpan = $('.quantidade[data-id="' + id + '"]');
             let quantidade = parseInt(quantidadeSpan.text());
             quantidade++;
             quantidadeSpan.text(quantidade);
         });
-
         $('.btn-minus').click(function() {
             let id = $(this).data('id');
             let quantidadeSpan = $('.quantidade[data-id="' + id + '"]');
@@ -137,6 +130,7 @@
             }
         });
 
-    });
+});
+
 
 </script>

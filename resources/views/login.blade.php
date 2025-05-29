@@ -15,22 +15,23 @@
                     <img style="height: 150px; width:400px" src="{{ asset('image/logo.jpg') }}" alt="logo">
                 </div>
                 <div id="content">
-                    <form class="form-register d-flex justify-content-center row" method="POST" action="{{ route('login.submit') }}">
+                    <form class="form-register" method="POST" action="{{ route('login.submit') }}">
                         @csrf
-
-                        <div class="col-12 text-center">
-                            <label for="email">E-mail:</label><br>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Digite seu E-mail"><br><br>
-                            @error('email')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="row m-2">
+                            <div class="col-12">
+                                <label for="email" class="text-center">E-mail:</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="email" id="email" class="form-control" name="email" placeholder="Digite seu E-mail"><br><br>
+                            </div>
                         </div>
-                        <div class="col-12 text-center">
-                            <label for="password">Senha:</label><br>
-                            <input type="password" id="senha" name="senha" placeholder="Digite uma senha"><br><br>
-                            @error('password')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="row m-2">
+                            <div class="col-12">
+                                <label for="password">Senha:</label><br>
+                            </div>
+                            <div class="col-12">
+                                <input type="password" id="senha" class="form-control" name="senha" placeholder="Digite uma senha">
+                            </div>
                         </div>
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -56,8 +57,8 @@ body {
     border-color: #E67F25 !important;
     border-radius: 20px;
 }
-.form-register input {
+/* .form-register input {
     border-radius: 5px;
     width: 60%;
-}
+} */
 </style>

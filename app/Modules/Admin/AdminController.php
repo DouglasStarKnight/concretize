@@ -26,6 +26,7 @@ class AdminController extends Controller
 
     public function cria(CreateAdmin $request) {
         $data = $request->validated();
+        // dd($data);
         return $this->adminService->cria($data);
     }
 

@@ -38,8 +38,12 @@
     background-color: #fd7e14;
 }
 .subHeader-color{
-    background-color:#000080;
+   background: linear-gradient(180deg,rgba(237, 119, 0, 1) 0%, rgba(196, 95, 0, 1) 42%, rgba(186, 87, 0, 1) 78%);
 }
+.header-color {
+background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 42%, rgba(0, 5, 54, 1) 78%);
+}
+
 
     </style>
 </head>
@@ -53,13 +57,13 @@
     @if(!$layout)
         <div>
             <div class="header">
-              <nav class="navbar bg-dark bg-gradient">
-                  <div class="logo col-1 d-flex justify-content-center">
+              <nav class="navbar header-color">
+                  <div class="logo col-2 d-flex justify-content-center">
                     <a href="{{route('inicio.index')}}">
-                        <img src="{{ asset('image/concretizelogo.jpg') }}" alt="Logo">
+                        <img src="{{ asset('image/logo.png') }}" height="70" alt="Logo">
                     </a>
                   </div>
-                  <div class="container-fluid col-6">
+                  <div class="container-fluid col-5">
                       <form class="d-flex justify-content-center w-100" role="search">
                           <input class="form-control me-2 w-75" type="search" placeholder="Digite o produto que deseja" aria-label="Search">
                           <button class="btn btn-outline-dark" type="submit">
@@ -90,7 +94,7 @@
               </nav>
             </div>
           <!-- Sub-Header -->
-          <div class="sub-header d-flex justify-content-between mb-4 row subHeader-color bg-gradient">
+          <div class="sub-header d-flex justify-content-between mb-4 row subHeader-color">
               <div class="categoria col-2 kink-primary d-flex justify-content-center">
                   <a class="text-decoration-none link-light" href="{{route('produtos.index')}}">BÁSICOS</a>
               </div>
@@ -132,7 +136,7 @@
             });
         });
     });
-    widthWindow = screen.width 
+    widthWindow = screen.width
     console.log(widthWindow)
     if(widthWindow < 768){
         $('#entregamos').hide()

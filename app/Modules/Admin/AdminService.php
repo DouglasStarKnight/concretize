@@ -4,9 +4,10 @@ namespace App\Modules\Admin;
 
 use App\Models\User;
 use App\Modules\Admin\AdminModel;
-use App\Modules\Admin\AdminRepository;
 use Illuminate\Support\Facades\Hash;
+use App\Modules\Admin\AdminRepository;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Storage;
 
 class AdminService
 {
@@ -17,16 +18,38 @@ class AdminService
     }
 
     public function cria($data){
-        $body = ([
-            'nome' => $data['nome'],
-            'categoria_id' => $data['categoria_id'],
-            'valor_produto' => $data['valor_produto'],
-            'image' => $data['image'],
-        ]);
 
-        $this->adminRepository->cria($body);
+        // $data['image'] já é UploadedFile
+  // Salva a imagem no S3 e pega o caminho
+    $path = Storage::disk('s3')->putFile('produtos', $data['image']);
+    // dd($path);
 
-        return redirect()->route('admin.index')->with('success', 'Cadastro realizado com sucesso!');
+    if (!$path) {
+        return ['message' => 'Falha ao salvar imagem.'];
+    }
+
+    // Monta os dados para salvar no banco, usando o caminho da imagem no S3
+    $body = [
+        'nome' => $data['nome'],
+        'categoria_id' => $data['categoria_id'],
+        'valor_produto' => $data['valor_produto'],
+        'image' => $path, // aqui salva só o path (ex: 'produtos/arquivo.jpg')
+    ];
+
+    // Salva no banco usando o repository
+    $produtoCriado = $this->adminRepository->cria($body); // Atenção ao nome do método correto
+
+    if ($produtoCriado) {
+        // Retorna sucesso e URL completa da imagem no S3
+        $url = Storage::disk('s3')->url($path);
+        // return [
+        //     'produto' => $produtoCriado,
+        //     'image_url' => $url,
+        //     'message' => 'Produto criado e imagem salva com sucesso!',
+        // ];
+    }
+
+    return redirect()->route('admin.index');
     }
 
     public function findAll(){
