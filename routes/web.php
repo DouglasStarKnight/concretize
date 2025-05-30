@@ -2,7 +2,7 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Modules\Admin\AdminController;
-use App\Modules\login\LoginController;
+use App\Modules\Login\LoginController;
 use App\Modules\Inicio\InicioController;
 use App\Modules\Produtos\ProdutosController;
 use App\Modules\Register\RegisterController;
@@ -45,7 +45,7 @@ route::prefix('produtos')->as('produtos.')->controller(ProdutosController::class
 
 route::prefix('profile')->as('profile.')->controller(ProfileController::class)->group(function(){
     route::get('/index', 'index')->name('index');
-    route::get('/atualiza',  'atualiza')->name('atualiza');
+    route::post('/atualiza/{id?}',  'atualiza')->name('atualiza');
 });
 
 

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Minha Loja' }}</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"type="text/css"href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
     <link rel="stylesheet"type="text/css"href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
@@ -98,24 +100,25 @@ background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 4
           <!-- Sub-Header -->
           <div class="sub-header d-flex justify-content-between mb-4 row subHeader-color">
               <div class="categoria col-2 kink-primary d-flex justify-content-center">
-                  <a class="text-decoration-none link-light" href="{{route('produtos.index')}}">BÁSICOS</a>
+                  <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'basicos'])}}">BÁSICOS</a>
               </div>
               <div class="categoria col-2 d-flex justify-content-center">
-                  <a class="text-decoration-none link-light" href="{{route('produtos.index')}}">ACABAMENTO</a>
+                  <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' =>'acabamento'])}}">ACABAMENTO</a>
               </div>
               <div class="categoria col-2 d-flex justify-content-center">
-                  <a class="text-decoration-none link-light" href="{{route('produtos.index')}}">Elétricos</a>
+                  <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'eletricos'])}}">Elétricos</a>
               </div>
               <div class="categoria col-2 d-flex justify-content-center">
-                  <a class="text-decoration-none link-light" href="{{route('produtos.index')}}">Tubulações</a>
+                  <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'tubulacoes'])}}">Tubulações</a>
               </div>
               <div class="categoria col-2 d-flex justify-content-center">
-                  <a class="text-decoration-none  link-light" href="{{route('produtos.index')}}">Conexções</a>
+                  <a class="text-decoration-none  link-light" href="{{route('produtos.index', ['tipo' => 'conexcoes'])}}">Conexções</a>
               </div>
           </div>
         </div>
     @endif
         <!-- Conteúdo Dinâmico -->
+        <x-notificacao></x-notificacao>
         <div class="conteudo">
             {{ $slot }}
         </div>

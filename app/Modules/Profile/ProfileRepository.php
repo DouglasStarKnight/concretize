@@ -5,7 +5,7 @@ namespace App\Modules\Profile;
 // use App\Modules\_baseRepository\RepositoryBase;
 use App\Modules\Profile\ProfileModel;
 use App\Modules\Profile\InterfaceProfile;
-use App\Modules\CrudBase\repositoryBase;
+use App\Modules\CrudBase\RepositoryBase;
 
 class ProfileRepository implements InterfaceProfile{
 
@@ -13,8 +13,12 @@ class ProfileRepository implements InterfaceProfile{
         $this->model = $model;
     }
 
-    public function atualiza($data){
-        return $this->model->findAll($data);
+    // public function index(){
+    //     return $this->model->findAll();
+    // }
+
+    public function atualiza($data, $id){
+        return $this->repositoryBase->update($this->model, $id, $data);
     }
 
 }

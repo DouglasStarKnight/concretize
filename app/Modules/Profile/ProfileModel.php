@@ -14,7 +14,7 @@ class ProfileModel extends Model
  use HasFactory;
 
 
- protected $table = 'produtos';
+ protected $table = 'users';
  protected $fillable = [
    'nome',
    'email',
@@ -22,15 +22,12 @@ class ProfileModel extends Model
    'image',
    'password',
  ];
-public function findAll($querys){
+public function findAll(){
 
-    $data = DB::table('produtos as produtos')
-    ->select('produtos.id', 'produtos.nome', 'produtos.categoria_id', 'produtos.valor_produto', 'produtos.promocoes_id', 'produtos.image',  'categoria.nome as categoria_nome')
-    ->leftJoin('categoria', 'produtos.categoria_id', '=', 'categoria.id')
-    ->where(function($query)use($querys){
-    $query->orWhere('produtos.nome','LIKE','%' . $querys->find . '%');
-    })
+    $data = DB::table('users as user')
+    ->select('user.id', 'user.nome', 'user.data_nascimento', 'user.password', 'user.image', 'user.email')
     ->get();
+    // dd($data);
     return [
        'data' => $data
     ];

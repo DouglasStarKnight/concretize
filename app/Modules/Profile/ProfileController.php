@@ -15,14 +15,13 @@ class ProfileController extends Controller
         // $this->adminModel = $adminModel;
     }
 
-    public function index()
-    {
+    public function index(){
         return $this->profileService->index();
     }
 
-    public function atualiza(UpdateProfile $req){
+    public function atualiza(UpdateProfile $req,int $id){
         $data = $req->validated();
-        return $this->profileService->atualiza($data);
+        return $this->profileService->atualiza($data, $id);
     }
 
 }

@@ -5,7 +5,7 @@ namespace App\Modules\Produtos;
 // use App\Modules\_baseRepository\RepositoryBase;
 use App\Modules\Produtos\ProdutosModel;
 use App\Modules\Produtos\InterfaceProdutos;
-use App\Modules\CrudBase\repositoryBase;
+use App\Modules\CrudBase\RepositoryBase;
 
 class ProdutosRepository implements InterfaceProdutos{
 

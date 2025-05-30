@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Modules\Admin\AdminModel;
 use Illuminate\Support\Facades\Hash;
 use App\Modules\Admin\AdminRepository;
+use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,26 +19,30 @@ class AdminService
     }
 
     public function cria($data){
-
-    $path = Storage::disk('s3')->put('produtos', $data['image']);
-
-    if (!$path) {
-        return ['message' => 'Falha ao salvar imagem.'];
+        try{
+            $path = Storage::disk('s3')->put('produtos', $data['image']);
+        
+            if (!$path) {
+                return ['message' => 'Falha ao salvar imagem.'];
+            }
+        
+            $body = [
+                'nome' => $data['nome'],
+                'categoria_id' => $data['categoria_id'],
+                'valor_produto' => $data['valor_produto'],
+                'image' => $path,
+            ];
+            $this->adminRepository->cria($body);
+            return  redirect()->back()->with(['message' => 'Produto adicionado com sucesso.']);
+        }catch(Exception $err){
+            return redirect('admin.index')->withErrors($err->getMessage());
+        }
     }
-
-    $body = [
-        'nome' => $data['nome'],
-        'categoria_id' => $data['categoria_id'],
-        'valor_produto' => $data['valor_produto'],
-        'image' => $path,
-    ];
-    $produtoCriado = $this->adminRepository->cria($body);
-
-    return redirect()->route('admin.index');
-    }
-
+    
+    
     public function findAll(){
         $produtos = $this->adminModel->findAll();
+        session()->flash('message', 'oi');
 
         return view('administracao.criaProdutos',
     [

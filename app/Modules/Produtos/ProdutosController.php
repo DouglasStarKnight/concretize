@@ -14,9 +14,12 @@ class ProdutosController extends Controller
         // $this->adminModel = $adminModel;
     }
 
-    public function index(Request $req)
-    {
+    public function index(Request $req){
         return $this->produtosService->index($req);
+    }
+
+    public function listagem(Request $req){
+        return $this->produtosService->listagem($req);
     }
     
 }

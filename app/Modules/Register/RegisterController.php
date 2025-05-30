@@ -5,11 +5,11 @@ namespace App\Modules\Register;
 use App\Http\Controllers\Controller;
 use App\Modules\Register\dto\CreateRegister;
 use Illuminate\Http\Request;
-use App\Modules\Register\registerService;
+use App\Modules\Register\RegisterService;
 
 class RegisterController extends Controller
 {
-    public function __construct(private registerService $registerService) {}
+    public function __construct(private RegisterService $registerService) {}
 
     public function showForm()
     {
