@@ -13,20 +13,11 @@ class LoginService
         $this->loginModel = $loginModel;
     }
 
-    // Método para criar um novo usuário
-    public function cria(array $data)
-    {
+    public function login($data){
+        $user = $this->loginModel->where('email', $data['email'])->first();
 
-        $user = user::create([
-            'nome' => $data['nome'],
-            'data_nascimento' => $data['data_nascimento'],
-            'bairro_id' => 0,
-            'email' => $data['email'],
-            'senha' => Hash::make($data['senha']),
-        ]);
-
-        // $this->registerModel->cria();
-        // redirect()->route('home')->with('success', 'Cadastro realizado com sucesso!')
-
+        if($user && Hash::check($data['password'], $user->password)){
+            return redirect()->route('inicio.index');
+        }
     }
 }

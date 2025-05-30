@@ -1,5 +1,5 @@
 <?php
-namespace app\Modules\Produtos;
+namespace app\Modules\Profile;
 
 
 use Illuminate\Support\Facades\DB;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use function Laravel\Prompts\select;
 
 
-class ProdutosModel extends Model
+class ProfileModel extends Model
 {
  use HasFactory;
 
@@ -17,10 +17,10 @@ class ProdutosModel extends Model
  protected $table = 'produtos';
  protected $fillable = [
    'nome',
-   'categoria_id',
-   'valor_produto',
+   'email',
+   'data_nascimento',
    'image',
-   'promocoes_id',
+   'password',
  ];
 public function findAll($querys){
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Register;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Register\dto\CreateRegister;
 use Illuminate\Http\Request;
 use App\Modules\Register\registerService;
 
@@ -15,16 +16,10 @@ class RegisterController extends Controller
         return view('register');
     }
 
-    public function cria(Request $request)
+    public function cria(CreateRegister $request)
     {
-        $validated = $request->validate([
-        'nome' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email',
-        'data_nascimento' => 'required',
-        'bairro_id' => '',
-        'senha' => 'required|min:5',
-        ]);
-        return $this->registerService->cria($validated);
+        $data = $request->validated();
+        return $this->registerService->cria($data);
 
     }
 }

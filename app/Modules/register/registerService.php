@@ -9,22 +9,22 @@ use App\Modules\Register\RegisterModel;
 class RegisterService
 {
 
-    public function __construct(private RegisterModel $registerModel){
-        $this->registerModel = $registerModel;
+    public function __construct(private RegisterRepository $registerRepository){
+        $this->registerRepository = $registerRepository;
     }
 
     // Método para criar um novo usuário
     public function cria(array $data)
     {
 
-        $user = user::create([
+        $body = [
             'nome' => $data['nome'],
+            'password' => hash::make($data['password']),
             'data_nascimento' => $data['data_nascimento'],
-            'bairro_id' => 0,
             'email' => $data['email'],
-            'senha' => Hash::make($data['senha']),
-        ]);
+        ];
 
+        $this->registerRepository->cria($body);
         return redirect()->route('login.index')->with('success', 'Cadastro realizado com sucesso!');
     }
 }

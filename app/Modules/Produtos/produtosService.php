@@ -24,5 +24,4 @@ class ProdutosService
         $produtos = $this->produtosRepository->findAll($querys);
         return view('listagem' ,['produtos' => $produtos['data']]);
     }
-
 }

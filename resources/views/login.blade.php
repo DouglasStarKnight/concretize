@@ -12,12 +12,12 @@
         <div id="principal" class="border border-5">
             <div class="content">
                 <div id="header" class="d-flex justify-content-center">
-                    <img style="height: 150px; width:400px" src="{{ asset('image/logo.jpg') }}" alt="logo">
+                    <img style="width:350px" src="{{ asset('image/logo.png') }}" alt="logo">
                 </div>
                 <div id="content">
                     <form class="form-register" method="POST" action="{{ route('login.submit') }}">
                         @csrf
-                        <div class="row m-2">
+                        <div class="row mx-2 mt-5">
                             <div class="col-12">
                                 <label for="email" class="text-center">E-mail:</label>
                             </div>
@@ -30,16 +30,13 @@
                                 <label for="password">Senha:</label><br>
                             </div>
                             <div class="col-12">
-                                <input type="password" id="senha" class="form-control" name="senha" placeholder="Digite uma senha">
+                                <input type="password" id="password" class="form-control" name="password" placeholder="Digite uma senha">
                             </div>
                         </div>
-                        <div class="col-12 text-center">
+                        <div class="col-12 text-center mt-4">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                     </form>
-                </div>
-                <div id="footer" class="d-flex justify-content-center">
-                    <img style="height: 150px; width:400px" src="{{ asset('image/logo.jpg') }}" alt="concretize">
                 </div>
             </div>
         </div>
@@ -57,8 +54,5 @@ body {
     border-color: #E67F25 !important;
     border-radius: 20px;
 }
-/* .form-register input {
-    border-radius: 5px;
-    width: 60%;
-} */
+
 </style>

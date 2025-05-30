@@ -13,6 +13,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="{{ asset('app.js') }}"></script>
     <style>
         #content {
             height: 100%;
@@ -74,6 +75,7 @@ background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 4
                   <div id="entregamos" class="entrega text-light col-2"><h6>ENTREGAMOS EM TODA A CIDADE!</h6></div>
                   <div class="carrinho d-flex justify-content-center align-items-center col-1">
                       <i class="ph ph-shopping-cart" style="font-size: 35px; color:aliceblue" id="openModalCarrinho"></i>
+                      <input type="hidden" id="inputCart" value="">
                       <span id="cart-count" class="badge rounded-circle" style="font-size: 14px; height:20px; width:20px; display: flex; align-items:center; justify-content:center;">0</span>
                   </div>
                   <div class="perfil col-2">
@@ -83,7 +85,7 @@ background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 4
                                 <img src="{{ asset('image/profile-circle-svgrepo-com.svg') }}" class="img-thumbnail rounded" alt="Perfil" height="60px" width="60px">
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                <li><a class="dropdown-item" href="{{route('profile.index')}}">Perfil</a></li>
                                 <li><a class="dropdown-item" href="{{route('admin.index')}}">Administração</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#">logout</a></li>

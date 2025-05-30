@@ -7,7 +7,7 @@
               @foreach($produtos as $p)
                 <div class="col-2 border my-1 mx-2">
                   <div class="image">
-                    <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" class="img-fluid" />
+                    <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height:300px" class="img-fluid" />
                   </div>
                   <div class="fw-bold d-flex justify-content-center">
                     {{$p->nome}}
@@ -43,9 +43,9 @@
 
 <script>
     quantidadeP = 0;
-        
+
     function quantidade(element, produtoId, action) {
-    const parent = $(element).closest('div.produtos'); 
+    const parent = $(element).closest('div.produtos');
     const input = parent.find(`#input_qtd${produtoId}`);
     const span = parent.find(`.spanQuantidade${produtoId}`);
 

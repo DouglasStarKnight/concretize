@@ -5,7 +5,7 @@ namespace App\Modules\Admin;
 // use App\Modules\_baseRepository\RepositoryBase;
 use App\Modules\Admin\AdminModel;
 use App\Modules\Admin\InterfaceAdmin;
-use App\Modules\CrudBase\repositoryBase;
+use App\Modules\CrudBase\RepositoryBase;
 
 class AdminRepository implements InterfaceAdmin{
 
