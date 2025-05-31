@@ -26,11 +26,11 @@
             <table class="table table-striped">
                 <thead>
                     <tr class="alpha-color border border-2 border-dark">
-                        <th class="col-auto text-light">#</th>
-                        <th class="col-auto text-light">NOME</th>
-                        <th class="col-auto text-light">VALOR</th>
-                        <th class="col-auto text-light">CATEGORIA</th>
-                        <th class="col-auto text-light">AÇÕES</th>
+                        <th class="col-auto ">#</th>
+                        <th class="col-auto ">NOME</th>
+                        <th class="col-auto ">VALOR</th>
+                        <th class="col-auto ">CATEGORIA</th>
+                        <th class="col-auto ">AÇÕES</th>
                     </tr>
                 </thead>
                 <tbody>

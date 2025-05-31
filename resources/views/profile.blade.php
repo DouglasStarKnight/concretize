@@ -21,43 +21,47 @@
 <body>
     <div class="d-flex justify-content-center align-items-center h-100">
         <div id="principal" class="border border-5">
-            <div class="alpha-color m-5 rounded row">
+            <div class="alpha-color m-4 rounded row">
                 <div class="col-1 d-flex align-items-center">
                     <a href="{{route('inicio.index')}}" class="text-decoration-none">
-                        <i class="ph ph-arrow-circle-left" style="font-size:35px; color:black"></i> 
+                        <i class="ph ph-arrow-circle-left" style="font-size:35px; color:black"></i>
                     </a>
                 </div>
                 <div class="col-11">
                     <h2 class="text-center text-light font-weight-bold"><strong>PERFIL</strong></h2>
                 </div>
             </div>
-            @foreach($user as $user)
+            @foreach($user as $users)
             <div class="content">
                 <div class="row mx-0 mb-4">
                     <div id="header" class=" col-3 d-flex justify-content-end">
-                        <img src="{{ Storage::disk('s3')->url($user->image) }}" class="img-thumbnail rounded" alt="Perfil" width="150px">
+                        @if($users->image)
+                            <img src="{{ Storage::disk('s3')->url($users->image) }}" class="img-thumbnail rounded" alt="Perfil" height="150px" width="130px">
+                        @else
+                            <img src="{{ asset('img/default.png') }}" class="img-thumbnail rounded" alt="Sem imagem" width="150px">
+                        @endif
                     </div>
                     <div class="col-9 d-flex align-items-center">
                         <div class="row">
                             <div class="col-12">
-                                <h5> {{$user->nome}}</h5>
+                                <p> {{$users->nome}}</h5>
                             </div>
                             <div class="col-12">
-                                <h5>{{$user->data_nascimento}}</h5>
+                                <p>{{$users->data_nascimento}}</h5>
                             </div>
                             <div class="col-12">
-                                <h5>{{$user->email}}</h5>
+                                <p>{{$users->email}}</h5>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="alpha-color m-5 rounded">
+                <div class="alpha-color mx-3 mt-1 rounded">
                     <h2 class="text-center text-light font-weight-bold"><strong>INFORMAÇẼS PESSOAIS</strong></h2>
                 </div>
                 <div id="informacoes">
-                    <form class="form-register" method="POST" enctype="multipart/form-data" action="{{ route('profile.atualiza',['id' => $user->id]) }}">
+                    <form class="form-register" method="POST" enctype="multipart/form-data" action="{{ route('profile.atualiza',['id' => $users->id]) }}">
                         @csrf
-                        <div class="row mx-2 mt-5">
+                        <div class="row mx-2 mt-3">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="col-12">
                                     <label for="password">Nome:</label>
@@ -121,5 +125,5 @@ body {
 }
 </style>
 <script>
-    
+
 </script>

@@ -18,14 +18,20 @@ class AdminService
         // $this->AdminRepository = $adminRepository;
     }
 
+    public function findAll(){
+        $produtos = $this->adminModel->findAll();
+        session()->flash('message', 'oi');
+
+        return view('administracao.criaProdutos');
+    }
     public function cria($data){
         try{
             $path = Storage::disk('s3')->put('produtos', $data['image']);
-        
+
             if (!$path) {
                 return ['message' => 'Falha ao salvar imagem.'];
             }
-        
+
             $body = [
                 'nome' => $data['nome'],
                 'categoria_id' => $data['categoria_id'],
@@ -38,17 +44,8 @@ class AdminService
             return redirect('admin.index')->withErrors($err->getMessage());
         }
     }
-    
-    
-    public function findAll(){
-        $produtos = $this->adminModel->findAll();
-        session()->flash('message', 'oi');
 
-        return view('administracao.criaProdutos',
-    [
-        // 'produtos' => $produtos
-    ]);
-    }
+
 
     public function edita($data, $id){
          $body = ([

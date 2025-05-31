@@ -1,10 +1,28 @@
 <x-layout>
   <?php
   $quantidadeP = 0;
+
+    $mapaCategorias = [
+        'basicos' => 1,
+        'acabamento' => 2,
+        'eletricos' => 4,
+        'conexcoes' => 4,
+        'tubulacoes' => 5,
+        // adicione conforme seu banco
+    ];
+    if (isset($tipo) && isset($mapaCategorias[$tipo])) {
+        $categoriaId = $mapaCategorias[$tipo];
+        $produtosFiltrados = $produtos->where('categoria_id', $categoriaId);
+    } else {
+        $categoriaId = null;
+        $produtosFiltrados = collect();
+    }
+    // dd($produtosFiltrados);
   ?>
 <div id="contentmaisvendidos">
+
             <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
-              @foreach($produtos as $p)
+              @foreach($produtosFiltrados as $p)
                 <div class="col-2 border my-1 mx-2">
                   <div class="image">
                     <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height:300px" class="img-fluid" />

@@ -24,7 +24,7 @@
             <div class="content">
                 <div class=" ms-3 mt-3">
                     <a href="{{route('inicio.index')}}" class="text-decoration-none">
-                        <i class="ph ph-arrow-circle-left" style="font-size:35px; color:black"></i> 
+                        <i class="ph ph-arrow-circle-left" style="font-size:35px; color:black"></i>
                     </a>
                 </div>
                 <div id="header" class="d-flex my-4 justify-content-center">
@@ -53,11 +53,10 @@
                                 <input type="password" id="password" class="form-control" name="password" placeholder="Digite uma senha">
                             </div>
                         </div>
-                        <hr class="mx-4">
-                        <div class="col-12 text-center mt-5">
+                        <div class="col-12 text-center mt-2">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
-                        <div class="d-flex justify-content-end  my-5 me-3">
+                        <div class="d-flex justify-content-end me-3">
                             <a href="{{route('register.index')}}">Não possui cadastro? Registre-se</a>
                         </div>
                     </form>

@@ -35,10 +35,10 @@ class ProdutosService
         return view('listagem', ['produtos' => $produtos, 'tipo' =>$querys->tipo]);
     }
 
-     public function listagem(){
-        $querys = json_decode(json_encode([
-            'find' => isset($req->find) ? $req->find : null,
-            'tipo' =>isset($req->tipo) ? $req->tipo : null,
-        ]));
-    }
+    //  public function listagem(){
+    //     $querys = json_decode(json_encode([
+    //         'find' => isset($req->find) ? $req->find : null,
+    //         'tipo' =>isset($req->tipo) ? $req->tipo : null,
+    //     ]));
+    // }
 }

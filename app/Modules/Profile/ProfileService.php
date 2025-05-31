@@ -24,17 +24,19 @@ class ProfileService
     }
 
 
-    public function atualiza($data, $id){
-        $path = Storage::disk('s3')->put('produtos', $data['image']);
-        if (!$path) {
-            return ['message' => 'Falha ao salvar imagem.'];
+    public function atualiza($req, $id){
+        if(isset($req['image'])){
+            $path = Storage::disk('s3')->put('produtos', $req['image']);
+            if (!$path) {
+        //         return ['message' => 'Falha ao salvar imagem.'];
+            }
         }
 
         $body = [
-            'nome' => isset($data['nome']) ? $data['nome'] : null,
-            'data_nascimento' => isset($data['data_nascimento']) ? $data['data_nascimento'] : null,
-            'email' => isset($data['email']) ? $data['email'] : null,
-            'image' => isset($data['image']) ? $data['image'] : null,
+            'nome' => isset($req['nome']) ? $req['nome'] : null,
+            'data_nascimento' => isset($req['data_nascimento']) ? $req['data_nascimento'] : null,
+            'email' => isset($req['email']) ? $req['email'] : null,
+            'image' => isset($path) ? $path : null,
         ];
         $this->profileRepository->atualiza($body, $id);
 

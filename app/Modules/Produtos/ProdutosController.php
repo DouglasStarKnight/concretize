@@ -18,8 +18,8 @@ class ProdutosController extends Controller
         return $this->produtosService->index($req);
     }
 
-    public function listagem(Request $req){
-        return $this->produtosService->listagem($req);
-    }
-    
+    // public function listagem(Request $req){
+    //     return $this->produtosService->listagem($req);
+    // }
+
 }

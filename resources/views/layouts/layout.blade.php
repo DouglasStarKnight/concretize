@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Minha Loja' }}</title>
+    <title>{{ $title ?? 'Concretize' }}</title>
+
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"type="text/css"href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
     <link rel="stylesheet"type="text/css"href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="{{ asset('app.js') }}"></script>
@@ -78,7 +77,7 @@ background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 4
                   <div class="carrinho d-flex justify-content-center align-items-center col-1">
                       <i class="ph ph-shopping-cart" style="font-size: 35px; color:aliceblue" id="openModalCarrinho"></i>
                       <input type="hidden" id="inputCart" value="">
-                      <span id="cart-count" class="badge rounded-circle" style="font-size: 14px; height:20px; width:20px; display: flex; align-items:center; justify-content:center;">0</span>
+                      {{-- <span id="cart-count" class="badge rounded-circle" style="font-size: 14px; height:20px; width:20px; display: flex; align-items:center; justify-content:center;">0</span> --}}
                   </div>
                   <div class="perfil col-2">
                     <ul class="navbar-nav">
@@ -90,7 +89,7 @@ background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 4
                                 <li><a class="dropdown-item" href="{{route('profile.index')}}">Perfil</a></li>
                                 <li><a class="dropdown-item" href="{{route('admin.index')}}">Administração</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">logout</a></li>
+                                <li><a class="dropdown-item" href="{{route('login.index')}}">logout</a></li>
                             </ul>
                         </li>
                     </ul>

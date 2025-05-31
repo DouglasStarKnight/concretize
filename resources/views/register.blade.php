@@ -75,7 +75,7 @@ body {
     height: 100vh;
 }
 #principal {
-    height: 88%;
+    height: 88vh;
     border-color: #E67F25 !important;
     border-radius: 20px;
 }
