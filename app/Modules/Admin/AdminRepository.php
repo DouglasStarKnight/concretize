@@ -20,6 +20,9 @@ class AdminRepository implements InterfaceAdmin{
     public function atualiza($data, $id){
         return $this->repositoryBase->update($this->model, $id, $data);
     }
+    // public function slides($data, $id){
+    //     return $this->model($data, $id);
+    // }
 
     public function excluir($id) {
         // dd($id);

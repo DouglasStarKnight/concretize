@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Modules\Admin\AdminModel;
 use Illuminate\Support\Facades\Hash;
 use App\Modules\Admin\AdminRepository;
+use app\Modules\Produtos\ProdutosModel;
+use app\Modules\Slides\SlidesModel;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
@@ -15,12 +17,10 @@ class AdminService
 
     public function __construct(private AdminModel $adminModel, private AdminRepository $adminRepository){
         $this->adminModel = $adminModel;
-        // $this->AdminRepository = $adminRepository;
     }
 
     public function findAll(){
         $produtos = $this->adminModel->findAll();
-        session()->flash('message', 'oi');
 
         return view('administracao.criaProdutos');
     }
@@ -36,6 +36,8 @@ class AdminService
                 'nome' => $data['nome'],
                 'categoria_id' => $data['categoria_id'],
                 'valor_produto' => $data['valor_produto'],
+                'estoque' => $data['estoque'],
+                'tipo_de_venda' => $data['tipo_de_venda'],
                 'image' => $path,
             ];
             $this->adminRepository->cria($body);
@@ -48,17 +50,54 @@ class AdminService
 
 
     public function edita($data, $id){
-         $body = ([
-            'nome' => isset($data['nome']) ? $data['nome'] : null,
-            'categoria_id' => isset($data['categoria_id']) ? $data['categoria_id'] : null,
-            'valor_produto' => isset($data['valor_produto']) ? $data['valor_produto'] : null,
-            'image' => isset($data['image']) ? $data['image'] : null,
-        ]);
-        $this->adminRepository->atualiza($body, $id);
-        return redirect()->back()->with('success', 'Produto editado com sucesso!');
+        try{
+            $registro = AdminModel::find($id);
+            if(isset($data['image'])){
+                if(isset($registro->image)){
+                    storage::disk('s3')->delete($registro->image);
+                   $path = storage::disk('s3')->put('produtos', $data['image']);
+                }else{
+                    $path = storage::disk('s3')->put('produtos', $data['image']);
+                }
+            }
+    
+             $body = ([
+                'nome' => isset($data['nome']) ? $data['nome'] : null,
+                'categoria_id' => isset($data['categoria_id']) ? $data['categoria_id'] : null,
+                'valor_produto' => isset($data['valor_produto']) ? $data['valor_produto'] : null,
+                'estoque' => isset($data['estoque']) ? $data['estoque'] : null,
+                'image' => isset($path) ? $path : $registro->image
+            ]);
+            $this->adminRepository->atualiza($body, $id);
+            return redirect()->back()->with('message', 'Produto editado com sucesso!');
+        }catch(Exception $err){
+            return redirect('admin.index')->withErrors($err->getMessage());
+        }
     }
     public function excluir($request, $id){
         $this->adminRepository->excluir($id);
-        return redirect()->back()->with('success', 'Produto excluído com sucesso!');
+        return redirect()->back()->with('message', 'Produto excluído com sucesso!');
+    }
+
+    public function slides($data, $id){
+        try{
+            $registro = SlidesModel::find($id);
+
+            if($registro->caminho){
+                storage::disk('s3')->delete($registro->caminho);
+                storage::disk('s3')->put('slides', $data['slides']);
+            }else{
+                storage::disk('s3')->put('slides', $data['slides']);
+            }
+
+            if(isset($data['caminho'])){
+                $path = storage::disk('s3')->put('slides', $data['caminho']);
+            }
+           $slides = SlidesModel::where('posicao', $data['posicao'] )->update(['caminho' => $path]);
+        //    return back()->route('admin.index')->with(['message', 'Slide alterado com sucesso.']);
+        }catch(Exception $err){
+            // return back()->route('admin.index')->withErrors($err->getMessage());
+        }
+
     }
 }

@@ -17,6 +17,8 @@ class CreateAdmin extends FormRequest{
       'valor_produto' => 'required|string',
       'categoria_id' => 'required|numeric',
       'image' => 'required|image|mimes:jpeg,png,jpg,webp',
+      'estoque' => 'required|numeric',
+      'tipo_de_venda' => 'required|string',
     ];
   }
 
@@ -26,6 +28,8 @@ class CreateAdmin extends FormRequest{
       'valor_produto.required' => 'Digite um valor para o Produto.',
       'image.required' => 'Selecione uma imagem.',
       'categoria_id.required' => 'Escolha uma categoria para o produto.',
+      'estoque|required' => 'Informe a quantidade no estoque.',
+      'tipo_de_venda|required' => 'Informe o tipo de venda do produto.'
     ];
   }
 }

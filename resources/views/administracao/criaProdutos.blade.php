@@ -11,11 +11,13 @@
             </div>
          </div>
          <div class="row d-flex justify-content-end m-2">
-            <div class="col-2 d-flex justify-content-end">
-                <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações">
-                    <h2 style="font-size: 15px">TROCAR SLIDES</h2>
-                </x-botaoModal>
-            </div>
+             {{-- @foreach($slides[] as $slide) --}}
+                <div class="col-2 d-flex justify-content-end">
+                    <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this)" >
+                        <h2 style="font-size: 15px">TROCAR SLIDES</h2>
+                    </x-botaoModal>
+                </div>
+            {{-- @endforeach --}}
             <div class="col-2 d-flex justify-content-end">
                 <x-botaoModal id_button="btnCriaProduto" modal_id="novoProduto" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações">
                    <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
@@ -30,6 +32,8 @@
                         <th class="col-auto ">NOME</th>
                         <th class="col-auto ">VALOR</th>
                         <th class="col-auto ">CATEGORIA</th>
+                        <th class="col-auto">Estoque</th>
+                        <th class="col-auto">Tipo de venda</th>
                         <th class="col-auto ">AÇÕES</th>
                     </tr>
                 </thead>
@@ -40,6 +44,8 @@
                             <th class="col-2">{{$produto->nome}}</th>
                             <th class="col-2">{{$produto->valor_produto}}</th>
                             <th class="col-2">{{$produto->categoria_nome}}</th>
+                            <th class="col-2">{{$produto->estoque}}</th>
+                            <th class="col-2">{{$produto->tipo_de_venda}}</th>
                             <th class="col-1">
                                 <x-botaoModal
                                     id_button="btnTableEdita"
@@ -59,7 +65,6 @@
                                 </x-botaoModal>
                             </th>
                         </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -109,6 +114,7 @@
          </x-slot>
       </x-modal>
    </form>
+   @endforeach
 </div>
 
 
@@ -135,16 +141,21 @@ button {
 <script>
 
     function manipulacao_modais(element, dados){
-        // console.log(element.id == "btnTableExcluir")
         if(element.id == "btnTableExcluir"){
             $("#_method_excluir_produtos").attr('value', 'delete');
             $("#formDeletar").attr('action', "{{route('admin.delete')}}" + "/" + dados.id);
             $('#textoConfirmacao').text("Tem certeza que deseja excluir o produto " + dados.nome + "?");
         }
         if(element.id == "btnTableEdita"){
-            // $("#_method_excluir_produtos").attr('value', 'delete');
             $("#_method_editar_produtos").attr('value', 'patch');
             $("#formEditaProduto").attr('action', "{{route('admin.edita')}}" + "/" + dados.id);
         }
+        if(element.id == "confirmaslide"){
+            
+                $("#_method_muda_slides").attr('value', 'patch');
+                $("#formSlide").attr('action', "{{route('admin.slides')}}" + "/" + dados.id);
+                console.log($("#formSlide"))
+        }
+        
     }
 </script>

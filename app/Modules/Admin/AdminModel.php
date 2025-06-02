@@ -21,6 +21,8 @@ class AdminModel extends Model
    'valor_produto',
    'image',
    'promocoes_id',
+   'estoque',
+   'tipo_de_venda',
  ];
 public function findAll()
 {
@@ -32,12 +34,14 @@ public function findAll()
             'produtos.valor_produto',
             'produtos.promocoes_id',
             'produtos.image',
-            'categoria.nome as categoria_nome'
+            'categoria.nome as categoria_nome',
+            'produtos.estoque',
+            'produtos.tipo_de_venda',
+            // 'slides.caminho as caminho_slides',
         )
         ->leftJoin('categoria', 'produtos.categoria_id', '=', 'categoria.id')
+        // ->leftJoin('slides', 'produtos.slides_id', '=', 'slides.id')
         ->get();
     return $produtos;
 }
-
-
 }

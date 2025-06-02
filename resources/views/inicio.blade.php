@@ -79,7 +79,7 @@
               @foreach($produtos as $p)
                 <div class="col-2 border my-1 mx-2">
                   <div class="image">
-                    <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height:300px" class="img-fluid" />
+                    {{-- <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height:300px" class="img-fluid" /> --}}
                   </div>
                   <div class="fw-bold d-flex justify-content-center">
                     {{$p->nome}}
