@@ -32,7 +32,7 @@ route::prefix('inicio')->as('inicio.')->controller(InicioController::class)->gro
 route::prefix('admin')->as('admin.')->controller(AdminController::class)->group(function(){
     route::post('/cria', 'cria')->name('cria');
     route::get('/findAll', 'findAll')->name('findAll');
-    route::patch('/slides/{id?}', 'slides')->name('slides');
+    route::post('/slides/{id?}', 'slides')->name('slides');
     route::patch('/edita/{id?}', 'edita')->name('edita');
     route::delete('/delete/{id?}', 'delete')->name('delete');
     route::get('/index', 'index')->name('index');

@@ -76,10 +76,29 @@ class AdminService
     }
     public function excluir($request, $id){
         $this->adminRepository->excluir($id);
-        return redirect()->back()->with('message', 'Produto excluído com sucesso!');
+        return redirect()->back()->with(['message' => 'Produto excluído com sucesso!']);
     }
 
-    public function slides($data, $id){
+    public function slidesCria($data){
+        try{
+            // dd($data);
+            if(isset($data['slides'])){
+                $path = storage::disk('s3')->put('slides', $data['slides']);
+            }
+            $body = [
+                'caminho' => $path,
+                'posicao' => $data['posicao']
+            ];
+
+           $this->adminRepository->slidesCria($body);
+           return redirect()->route('admin.index')->with(['message' => 'Slide  Inserido com sucesso.']);
+        }catch(Exception $err){
+            dd($err);
+            return back()->route('admin.index')->withErrors($err->getMessage());
+        }
+
+    }
+    public function slidesAtualiza($data, $id){
         try{
             $registro = SlidesModel::find($id);
 

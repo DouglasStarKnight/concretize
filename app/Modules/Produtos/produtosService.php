@@ -29,9 +29,11 @@ class ProdutosService
         ->when($querys->tipo == 'eletricos')
         ->when($querys->tipo == 'tubulacoes')
         ->when($querys->tipo == 'conexcoes')
+        ->when($querys->tipo == null)
         ->select('produtos.nome', 'produtos.valor_produto', 'produtos.image', 'produtos.categoria_id')
         ->where(fn($query) => $query->orWhere('produtos.nome', 'LIKE', '%' . $querys->find. '%'))
         ->get();
+        // dd($produtos);
         return view('listagem', ['produtos' => $produtos, 'tipo' =>$querys->tipo]);
     }
 

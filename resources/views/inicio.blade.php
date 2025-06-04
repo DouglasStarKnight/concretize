@@ -13,17 +13,19 @@
         </ol>
 
         <!-- Slides -->
-        <div class="carousel-inner">
-            <div id="slide1" class="carousel-item active">
-                <img src="{{ asset('image/banner1.avif') }}" alt="Slide 1" class="d-block w-100" style="height: 300px;">
+        {{-- @foreach($slides as $slide) --}}
+            <div class="carousel-inner">
+                <div id="slide1" class="carousel-item active">
+                    <img src="{{ Storage::disk('s3')->url($slides[0]->caminho)}}" alt="Slide 1" class="d-block w-100" style="height: 300px;">
+                </div>
+                <div id="slide2" class="carousel-item">
+                    <img src="{{ asset('image/images (2).jpeg') }}" alt="Slide 2" class="d-block w-100" style="height: 300px;">
+                </div>
+                <div id="slide3" class="carousel-item">
+                    <img src="{{ asset('image/banner1.avif') }}" alt="Slide 3" class="d-block w-100" style="height: 300px;">
+                </div>
             </div>
-            <div id="slide2" class="carousel-item">
-                <img src="{{ asset('image/images (2).jpeg') }}" alt="Slide 2" class="d-block w-100" style="height: 300px;">
-            </div>
-            <div id="slide3" class="carousel-item">
-                <img src="{{ asset('image/banner1.avif') }}" alt="Slide 3" class="d-block w-100" style="height: 300px;">
-            </div>
-        </div>
+        {{-- @endforeach --}}
 
         <!-- Controles -->
         <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
@@ -79,7 +81,7 @@
               @foreach($produtos as $p)
                 <div class="col-2 border my-1 mx-2">
                   <div class="image">
-                    {{-- <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height:300px" class="img-fluid" /> --}}
+                    <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height:300px" class="img-fluid" />
                   </div>
                   <div class="fw-bold d-flex justify-content-center">
                     {{$p->nome}}

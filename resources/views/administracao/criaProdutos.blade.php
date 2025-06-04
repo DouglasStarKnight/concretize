@@ -13,13 +13,13 @@
          <div class="row d-flex justify-content-end m-2">
              {{-- @foreach($slides[] as $slide) --}}
                 <div class="col-2 d-flex justify-content-end">
-                    <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this)" >
+                    <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações">
                         <h2 style="font-size: 15px">TROCAR SLIDES</h2>
                     </x-botaoModal>
                 </div>
             {{-- @endforeach --}}
             <div class="col-2 d-flex justify-content-end">
-                <x-botaoModal id_button="btnCriaProduto" modal_id="novoProduto" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações">
+                <x-botaoModal id_button="btnCriaProduto" modal_id="modal-produto" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
                    <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
                 </x-botaoModal>
             </div>
@@ -27,13 +27,13 @@
         <div id="tableExcluir" class="mx-2">
             <table class="table table-striped">
                 <thead>
-                    <tr class="alpha-color border border-2 border-dark">
+                    <tr class="border border-2 border-dark rounded">
                         <th class="col-auto ">#</th>
                         <th class="col-auto ">NOME</th>
                         <th class="col-auto ">VALOR</th>
                         <th class="col-auto ">CATEGORIA</th>
-                        <th class="col-auto">Estoque</th>
-                        <th class="col-auto">Tipo de venda</th>
+                        <th class="col-auto">ESTOQUE</th>
+                        <th class="col-auto">TIPO DE VENDA</th>
                         <th class="col-auto ">AÇÕES</th>
                     </tr>
                 </thead>
@@ -49,7 +49,7 @@
                             <th class="col-1">
                                 <x-botaoModal
                                     id_button="btnTableEdita"
-                                    modal_id="editaProduto"
+                                    modal_id="modal-produto"
                                     type="button"
                                     class="btn btn-primary"
                                     onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
@@ -65,31 +65,22 @@
                                 </x-botaoModal>
                             </th>
                         </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-   {{--  modal para criar produtos --}}
-   <x-modal  modal_id="novoProduto" title="Insira as informações">
-      <form action="{{ route('admin.cria') }}" method="POST" id="formCria" enctype="multipart/form-data">
-         @csrf
-         @include('administracao.forms.formCria')
-         <x-slot name="footer">
-               <button id="confirmaCria" type="submit" class="btn btn-primary" id form="formCria">Salvar</button>
-         </x-slot>
-      </form>
-   </x-modal>
-
-   {{--  modal para editar produtos --}}
-   <form method="POST" id="formEditaProduto" enctype="multipart/form-data">
-      <x-modal  modal_id="editaProduto" title="Editar">
-         @csrf
-         <input hidden name="_method" id="_method_editar_produtos" />
-         @include('administracao.forms.formEdita')
-         <x-slot name="footer">
-               <button type="submit" class="btn btn-primary" form="formEditaProduto">Salvar</button>
-         </x-slot>
-      </x-modal>
-   </form>
+   {{--  modal para munipulação de dados --}}
+   <form method="POST" id="form_produto" enctype="multipart/form-data">
+        @csrf
+        <x-modal  modal_id="modal-produto" title="Insira as informações">
+            {{-- <x-slot></x-slot> --}}
+            <input hidden name="_method" id="_method_manipula_produtos" />
+            @include('administracao.forms.formProduto')
+            <x-slot name="footer">
+                <button id="confirmaCria" type="submit" class="btn btn-primary" >Salvar</button>
+            </x-slot>
+        </x-modal>
+    </form>
 
    {{-- modal para excluir produtos --}}
    <form id="formDeletar" method="POST" >
@@ -104,17 +95,17 @@
    </form>
 
    {{-- modal para trocar slides --}}
-   <form id="formSlide" method="POST" >
+   <form action="{{route('admin.slides')}}" id="formSlide" method="POST" >
       <x-modal modal_id="mudaSlide" title="Mudar Slides">
          @csrf
-         <input hidden name="_method" id="_method_muda_slides" />
+         {{-- <input hidden name="_method" id="_method_muda_slides" /> --}}
          @include('administracao.forms.formSlide')
          <x-slot name="footer">
-               <button id="confirmaslide" type="submit" class="btn btn-danger">Excluir</button>
+               <button id="confirmaslide" type="submit" class="btn btn-danger" onclick="manipulacao_modais(this, {!! json_encode($slides) !!})">Salvar</button>
          </x-slot>
       </x-modal>
    </form>
-   @endforeach
+   {{-- @endforeach --}}
 </div>
 
 
@@ -133,7 +124,7 @@ button {
    border-radius: 5px;
 
 }
-    .alpha-color{
+    .title-color{
     background-color: #fd7e14;
 }
 </style>
@@ -141,21 +132,29 @@ button {
 <script>
 
     function manipulacao_modais(element, dados){
+        console.log(element.id == "btnCriaProduto")
+        if(element.id == "btnCriaProduto"){
+            $("#_method_manipula_produtos").attr('value', 'post');
+            $("#form_produto").attr('action', "{{route('admin.cria')}}");
+        }else if(element.id == "btnTableEdita"){
+            $('#input_nome').val(dados.nome)
+            $('#valor_produto').val(dados.valor_produto)
+            $('#input_estoque').val(dados.estoque)
+            // $('#input_image').val(dados.image)
+            $('#tipo_venda').val(dados.tipo_de_venda)
+            $("#_method_manipula_produtos").attr('value', 'post');
+            $("#formEditaProduto").attr('action', "{{route('admin.edita')}}" + "/" + dados.id);
+        }
         if(element.id == "btnTableExcluir"){
             $("#_method_excluir_produtos").attr('value', 'delete');
             $("#formDeletar").attr('action', "{{route('admin.delete')}}" + "/" + dados.id);
             $('#textoConfirmacao').text("Tem certeza que deseja excluir o produto " + dados.nome + "?");
         }
-        if(element.id == "btnTableEdita"){
-            $("#_method_editar_produtos").attr('value', 'patch');
-            $("#formEditaProduto").attr('action', "{{route('admin.edita')}}" + "/" + dados.id);
-        }
-        if(element.id == "confirmaslide"){
-            
-                $("#_method_muda_slides").attr('value', 'patch');
-                $("#formSlide").attr('action', "{{route('admin.slides')}}" + "/" + dados.id);
-                console.log($("#formSlide"))
-        }
+        // if(element.id == "confirmaslide"){
+        //         $("#_method_muda_slides").attr('value', 'patch');
+        //         $("#formSlide").attr('action', "{{route('admin.slides')}}" + "/" + dados.id);
+        //         console.log($("#formSlide"))
+        // }
         
     }
 </script>

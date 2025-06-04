@@ -1,5 +1,5 @@
 <?php
-namespace app\Modules\Slides;
+namespace App\Modules\Categoria;
 
 
 use Illuminate\Support\Facades\DB;
@@ -9,20 +9,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use function Laravel\Prompts\select;
 
 
-class SlidesModel extends Model
+class CategoriaModel extends Model
 {
  use HasFactory;
 
 
- protected $table = 'slides';
+ protected $table = 'categoria';
  protected $fillable = [
-   'caminho',
-   'posicao'
+   'nome',
  ];
 public function findAll(){
 
-    $data = DB::table('slides as slide')
-    ->select('slide.id', 'slide.caminho', 'slide.posicao')
+    $data = DB::table('categoria as catego')
+    ->select('catego.id', 'catego.nome')
     ->get();
 
     return $data;

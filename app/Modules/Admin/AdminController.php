@@ -7,12 +7,13 @@ use App\Modules\Admin\AdminService;
 use App\Http\Controllers\Controller;
 use App\Modules\Admin\dto\CreateAdmin;
 use App\Modules\Admin\dto\UpdateAdmin;
+use App\Modules\Categoria\CategoriaModel;
 use App\Modules\Slides\SlidesModel;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    public function __construct(private AdminService $adminService, private AdminModel $adminModel, private SlidesModel $slidesModel) {
+    public function __construct(private AdminService $adminService, private AdminModel $adminModel, private SlidesModel $slidesModel, private CategoriaModel $categoriaModel) {
         $this->adminService = $adminService;
         $this->adminModel = $adminModel;
     }
@@ -20,10 +21,12 @@ class AdminController extends Controller
     public function index()
     {
         $produtos = $this->adminModel->findAll();
+        $categoria = $this->categoriaModel->findAll();
         $slides = $this->slidesModel->findAll();
         return view('administracao.criaProdutos', [
             'produtos' => $produtos,
-            'slides' => $slides
+            'slides' => $slides,
+            'categorias' => $categoria
         ]);
     }
 
@@ -37,9 +40,13 @@ class AdminController extends Controller
        return $this->adminService->edita($data, $id);
     }
 
-    public function slides(Request $req, $id) {
-        dd($req);
-        return $this->adminService->slides($req, $id);
+    public function slides(Request $req, $id = null) {
+        if($id == null){
+            // dd($req, $id);
+            return $this->adminService->slidesCria($req);
+        }else{
+            return $this->adminService->slidesAtualiza($req, $id);
+        }
     }
 
     public function delete(Request $request, int $id){

@@ -12,8 +12,7 @@ class InicioController extends Controller
         $this->inicioService = $inicioService;
     }
 
-    public function showForm(Request $req)
-    {
+    public function showForm(Request $req){
         return $this->inicioService->index($req);
     }
 
