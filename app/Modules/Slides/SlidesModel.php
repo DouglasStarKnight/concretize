@@ -1,5 +1,5 @@
 <?php
-namespace app\Modules\Slides;
+namespace App\Modules\Slides;
 
 
 use Illuminate\Support\Facades\DB;

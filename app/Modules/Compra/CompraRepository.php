@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Modules\Admin;
+namespace App\Modules\Compra;
 
 // use App\Modules\_baseRepository\RepositoryBase;
-use App\Modules\Admin\AdminModel;
-use App\Modules\Admin\InterfaceAdmin;
+use App\Modules\Compra\CompraModel;
+use App\Modules\Compra\InterfaceCompra;
 use App\Modules\CrudBase\RepositoryBase;
 use App\Modules\Slides\SlidesModel;
 
-class AdminRepository implements InterfaceAdmin{
+class CompraRepository implements InterfaceCompra{
 
-    public function __construct(private AdminModel $model, private RepositoryBase $repositoryBase, private SlidesModel $slidesModel){
+    public function __construct(private CompraModel $model, private RepositoryBase $repositoryBase, private SlidesModel $slidesModel){
         // $this->adminModel = $adminModel;
     }
 

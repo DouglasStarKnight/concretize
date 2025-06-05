@@ -40,15 +40,6 @@ class AdminController extends Controller
        return $this->adminService->edita($data, $id);
     }
 
-    public function slides(Request $req, $id = null) {
-        if($id == null){
-            // dd($req, $id);
-            return $this->adminService->slidesCria($req);
-        }else{
-            return $this->adminService->slidesAtualiza($req, $id);
-        }
-    }
-
     public function delete(Request $request, int $id){
         return $this->adminService->excluir($request, $id);
     }

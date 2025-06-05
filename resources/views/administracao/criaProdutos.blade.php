@@ -13,7 +13,7 @@
          <div class="row d-flex justify-content-end m-2">
              {{-- @foreach($slides[] as $slide) --}}
                 <div class="col-2 d-flex justify-content-end">
-                    <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações">
+                    <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($slides) !!})" >
                         <h2 style="font-size: 15px">TROCAR SLIDES</h2>
                     </x-botaoModal>
                 </div>
@@ -73,7 +73,6 @@
    <form method="POST" id="form_produto" enctype="multipart/form-data">
         @csrf
         <x-modal  modal_id="modal-produto" title="Insira as informações">
-            {{-- <x-slot></x-slot> --}}
             <input hidden name="_method" id="_method_manipula_produtos" />
             @include('administracao.forms.formProduto')
             <x-slot name="footer">
@@ -95,17 +94,16 @@
    </form>
 
    {{-- modal para trocar slides --}}
-   <form action="{{route('admin.slides')}}" id="formSlide" method="POST" >
+   <form id="formSlide" method="POST" enctype="multipart/form-data">
       <x-modal modal_id="mudaSlide" title="Mudar Slides">
          @csrf
-         {{-- <input hidden name="_method" id="_method_muda_slides" /> --}}
+         <input hidden name="_method" id="_method_muda_slides"/>
          @include('administracao.forms.formSlide')
          <x-slot name="footer">
-               <button id="confirmaslide" type="submit" class="btn btn-danger" onclick="manipulacao_modais(this, {!! json_encode($slides) !!})">Salvar</button>
+               <button id="confirmaslide" type="submit" class="btn btn-danger" >Salvar</button>
          </x-slot>
       </x-modal>
    </form>
-   {{-- @endforeach --}}
 </div>
 
 
@@ -132,7 +130,6 @@ button {
 <script>
 
     function manipulacao_modais(element, dados){
-        console.log(element.id == "btnCriaProduto")
         if(element.id == "btnCriaProduto"){
             $("#_method_manipula_produtos").attr('value', 'post');
             $("#form_produto").attr('action', "{{route('admin.cria')}}");
@@ -150,11 +147,18 @@ button {
             $("#formDeletar").attr('action', "{{route('admin.delete')}}" + "/" + dados.id);
             $('#textoConfirmacao').text("Tem certeza que deseja excluir o produto " + dados.nome + "?");
         }
-        // if(element.id == "confirmaslide"){
-        //         $("#_method_muda_slides").attr('value', 'patch');
-        //         $("#formSlide").attr('action', "{{route('admin.slides')}}" + "/" + dados.id);
-        //         console.log($("#formSlide"))
-        // }
+        if(element.id == "btnMudaSlide"){
+            const posicaoSelecionada = $('input[name="posicao"]:checked').val();
+              if(posicaoSelecionada){
+                  $("#_method_muda_slides").attr('value', 'patch');
+                  $("#formSlide").attr('action', "{{route('slides.edita')}}" + "/" + dados.id);
+                }
+                // else{
+            //     console.log(selecionado)
+            //     $("#_method_muda_slides").attr('value', 'post');
+            //     $("#formSlide").attr('action', "{{route('slides.cria')}}");
+            // }
+        }
         
     }
 </script>

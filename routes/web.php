@@ -3,10 +3,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Modules\Admin\AdminController;
 use App\Modules\Login\LoginController;
+use App\Modules\Compra\CompraController;
 use App\Modules\Inicio\InicioController;
+use App\Modules\Slides\SlidesController;
+use App\Modules\Profile\ProfileController;
 use App\Modules\Produtos\ProdutosController;
 use App\Modules\Register\RegisterController;
-use App\Modules\Profile\ProfileController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -32,10 +34,13 @@ route::prefix('inicio')->as('inicio.')->controller(InicioController::class)->gro
 route::prefix('admin')->as('admin.')->controller(AdminController::class)->group(function(){
     route::post('/cria', 'cria')->name('cria');
     route::get('/findAll', 'findAll')->name('findAll');
-    route::post('/slides/{id?}', 'slides')->name('slides');
     route::patch('/edita/{id?}', 'edita')->name('edita');
     route::delete('/delete/{id?}', 'delete')->name('delete');
     route::get('/index', 'index')->name('index');
+});
+route::prefix('slides')->as('slides.')->controller(SlidesController::class)->group(function(){
+    route::post('/cria', 'slidesCria')->name('cria');
+    route::patch('/edita/{id?}', 'slidesEdita')->name('edita');
 });
 
 route::prefix('produtos')->as('produtos.')->controller(ProdutosController::class)->group(function(){
@@ -47,6 +52,11 @@ route::prefix('produtos')->as('produtos.')->controller(ProdutosController::class
 route::prefix('profile')->as('profile.')->controller(ProfileController::class)->group(function(){
     route::get('/index', 'index')->name('index');
     route::post('/atualiza',  'atualiza')->name('atualiza');
+});
+
+route::prefix('compra')->as('compra.')->controller(CompraController::class)->group(function(){
+    route::get('/index', 'index')->name('index');
+    // route::post('/atualiza',  'atualiza')->name('atualiza');
 });
 
 

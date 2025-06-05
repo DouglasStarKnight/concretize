@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Modules\Admin;
+namespace App\Modules\Compra;
 
 use App\Models\User;
-use App\Modules\Admin\AdminModel;
+use App\Modules\Compra\CompraModel;
 use Illuminate\Support\Facades\Hash;
-use App\Modules\Admin\AdminRepository;
+use App\Modules\Compra\CompraRepository;
 use app\Modules\Produtos\ProdutosModel;
 use app\Modules\Slides\SlidesModel;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 
-class AdminService
+class CompraService
 {
 
-    public function __construct(private AdminModel $adminModel, private AdminRepository $adminRepository){
-        $this->adminModel = $adminModel;
+    public function __construct(private CompraModel $compraModel, private CompraRepository $compraRepository){
+        $this->compraModel = $compraModel;
     }
 
     public function findAll(){
-        $produtos = $this->adminModel->findAll();
+        $produtos = $this->compraModel->findAll();
 
         return view('administracao.criaProdutos');
     }
@@ -40,7 +40,7 @@ class AdminService
                 'tipo_de_venda' => $data['tipo_de_venda'],
                 'image' => $path,
             ];
-            $this->adminRepository->cria($body);
+            $this->compraRepository->cria($body);
             return  redirect()->back()->with(['message' => 'Produto adicionado com sucesso.']);
         }catch(Exception $err){
             return redirect('admin.index')->withErrors($err->getMessage());
@@ -51,7 +51,7 @@ class AdminService
 
     public function edita($data, $id){
         try{
-            $registro = AdminModel::find($id);
+            $registro = CompraModel::find($id);
             if(isset($data['image'])){
                 if(isset($registro->image)){
                     storage::disk('s3')->delete($registro->image);
@@ -68,14 +68,14 @@ class AdminService
                 'estoque' => isset($data['estoque']) ? $data['estoque'] : null,
                 'image' => isset($path) ? $path : $registro->image
             ]);
-            $this->adminRepository->atualiza($body, $id);
+            $this->compraRepository->atualiza($body, $id);
             return redirect()->back()->with('message', 'Produto editado com sucesso!');
         }catch(Exception $err){
             return redirect('admin.index')->withErrors($err->getMessage());
         }
     }
     public function excluir($request, $id){
-        $this->adminRepository->excluir($id);
+        $this->compraRepository->excluir($id);
         return redirect()->back()->with(['message' => 'Produto excluído com sucesso!']);
     }
 

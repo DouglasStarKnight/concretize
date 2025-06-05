@@ -13,19 +13,13 @@
         </ol>
 
         <!-- Slides -->
-        {{-- @foreach($slides as $slide) --}}
+        @foreach($slides as $slide)
             <div class="carousel-inner">
                 <div id="slide1" class="carousel-item active">
-                    <img src="{{ Storage::disk('s3')->url($slides[0]->caminho)}}" alt="Slide 1" class="d-block w-100" style="height: 300px;">
-                </div>
-                <div id="slide2" class="carousel-item">
-                    <img src="{{ asset('image/images (2).jpeg') }}" alt="Slide 2" class="d-block w-100" style="height: 300px;">
-                </div>
-                <div id="slide3" class="carousel-item">
-                    <img src="{{ asset('image/banner1.avif') }}" alt="Slide 3" class="d-block w-100" style="height: 300px;">
+                    <img src="{{ Storage::disk('s3')->url($slide->caminho)}}" alt="Slide 1" class="d-block w-100" style="height: 300px;">
                 </div>
             </div>
-        {{-- @endforeach --}}
+        @endforeach
 
         <!-- Controles -->
         <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">

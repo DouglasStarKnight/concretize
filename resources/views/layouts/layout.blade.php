@@ -53,6 +53,7 @@ background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 4
 
     @props([
         'layout' => false,
+        
     ])
     <div id="content">
         <!-- Header -->

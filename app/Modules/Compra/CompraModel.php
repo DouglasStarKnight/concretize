@@ -1,5 +1,5 @@
 <?php
-namespace app\Modules\Admin;
+namespace app\Modules\Compra;
 
 
 use Illuminate\Support\Facades\DB;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use function Laravel\Prompts\select;
 
 
-class AdminModel extends Model
+class CompraModel extends Model
 {
  use HasFactory;
 

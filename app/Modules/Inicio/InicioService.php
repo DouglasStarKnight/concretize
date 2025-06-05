@@ -18,9 +18,10 @@ class InicioService
     }
 
     public function index($req) {
-        // $slides = $this->slidesModel->findAll();
+        $slides = $this->slidesModel->findAll();
+        // dd($slides);
         $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
-        return view('inicio' ,['produtos' => $produtos]);
+        return view('inicio' ,['produtos' => $produtos, 'slides' => $slides]);
     }
   
 }
