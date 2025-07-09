@@ -1,104 +1,50 @@
-<x-layout>
+<x-layout layout slides>
     <?php
     $quantidadeP = 0;
     ?>
+    {{-- @dd($slides) --}}
+    <div id="contentpromocoes">
+        <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
+            <div class="swiper-wrapper">
+                @foreach($produtos as $p)
+                    <div class="swiper-slide p-2" style="width: auto;">
+                        <div class="border rounded p-2" style="width: 220px;">
+                            <div class="image mb-2">
+                                <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height: 200px; object-fit: cover;" class="img-fluid w-100" />
+                            </div>
 
-    <!-- SLIDER CORRIGIDO -->
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicadores -->
-        <ol class="carousel-indicators">
-            <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
-            <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
-        </ol>
+                            <div class="fw-bold text-center mb-1">
+                                {{ $p->nome }}
+                            </div>
 
-        <!-- Slides -->
-        @foreach($slides as $slide)
-            <div class="carousel-inner">
-                <div id="slide1" class="carousel-item active">
-                    <img src="{{ Storage::disk('s3')->url($slide->caminho)}}" alt="Slide 1" class="d-block w-100" style="height: 300px;">
-                </div>
+                            <div class="fw-bold text-center mb-2">
+                                R$ {{ $p->valor_produto }}
+                            </div>
+
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <button class="btn btn-light p-0 fw-bold btn-minus" onclick="quantidade(this, {{ $p->id }}, 'minus')">-</button>
+
+                                <div class="text-center">
+                                    <input type="hidden" name="produtos_quantidade" id="input_qtd{{ $p->id }}" value="{{ $quantidadeP }}">
+                                    <span class="spanQuantidade{{ $p->id }}">{{ $quantidadeP }}</span>
+                                </div>
+
+                                <button class="btn btn-light p-0 fw-bold btn-plus" onclick="quantidade(this, {{ $p->id }}, 'plus')">+</button>
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-2">
+                                <button class="btn subHeader-color border rounded text-white add-to-cart-btn bg-gradient fw-bold"
+                                    onclick="addToCart({{ $p->id }})">
+                                    adicionar ao carrinho
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        @endforeach
-
-        <!-- Controles -->
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </a>
+        <div class="swiper-pagination"></div>
+        </div>
     </div>
-    <div class="maisvendidos mt-5 border-top border-bottom">
-        <div class="titlemaisvendidos alpha-color mx-3 rounded">
-            <h2 class="text-center text-light border border-2 border-dark rounded" >Promoções</h2>
-        </div>
-              <div id="contentpromocoes">
-                <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
-                    @foreach($produtos as $p)
-                    <div class="col-2 border my-1 mx-2">
-                        <div class="image img-fluid align-items-center">
-                            <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height:300px" class="img-fluid" />
-                        </div>
-                        <div class="fw-bold d-flex justify-content-center">
-                            {{$p->nome}}
-                        </div>
-                        <div class="fw-bold d-flex justify-content-center">
-                            R$ {{$p->valor_produto}}
-                        </div>
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <button class="btn btn-light col-2 p-0 fw-bold btn-minus" onclick="quantidade(this, {{$p->id}}, 'minus')">-</button>
-                            <div class="col-3 text-center">
-                                <input type="hidden" name="produtos_quantidade" id="input_qtd{{$p->id}}" value="{{$quantidadeP}}">
-                                <span class="spanQuantidade{{$p->id}}">{{$quantidadeP}}</span>
-                            </div>
-                        <button class="btn btn-light col-2 p-0 fw-bold btn-plus" onclick="quantidade(this, {{$p->id}}, 'plus')">+</button>
-                    </div>
-
-                        <div class="d-flex justify-content-center mt-2">
-                            <button class="btn subHeader-color border rounded text-white add-to-cart-btn bg-gradient" onclick="quantidade()">Adicionar ao carrinho</button>
-                        </div>
-                    </div>
-
-                    @endforeach
-                </div>
-            </div>
-        </div>
-      <div class="maisvendidos mt-5 border-top border-bottom">
-        <div class="titlemaisvendidos alpha-color mx-3 rounded">
-          <h2 class="text-center text-light border border-2 border-dark rounded">Mais Vendidos</h2>
-        </div>
-          <div id="contentmaisvendidos">
-            <div class="produtos m-2 row border border-black d-flex justify-content-around" style="border-radius:10px">
-              @foreach($produtos as $p)
-                <div class="col-2 border my-1 mx-2">
-                  <div class="image">
-                    <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height:300px" class="img-fluid" />
-                  </div>
-                  <div class="fw-bold d-flex justify-content-center">
-                    {{$p->nome}}
-                      </div>
-                    <div class="fw-bold d-flex justify-content-center">
-                      R$ {{$p->valor_produto}}
-                    </div>
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <button class="btn btn-light col-2 p-0 fw-bold btn-minus" onclick="quantidade(this, {{$p->id}}, 'minus')">-</button>
-                            <div class="col-3 text-center">
-                                <input type="hidden" name="produtos_quantidade" id="input_qtd{{$p->id}}" value="{{$quantidadeP}}">
-                                <span class="spanQuantidade{{$p->id}}">{{$quantidadeP}}</span>
-                            </div>
-                        <button class="btn btn-light col-2 p-0 fw-bold btn-plus" onclick="quantidade(this, {{$p->id}}, 'plus')">+</button>
-                    </div>
-                    <div class="d-flex justify-content-center mt-2">
-                      <button id="add-to-cart-btn" class="btn subHeader-color border rounded text-white add-to-cart-btn bg-gradient" onclick="quantidade()">adicionar ao carrinho</button>
-                  </div>
-                </div>
-                    @endforeach
-            </div>
-          </div>
-      </div>
 </x-layout>
 <style>
     .alpha-color{
@@ -133,5 +79,14 @@
     quantCart++;
     spanCart.text(quantCart);
 
+      var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 4,
+      spaceBetween: 30,
+      centeredSlides: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
 };
 </script>

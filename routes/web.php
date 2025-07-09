@@ -34,7 +34,7 @@ route::prefix('inicio')->as('inicio.')->controller(InicioController::class)->gro
 route::prefix('admin')->as('admin.')->controller(AdminController::class)->group(function(){
     route::post('/cria', 'cria')->name('cria');
     route::get('/findAll', 'findAll')->name('findAll');
-    route::patch('/edita/{id?}', 'edita')->name('edita');
+    route::post('/edita/{id?}', 'edita')->name('edita');
     route::delete('/delete/{id?}', 'delete')->name('delete');
     route::get('/index', 'index')->name('index');
 });
@@ -56,7 +56,6 @@ route::prefix('profile')->as('profile.')->controller(ProfileController::class)->
 
 route::prefix('compra')->as('compra.')->controller(CompraController::class)->group(function(){
     route::get('/index', 'index')->name('index');
-    // route::post('/atualiza',  'atualiza')->name('atualiza');
 });
 
 

@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row g-0">
     <div class="col-xl-6 col-lg-6 col-md-6">
         <label class="col-12" for="nome"><h5>Nome do produto</h5></label>
         <input id="input_nome" class="col-12 form-control" name="nome" type="text" placeholder="Digite o nome do material">

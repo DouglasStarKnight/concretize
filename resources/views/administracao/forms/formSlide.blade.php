@@ -16,8 +16,8 @@
                     <td>{{$slide->posicao}}</td>
                     <td><img src="{{ Storage::disk('s3')->url($slide->caminho)}}" alt="Slide" style="height: 30px;"></td>
                     <td>
-                        <div class="form-check d-flex justify-content-end">
-                            <input class="form-check-input check-slide" type="radio" name="posicao" value="{{$slide->posicao}}">
+                        <div id="new_slide" class="form-check d-flex justify-content-end">
+                            <input  class="form-check-input check-slide" type="radio" name="posicao" value="{{$slide->posicao}}">
                         </div>
                     </td>
                 </tr>
