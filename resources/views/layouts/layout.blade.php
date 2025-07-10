@@ -23,18 +23,14 @@
     @props([
         'layout' => false,
         'class' => '',
-        'slides' => false
+        // 'slides' => $slides
         
     ])
     @if($layout)
     <x-nav-bar></x-nav-bar>
     @endif
-    @dd($slides)
-    @if($slides)
-    <x-slides></x-slides>
-    @endif
         <x-notificacao/>
-        <div class="{{'mx-3  my-3 ' . $class}}">
+        <div class="{{'my-3 ' . $class}}" style="margin:0px 150px; background-color: #dadada">
             {{ $slot }}
         </div>
     {{-- @stack('scripts') --}}
@@ -42,11 +38,13 @@
 </html>
 
 <style>
-html, body {
+body {
     overflow-x: hidden;
     width: 100vw;
-height: 100vh;
+    height: 100vh;
+    /* background-color: #dadada */
 }
+
 
 .container-fluid {
 max-width: 100vw;
@@ -60,7 +58,10 @@ right: 0;
 z-index: 1000;
 }
 .alpha-color{
-    background-color: #fd7e14;
+    background-color: #ff6500;
+}
+.letters-color{
+    color: #ff6500
 }
 .subHeader-color{
     background: linear-gradient(180deg,rgba(237, 119, 0, 1) 0%, rgba(196, 95, 0, 1) 42%, rgba(186, 87, 0, 1) 78%);

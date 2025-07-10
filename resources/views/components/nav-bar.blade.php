@@ -37,7 +37,7 @@
                   </div>
               </nav>
             </div>
-          <!-- Sub-Header -->
+          {{-- <!-- Sub-Header -->
           <div class="sub-header d-flex justify-content-between mb-4 row subHeader-color">
               <div class="categoria col-2 kink-primary d-flex justify-content-center">
                   <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'basicos'])}}">BÁSICOS</a>
@@ -54,5 +54,5 @@
               <div class="categoria col-2 d-flex justify-content-center">
                   <a class="text-decoration-none  link-light" href="{{route('produtos.index', ['tipo' => 'conexcoes'])}}">Conexções</a>
               </div>
-          </div>
+          </div> --}}
         </div>

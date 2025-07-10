@@ -17,16 +17,21 @@ class SlidesController extends Controller
         $this->slidesModel = $slidesModel;
     }
 
+    public function index() {
+        return $this->slidesService->index();
+    }
+
     public function slidesCria(CreateSlides $req) {
-    //    dd($req);
+
         $data = $req->validated();
             return $this->slidesService->slidesCria($req);
     }
 
     public function slidesEdita(CreateSlides $req, $id = null) {
-        dd($id, $req);
+        // dd($id, $req);
         $data = $req->validated();
             return $this->slidesService->slidesAtualiza($req, $id);
-        }
+    }
+
 }
 

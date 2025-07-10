@@ -12,7 +12,13 @@ use Illuminate\Support\Facades\Storage;
 class SlidesService
 {
 
-    public function __construct(private SlidesModel $SlidesModel, private SlidesRepository $slidesRepository){
+    public function __construct(private SlidesModel $SlidesModel, private SlidesRepository $slidesRepository, private SlidesModel $slidesModel){
+    }
+
+    public function index(){
+         $slides = $this->slidesModel->findAll();
+         dd($slides);
+         return view('inicio', ['slides' => $slides]);
     }
 
     public function slidesCria($data){
