@@ -20,6 +20,7 @@ Route::prefix('register')->as('register.')->controller(RegisterController::class
 });
 
 route::prefix('login')->as('login.')->controller(LoginController::class)->group(function(){
+    Route::get('/logout', 'logout')->name('logout');
     Route::get('/index', 'showForm')->name('index');
     Route::post('/logando', 'login')->name('submit');
 });

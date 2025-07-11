@@ -2,12 +2,10 @@
 
 namespace App\Modules\Produtos;
 
-use App\Models\User;
 use App\Modules\Admin\AdminModel;
+use Illuminate\Support\Facades\DB;
 use App\Modules\Inicio\InicioModel;
 use app\Modules\Produtos\ProdutosModel;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
 use App\Modules\Produtos\ProdutosRepository;
 
 class ProdutosService
@@ -19,21 +17,22 @@ class ProdutosService
     }
 
     public function index($req) {
+
         $querys = json_decode(json_encode([
             'find' => isset($req->find) ? $req->find : null,
             'tipo' =>isset($req->tipo) ? $req->tipo : null,
         ]));
-        $produtos = (new ProdutosModel)
-        ->when($querys->tipo == 'acabamento')
-        ->when($querys->tipo == 'basicos')
-        ->when($querys->tipo == 'eletricos')
-        ->when($querys->tipo == 'tubulacoes')
-        ->when($querys->tipo == 'conexcoes')
-        ->when($querys->tipo == null)
-        ->select('produtos.nome', 'produtos.valor_produto', 'produtos.image', 'produtos.categoria_id')
-        ->where(fn($query) => $query->orWhere('produtos.nome', 'LIKE', '%' . $querys->find. '%'))
+// dd($querys);
+        $produtos = DB::table('produtos')
+        ->join('categoria', 'categoria.id', '=', 'produtos.categoria_id')
+        ->when($querys->tipo, function($query, $tipo) {
+            return $query->where('categoria.nome', $tipo);
+        })
+        ->when($querys->find, function($query, $find) {
+            return $query->where('produtos.nome', 'LIKE', '%' . $find . '%');
+        })
+        ->select('produtos.id', 'produtos.nome', 'produtos.valor_produto', 'produtos.image', 'produtos.categoria_id')
         ->get();
-        // dd($produtos);
         return view('listagem', ['produtos' => $produtos, 'tipo' =>$querys->tipo]);
     }
 

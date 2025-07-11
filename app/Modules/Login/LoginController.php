@@ -21,10 +21,12 @@ class LoginController extends Controller
 
     public function login(Request $req)
     {
-       $data = $req->all();
-    //    dd($data);
+        // $data = $req->all();
+        // dd($data);
+        return $this->loginService->login($req);
+    }
 
-        return $this->loginService->login($data);
-
+    public function logout(Request $req){
+        return $this->loginService->logout($req);
     }
 }

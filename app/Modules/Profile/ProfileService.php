@@ -9,6 +9,7 @@ use App\Modules\Profile\ProfileModel;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 use App\Modules\Profile\ProfileRepository;
+use Exception;
 
 class ProfileService
 {
@@ -23,6 +24,14 @@ class ProfileService
         return view('profile',['user' => $user]);
     }
 
+    public function cria(){
+        try{
+            $body = "";
+            $this->profileRepository->cria($body);
+        }catch(Exception $err){
+            return redirect('profile.index')->withErrors($err->getMessage());
+        }
+    }
 
     public function atualiza($req, $id){
         if(isset($req['image'])){

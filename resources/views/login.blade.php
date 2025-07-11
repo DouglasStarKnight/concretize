@@ -19,8 +19,8 @@
     <script src="{{ asset('app.js') }}"></script>
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center h-100">
-        <div id="principal" class="border border-5">
+    <div class="d-flex justify-content-center align-items-center h-100 row">
+        <div id="principal" class="border border-5 col-6">
             <div class="content">
                 <div class=" ms-3 mt-3">
                     <a href="{{route('inicio.index')}}" class="text-decoration-none">
@@ -30,34 +30,38 @@
                 <div id="header" class="d-flex my-4 justify-content-center">
                     <img style="width:150px" src="{{ asset('image/logo.png') }}" alt="logo">
                 </div>
-                <div class=" border-2 rounded m-4 alpha-color">
-                        <h1 class="text-center text-light my-2">REGISTRE-SE</h1>
+                <div class="row justify-content-center mx-1">
+                    <div class=" border-2 rounded m-4 alpha-color col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                        <h1 class="text-center text-light my-2">LOGIN</h1>
                     </div>
+                </div>
                 <div id="content">
                     <form class="form-register" method="POST" action="{{ route('login.submit') }}">
                         @csrf
-                        <div class="row mx-2">
-                            <div class="col-12">
-                                <label for="email" class="text-center">E-mail:</label>
+                        <div class="d-flex justify-content-center row">
+                            <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                                <div class="">
+                                    <label for="email" class="text-center">E-mail:</label>
+                                </div>
+                                <div class="">
+                                    <input type="email" id="email" class="form-control" name="email" placeholder="Digite seu E-mail"><br><br>
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <input type="email" id="email" class="form-control" name="email" placeholder="Digite seu E-mail"><br><br>
+                            {{-- <hr class="mx-4"> --}}
+                            <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                                <div class="">
+                                    <label for="password">Senha:</label><br>
+                                </div>
+                                <div class="">
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="Digite uma senha">
+                                </div>
                             </div>
                         </div>
-                        <hr class="mx-4">
-                        <div class="row m-2">
-                            <div class="col-12">
-                                <label for="password">Senha:</label><br>
-                            </div>
-                            <div class="col-12">
-                                <input type="password" id="password" class="form-control" name="password" placeholder="Digite uma senha">
-                            </div>
-                        </div>
-                        <div class="col-12 text-center mt-2">
+                        <div class="col-12 text-center mt-4">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                         <div class="d-flex justify-content-end me-3">
-                            <a href="{{route('register.index')}}">Não possui cadastro? Registre-se</a>
+                            <a class="text-center" href="{{route('register.index')}}">Não possui cadastro? Registre-se</a>
                         </div>
                     </form>
                 </div>
@@ -72,8 +76,8 @@ body {
     height: 100vh;
 }
 #principal {
-    height: 80%;
-    border-color: #E67F25 !important;
+    /* height: 80%; */
+    border-color: #fd7e14 !important;
     border-radius: 20px;
 }
 .alpha-color{

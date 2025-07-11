@@ -1,4 +1,4 @@
-<x-layout style="margin-bottom: 0px" layout slides>
+<x-layout layout slides>
     <?php
     $quantidadeP = 0;
     ?>
@@ -7,7 +7,7 @@
     <x-slides :slides="$slides"/>
     @endif
 
-    <div id="maisVendidos" class="my-5">
+    <div id="maisVendidos" style="background-color:#ffffff" class="my-5 rounded">
         <div class="row g-0 border border-black rounded-top">
             <h4 class="text-center my-1">MAIS VENDIDOS</h4>
         </div>
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div id="promocoes" class="mb-5">
+    <div id="promocoes" style="background-color:#ffffff" class="mb-5 rounded">
         <div class="row g-0 border border-black rounded-top">
             <h4 class="text-center my-1">PROMOÇÕES</h4>
         </div>
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div id="departamento">
+    <div id="departamento" style="background-color:#ffffff" class="rounded">
         <div class="d-flex align-items-center gap-1 mb-3">
             <i class="fa-solid fa-list fa-xl" style="color: #ff6500;"></i>
             <h3 class="m-0 letters-color fw-bold" >DEPARTAMENTOS</h3>
@@ -107,84 +107,100 @@
         <div class="swiper departamento_Swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <div>
-                        <div class="mb-4" style="justify-self:center">
-                            <img src="{{asset('image/cimento.png')}}" alt="basicos"height="150px" class="imagem-hover">
-                        </div>
+                    <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'basico'])}}">
                         <div>
-                            <h5 class="text-center letters-color fw-bold letters-color fw-bold">BÁSICOS</h5>
+                            <div class="mb-4" style="justify-self:center">
+                                <img src="{{asset('image/cimento.png')}}" alt="basicos"height="150px" class="imagem-hover">
+                            </div>
+                            <div>
+                                <h5 class="text-center letters-color fw-bold letters-color fw-bold">BÁSICOS</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="swiper-slide">
-                    <div>
-                        <div class="mb-4" style="justify-self:center">
-                            <img src="{{asset('image/pisos.png')}}" alt="basicos"height="150px" class="imagem-hover">
-                        </div>
+                    <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'acabamento'])}}">
                         <div>
-                            <h5 class="text-center letters-color fw-bold">ACABAMENTOS</h5>
+                            <div class="mb-4" style="justify-self:center">
+                                <img src="{{asset('image/pisos.png')}}" alt="basicos"height="150px" class="imagem-hover">
+                            </div>
+                            <div>
+                                <h5 class="text-center letters-color fw-bold">ACABAMENTOS</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="swiper-slide">
-                    <div>
-                        <div class="mb-4" style="justify-self:center">
-                            <img src="{{asset('image/tubos.png')}}" alt="basicos"height="150px" class="imagem-hover">
-                        </div>
+                    <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'hidraulica'])}}">
                         <div>
-                            <h5 class="text-center letters-color fw-bold">HIDRÁULICA</h5>
+                            <div class="mb-4" style="justify-self:center">
+                                <img src="{{asset('image/tubos.png')}}" alt="basicos"height="150px" class="imagem-hover">
+                            </div>
+                            <div>
+                                <h5 class="text-center letters-color fw-bold">HIDRÁULICA</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="swiper-slide">
-                    <div>
-                        <div class="mb-4" style="justify-self:center">
-                            <img src="{{asset('image/fios.png')}}" alt="basicos"height="150px" class="imagem-hover">
-                        </div>
+                    <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'eletrica'])}}">
                         <div>
-                            <h5 class="text-center letters-color fw-bold">ELÉTRICA</h5>
+                            <div class="mb-4" style="justify-self:center">
+                                <img src="{{asset('image/fios.png')}}" alt="basicos"height="150px" class="imagem-hover">
+                            </div>
+                            <div>
+                                <h5 class="text-center letters-color fw-bold">ELÉTRICA</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="swiper-slide">
-                    <div>
-                        <div class="mb-4" style="justify-self:center">
-                            <img src="{{asset('image/vergalao.png')}}" alt="basicos"height="150px" class="imagem-hover">
-                        </div>
+                    <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'estruturas'])}}">
                         <div>
-                            <h5 class="text-center letters-color fw-bold">ESTRUTURAS</h5>
+                            <div class="mb-4" style="justify-self:center">
+                                <img src="{{asset('image/vergalao.png')}}" alt="basicos"height="150px" class="imagem-hover">
+                            </div>
+                            <div>
+                                <h5 class="text-center letters-color fw-bold">ESTRUTURAS</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="swiper-slide">
-                    <div>
-                        <div class="mb-4" style="justify-self:center">
-                            <img src="{{asset('image/ferramenta.png')}}" alt="basicos"height="150px" class="imagem-hover">
-                        </div>
+                    <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'ferramentas'])}}">
                         <div>
-                            <h5 class="text-center letters-color fw-bold">FERRAMENTAS</h5>
+                            <div class="mb-4" style="justify-self:center">
+                                <img src="{{asset('image/ferramenta.png')}}" alt="basicos"height="150px" class="imagem-hover">
+                            </div>
+                            <div>
+                                <h5 class="text-center letters-color fw-bold">FERRAMENTAS</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="swiper-slide">
-                    <div>
-                        <div class="mb-4" style="justify-self:center">
-                            <img src="{{asset('image/epi.png')}}" alt="basicos"height="150px" class="imagem-hover">
-                        </div>
+                    <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'equipamentos'])}}">
                         <div>
-                            <h5 class="text-center letters-color fw-bold">EQUIPAMENTOS</h5>
+                            <div class="mb-4" style="justify-self:center">
+                                <img src="{{asset('image/epi.png')}}" alt="basicos"height="150px" class="imagem-hover">
+                            </div>
+                            <div>
+                                <h5 class="text-center letters-color fw-bold">EQUIPAMENTOS</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="swiper-slide">
-                    <div>
-                        <div class="mb-4" style="justify-self:center">
-                            <img src="{{asset('image/brita.png')}}" alt="basicos"height="150px" class="imagem-hover">
-                        </div>
+                    <a class="text-decoration-none link-light" href="{{route('produtos.index', ['tipo' => 'fundacao'])}}">
                         <div>
-                            <h5 class="text-center letters-color fw-bold">PARA FUNDAÇÕES</h5>
+                            <div class="mb-4" style="justify-self:center">
+                                <img src="{{asset('image/brita.png')}}" alt="basicos"height="150px" class="imagem-hover">
+                            </div>
+                            <div>
+                                <h5 class="text-center letters-color fw-bold">PARA FUNDAÇÕES</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

@@ -19,6 +19,11 @@ class ProfileController extends Controller
         return $this->profileService->index();
     }
 
+    public function cria(){
+        return $this->profileService->cria();
+    }
+
+
     public function atualiza(Request $req,int $id){
         // $data = $req->validated();
         return $this->profileService->atualiza($req, $id);

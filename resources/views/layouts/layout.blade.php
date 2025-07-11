@@ -30,7 +30,7 @@
     <x-nav-bar></x-nav-bar>
     @endif
         <x-notificacao/>
-        <div class="{{'my-3 ' . $class}}" style="margin:0px 150px; background-color: #dadada">
+        <div class="{{$class}}" style="margin:0px 150px">
             {{ $slot }}
         </div>
     {{-- @stack('scripts') --}}
@@ -42,10 +42,15 @@ body {
     overflow-x: hidden;
     width: 100vw;
     height: 100vh;
-    /* background-color: #dadada */
+    background-color: #f1f1f1
 }
 
-
+.justify-self-center{
+    justify-self: center
+}
+.align-self-center{
+    align-self: center;
+}
 .container-fluid {
 max-width: 100vw;
 overflow-x: hidden;

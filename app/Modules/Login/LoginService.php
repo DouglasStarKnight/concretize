@@ -2,10 +2,11 @@
 
 namespace App\Modules\Login;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
 use App\Modules\Login\loginModel;
+use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 class LoginService
 {
 
@@ -13,11 +14,28 @@ class LoginService
         $this->loginModel = $loginModel;
     }
 
-    public function login($data){
-        $user = $this->loginModel->where('email', $data['email'])->first();
-
-        if($user && Hash::check($data['password'], $user->password)){
-            return redirect()->route('inicio.index');
+    public function login( $req){
+        try{
+            $credentials = $req->only('email', 'password');
+            if (Auth::attempt($credentials)) {
+                $req->session()->regenerate();
+                return redirect()->intended(route('inicio.index'));
+            }
+        }catch(Exception $err){
+            return redirect('admin.index')->withErrors($err->getMessage());
         }
+}
+
+
+     public function logout($req) {
+    Auth::logout();
+    try {
+        $req->session()->invalidate();
+        $req->session()->regenerateToken();
+        return redirect()->route('inicio.index');
+    } catch (\Throwable $e) {
+
     }
+}
+
 }

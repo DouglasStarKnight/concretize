@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Modules\Admin\AdminModel;
 use App\Modules\Inicio\InicioModel;
 use App\Modules\Slides\SlidesModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
@@ -18,6 +19,7 @@ class InicioService
     }
 
     public function index($req) {
+        // dd(Auth::check());
         $slides = $this->slidesModel->findAll();
         // dd($slides);
         $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();

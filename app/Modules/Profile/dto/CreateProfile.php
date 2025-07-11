@@ -1,8 +1,12 @@
-<?php namespace App\Modules\Profile\dto;
+<?php
+
+namespace App\Modules\Profile\dto;
+
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProfile extends FormRequest {
+class CreateProfile extends FormRequest{
+
   public function authorize(): bool {
     return true;
   }

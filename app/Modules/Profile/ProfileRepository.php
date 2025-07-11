@@ -13,9 +13,13 @@ class ProfileRepository implements InterfaceProfile{
         $this->model = $model;
     }
 
-    // public function index(){
-    //     return $this->model->findAll();
-    // }
+    public function index(){
+        return $this->model->findAll();
+    }
+
+    public function cria(){
+        return $this->repositoryBase->insert($this->model, $data);
+    }
 
     public function atualiza($data, $id){
         return $this->repositoryBase->update($this->model, $id, $data);
