@@ -1,5 +1,6 @@
 
 @props(['slides' => $slides])
+
 <div class="swiper slidesSwiper">
     <div class="swiper-wrapper">
         @foreach($slides as $slide)

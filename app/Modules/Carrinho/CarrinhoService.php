@@ -1,48 +1,43 @@
 <?php
 
-namespace App\Modules\Compra;
+namespace App\Modules\Carrinho;
 
 use App\Models\User;
-use App\Modules\Compra\CompraModel;
+use App\Modules\Carrinho\CarrinhoModel;
 use Illuminate\Support\Facades\Hash;
-use App\Modules\Compra\CompraRepository;
+use App\Modules\Carrinho\CarrinhoRepository;
 use app\Modules\Produtos\ProdutosModel;
 use app\Modules\Slides\SlidesModel;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 
-class CompraService
+class CarrinhoService
 {
 
-    public function __construct(private CompraModel $compraModel, private CompraRepository $compraRepository){
-        $this->compraModel = $compraModel;
+    public function __construct(private CarrinhoModel $carrinhoModel, private CarrinhoRepository $carrinhoRepository){
+        $this->carrinhoModel = $carrinhoModel;
     }
 
     public function findAll(){
-        $produtos = $this->compraModel->findAll();
+        $produtos = $this->carrinhoModel->findAll();
 
         return view('administracao.criaProdutos');
     }
     public function cria($data){
         try{
-            $path = Storage::disk('s3')->put('produtos', $data['image']);
-
-            if (!$path) {
-                return ['message' => 'Falha ao salvar imagem.'];
-            }
 
             $body = [
-                'nome' => $data['nome'],
-                'categoria_id' => $data['categoria_id'],
-                'valor_produto' => $data['valor_produto'],
-                'estoque' => $data['estoque'],
-                'tipo_de_venda' => $data['tipo_de_venda'],
-                'image' => $path,
+                'produto_id' => $data['produto_id'],
+                'quantidade' => $data['quantidade'],
+                'preco' => $data['preco'],
+
             ];
-            $this->compraRepository->cria($body);
-            return  redirect()->back()->with(['message' => 'Produto adicionado com sucesso.']);
+            // dd($body);
+            $this->carrinhoRepository->cria($body);
+            return  redirect()->route('inicio.index')->with(['message' => 'Produto adicionado ao carrinho!']);
         }catch(Exception $err){
+            dd($err);
             return redirect('admin.index')->withErrors($err->getMessage());
         }
     }
@@ -51,7 +46,7 @@ class CompraService
 
     public function edita($data, $id){
         try{
-            $registro = CompraModel::find($id);
+            $registro = CarrinhoModel::find($id);
             if(isset($data['image'])){
                 if(isset($registro->image)){
                     storage::disk('s3')->delete($registro->image);
@@ -68,14 +63,14 @@ class CompraService
                 'estoque' => isset($data['estoque']) ? $data['estoque'] : null,
                 'image' => isset($path) ? $path : $registro->image
             ]);
-            $this->compraRepository->atualiza($body, $id);
+            $this->carrinhoRepository->atualiza($body, $id);
             return redirect()->back()->with('message', 'Produto editado com sucesso!');
         }catch(Exception $err){
             return redirect('admin.index')->withErrors($err->getMessage());
         }
     }
     public function excluir($request, $id){
-        $this->compraRepository->excluir($id);
+        $this->carrinhoRepository->excluir($id);
         return redirect()->back()->with(['message' => 'Produto excluído com sucesso!']);
     }
 

@@ -3,7 +3,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Modules\Admin\AdminController;
 use App\Modules\Login\LoginController;
-use App\Modules\Compra\CompraController;
+use App\Modules\Carrinho\CarrinhoController;
 use App\Modules\Inicio\InicioController;
 use App\Modules\Slides\SlidesController;
 use App\Modules\Profile\ProfileController;
@@ -55,8 +55,8 @@ route::prefix('profile')->as('profile.')->controller(ProfileController::class)->
     route::post('/atualiza',  'atualiza')->name('atualiza');
 });
 
-route::prefix('compra')->as('compra.')->controller(CompraController::class)->group(function(){
+route::prefix('carrinho')->as('carrinho.')->controller(CarrinhoController::class)->group(function(){
     route::get('/index', 'index')->name('index');
+    route::post('/cria', 'cria')->name('cria');
 });
-
 

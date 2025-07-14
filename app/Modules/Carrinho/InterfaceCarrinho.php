@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Modules\Compra;
+namespace App\Modules\Carrinho;
 
-interface InterfaceCompra {
+interface InterfaceCarrinho {
   public function cria(array $data);
   public function atualiza(array $data,int $id);
 }

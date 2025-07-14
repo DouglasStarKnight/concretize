@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Modules\Compra;
+namespace App\Modules\Carrinho;
 
 // use App\Modules\_baseRepository\RepositoryBase;
-use App\Modules\Compra\CompraModel;
-use App\Modules\Compra\InterfaceCompra;
+use App\Modules\Carrinho\CarrinhoModel;
+use App\Modules\Carrinho\InterfaceCarrinho;
 use App\Modules\CrudBase\RepositoryBase;
 use App\Modules\Slides\SlidesModel;
 
-class CompraRepository implements InterfaceCompra{
+class CarrinhoRepository implements InterfaceCarrinho{
 
-    public function __construct(private CompraModel $model, private RepositoryBase $repositoryBase, private SlidesModel $slidesModel){
-        // $this->adminModel = $adminModel;
+    public function __construct(private CarrinhoModel $model, private RepositoryBase $repositoryBase, private SlidesModel $slidesModel){
     }
 
     public function cria($data){
+        // dd($data);
         return $this->repositoryBase->insert($this->model, $data);
     }
 

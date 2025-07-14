@@ -1,8 +1,8 @@
-<?php namespace App\Modules\Compra\dto;
+<?php namespace App\Modules\Carrinho\dto;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCompra extends FormRequest {
+class UpdateCarrinho extends FormRequest {
   public function authorize(): bool {
     return true;
   }
