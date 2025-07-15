@@ -16,8 +16,10 @@
                   </div>
                   <div id="entregamos" class="entrega text-light col-2"><h6>ENTREGAMOS EM TODA A CIDADE!</h6></div>
                   <div class="carrinho d-flex justify-content-center align-items-center col-1">
-                      <i class="ph ph-shopping-cart" style="font-size: 35px; color:aliceblue" id="openModalCarrinho"></i>
-                      <input type="hidden" id="inputCart" value="">
+                    <a href="{{route('carrinho.index')}}" class="text-decoration-none">
+                        <i class="ph ph-shopping-cart" style="font-size: 35px; color:aliceblue" id="openModalCarrinho"></i>
+                        <input type="hidden" id="inputCart" value="">
+                    </a>
                       {{-- <span id="cart-count" class="badge rounded-circle" style="font-size: 14px; height:20px; width:20px; display: flex; align-items:center; justify-content:center;">0</span> --}}
                   </div>
                   <div class="perfil col-2">

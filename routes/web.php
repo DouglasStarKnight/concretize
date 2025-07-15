@@ -57,6 +57,7 @@ route::prefix('profile')->as('profile.')->controller(ProfileController::class)->
 
 route::prefix('carrinho')->as('carrinho.')->controller(CarrinhoController::class)->group(function(){
     route::get('/index', 'index')->name('index');
+    route::get('/pagamento', 'pagamento')->name('pagamento');
     route::post('/cria', 'cria')->name('cria');
 });
 

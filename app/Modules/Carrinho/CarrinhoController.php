@@ -18,10 +18,11 @@ class CarrinhoController extends Controller
         // $this->CarrinhoModel = $CarrinhoModel;
     }
 
-    public function index()
-    {
-
-        return view('carrinho');
+    public function index(){
+        return $this->carrinhoService->index();
+    }
+    public function pagamento(){
+        return $this->carrinhoService->pagamento();
     }
 
     public function cria(CreateCarrinho $req) {

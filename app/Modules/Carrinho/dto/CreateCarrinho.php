@@ -13,10 +13,12 @@ class CreateCarrinho extends FormRequest{
 
   public function rules(): array{
     return [
+      'nome' => 'required|string',
       'produto_id' => 'required|string',
       'quantidade' => 'required|numeric',
       'carrinho_id' => 'nullable|numeric',
-      'preco' => 'required|string',
+      'valor_produto' => 'required|string',
+      'image' => 'required|string',
     ];
   }
 

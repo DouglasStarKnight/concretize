@@ -47,6 +47,9 @@ body {
 .justify-self-center{
     justify-self: center
 }
+.justify-self-end{
+    justify-self: end
+}
 .align-self-center{
     align-self: center;
 }
@@ -67,8 +70,9 @@ z-index: 1000;
 .letters-color{
     color: #ff6500
 }
-.subHeader-color{
-    background: linear-gradient(180deg,rgba(237, 119, 0, 1) 0%, rgba(196, 95, 0, 1) 42%, rgba(186, 87, 0, 1) 78%);
+.title-color{
+background: #ff924a;
+background: linear-gradient(0deg,rgba(255, 146, 74, 1) 0%, rgba(255, 102, 0, 1) 100%);
 }
 .header-color {
     background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 42%, rgba(0, 5, 54, 1) 78%);

@@ -19,25 +19,32 @@ class CarrinhoService
         $this->carrinhoModel = $carrinhoModel;
     }
 
-    public function findAll(){
-        $produtos = $this->carrinhoModel->findAll();
+    public function index(){
+        $carrinho = $this->carrinhoModel->findAll();
+        // dd($carrinho);
 
-        return view('administracao.criaProdutos');
+        return view('carrinho.index', ['carrinho' => $carrinho]);
     }
+    public function pagamento(){
+        return view('carrinho.pagamento');
+    }
+
     public function cria($data){
         try{
 
             $body = [
+                'nome' => $data['nome'],
                 'produto_id' => $data['produto_id'],
                 'quantidade' => $data['quantidade'],
-                'preco' => $data['preco'],
-
+                'valor_produto' => $data['valor_produto'],
+                'image' => $data['image']
             ];
-            // dd($body);
             $this->carrinhoRepository->cria($body);
+            // if(){
+
+            // }
             return  redirect()->route('inicio.index')->with(['message' => 'Produto adicionado ao carrinho!']);
         }catch(Exception $err){
-            dd($err);
             return redirect('admin.index')->withErrors($err->getMessage());
         }
     }

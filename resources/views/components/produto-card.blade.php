@@ -2,11 +2,10 @@
     'title' => $title,
     'produtos' => $produtos
 ])
-
+{{-- @dd($produtos) --}}
 <?php
     $quantidadeP = 0;
     ?>
-
 <div id="promocoes" style="background-color:#ffffff" class="my-4 rounded">
     <div class="row g-0 border border-black rounded-top">
         <h4 class="text-center my-1">{{$title}}</h4>
@@ -22,13 +21,15 @@
                         <input id="input_valor{{$p->id}}" name="produto_id" type="hidden" value="{{$p->id}}">
                         <div class="border rounded p-2" style="width: 220px;">
                             <div class="image mb-2">
+                                <input type="hidden" id="input_img{{$p->id}}" name="image" value="{{ $p->image}}">
                                 <img name="image" src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height: 200px; object-fit: cover;" class="img-fluid w-100" />
                             </div>
                             <div class="fw-bold text-center mb-1">
+                                <input id="input_nome{{$p->id}}" name="nome" type="hidden" value="{{$p->nome}}">
                                 <span name="nome" class="letters-color">{{ $p->nome }}</span>
                             </div>
                             <div class="fw-bold text-center mb-2">
-                                <input id="input_valor{{$p->id}}" name="preco" type="hidden" value="{{$p->valor_produto}}">
+                                <input id="input_valor{{$p->id}}" name="valor_produto" type="hidden" value="{{$p->valor_produto}}">
                                 <span id="valor" class="letters-color ">R$ {{ $p->valor_produto }}</span>
                             </div>
                             <div class="d-flex justify-content-center align-items-center gap-2">
@@ -80,9 +81,11 @@
 
 function manipulaDados(form, produtoId){
     event.preventDefault()
-    // console.log($(`#form_pedidos${produtoId}`).find(`#input_valor${produtoId}`).val())
+    // console.log($(`#form_pedidos${produtoId}`).find(`#input_img${produtoId}`).val())
+    $(`#form_pedidos${produtoId}`).find(`#input_nome${produtoId}`).val();
     $(`#form_pedidos${produtoId}`).find(`#input_valor${produtoId}`).val();
     $(`#form_pedidos${produtoId}`).find(`#input_qtd${produtoId}`).val();
+    $(`#form_pedidos${produtoId}`).find(`#input_img${produtoId}`).val();
     $(`#form_pedidos${produtoId}`).find("#_method").attr('value', 'post');
     $(`#form_pedidos${produtoId}`).attr('action', "{!! route('carrinho.cria') !!}");
     $(form).off('submit');
