@@ -53,10 +53,12 @@
           <h6>Sub Total(3 produtos):<span class="fw-bold"> R$3.000,00</span></h6>
         </div>
         <div class="justify-self-center mt-2">
-          <x-botaoModal class="btn alpha-color border rounded text-white add-to-cart-btn bg-gradient fw-bold"
+          <a href="{{route('carrinho.pagamento')}}">
+            <x-botaoModal class="btn alpha-color border rounded text-white add-to-cart-btn bg-gradient fw-bold"
             id_button="btnConfirma" modal_id="modal-pedido">
             Fechar pedido
           </x-botaoModal>
+        </a>
         </div>
       </div>
       <div class="bg-light mt-5">

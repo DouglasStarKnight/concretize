@@ -20,18 +20,20 @@
                         <input hidden name="_method" id="_method" />
                         <input id="input_valor{{$p->id}}" name="produto_id" type="hidden" value="{{$p->id}}">
                         <div class="border rounded p-2" style="width: 220px;">
-                            <div class="image mb-2">
-                                <input type="hidden" id="input_img{{$p->id}}" name="image" value="{{ $p->image}}">
-                                <img name="image" src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height: 200px; object-fit: cover;" class="img-fluid w-100" />
-                            </div>
-                            <div class="fw-bold text-center mb-1">
-                                <input id="input_nome{{$p->id}}" name="nome" type="hidden" value="{{$p->nome}}">
-                                <span name="nome" class="letters-color">{{ $p->nome }}</span>
-                            </div>
-                            <div class="fw-bold text-center mb-2">
-                                <input id="input_valor{{$p->id}}" name="valor_produto" type="hidden" value="{{$p->valor_produto}}">
-                                <span id="valor" class="letters-color ">R$ {{ $p->valor_produto }}</span>
-                            </div>
+                            <a href="{{route('produtos.descricao', ['id' => $p->id])}}" class="text-decoration-none">
+                                <div class="image mb-2">
+                                    <input type="hidden" id="input_img{{$p->id}}" name="image" value="{{ $p->image}}">
+                                    <img name="image" src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto" style="height: 250px; object-fit: cover;" class="img-fluid w-100" />
+                                </div>
+                                <div class="fw-bold text-center mb-1">
+                                    <input id="input_nome{{$p->id}}" name="nome" type="hidden" value="{{$p->nome}}">
+                                    <span name="nome" class="letters-color">{{ $p->nome }}</span>
+                                </div>
+                                <div class="fw-bold text-center mb-2">
+                                    <input id="input_valor{{$p->id}}" name="valor_produto" type="hidden" value="{{$p->valor_produto}}">
+                                    <span id="valor" class="letters-color ">R$ {{ $p->valor_produto }}</span>
+                                </div>
+                            </a>
                             <div class="d-flex justify-content-center align-items-center gap-2">
                                 <div class="btn btn-light p-0 fw-bold btn-minus" onclick="quantidade(this, {{ $p->id }}, 'minus')">-</div>
                                 <div class="text-center">

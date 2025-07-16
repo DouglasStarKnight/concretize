@@ -37,4 +37,8 @@ public function findAll($querys){
     ];
 }
 
+public function produtoById($id){
+  return DB::table($this->table)->where('id', $id)->first();
+}
+
 }

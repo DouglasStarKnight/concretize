@@ -21,6 +21,6 @@
     <input type="text" class="form-control">
   </div>
   <button class="btn alpha-color border justify-self-center rounded text-white add-to-cart-btn bg-gradient fw-bold">
-    Finalizar Compra
+    Salvar cartão
   </button>
 </div>

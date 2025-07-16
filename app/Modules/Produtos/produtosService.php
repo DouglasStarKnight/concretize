@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Modules\Inicio\InicioModel;
 use app\Modules\Produtos\ProdutosModel;
 use App\Modules\Produtos\ProdutosRepository;
+use Exception;
 
 class ProdutosService
 {
@@ -22,7 +23,6 @@ class ProdutosService
             'find' => isset($req->find) ? $req->find : null,
             'tipo' =>isset($req->tipo) ? $req->tipo : null,
         ]));
-// dd($querys);
         $produtos = DB::table('produtos')
         ->join('categoria', 'categoria.id', '=', 'produtos.categoria_id')
         ->when($querys->tipo, function($query, $tipo) {
@@ -33,7 +33,18 @@ class ProdutosService
         })
         ->select('produtos.id', 'produtos.nome', 'produtos.valor_produto', 'produtos.image', 'produtos.categoria_id')
         ->get();
+// dd($produtos, isset($produtos) ? 'ta vazio' : 'tem algo');
+
         return view('listagem', ['produtos' => $produtos, 'tipo' =>$querys->tipo]);
+    }
+
+    public function descricao($id){
+        try{
+            $produto = $this->produtosRepository->produtoById($id);
+            return view('produtos.descricao', ['produto' => $produto]);
+        }catch( Exception $err){
+           return redirect('inicio.index')->withErrors($err->getMessage()); 
+        }
     }
 
     //  public function listagem(){

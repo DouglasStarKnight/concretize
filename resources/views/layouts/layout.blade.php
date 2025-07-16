@@ -18,7 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src="{{ asset('app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="{{ asset('js/script.js') }}" defer></script>
 </head>
 <body>
     @props([
@@ -100,4 +101,6 @@ background: linear-gradient(0deg,rgba(255, 146, 74, 1) 0%, rgba(255, 102, 0, 1) 
             $('#entregamos').show()
     
         }
+
+//   $('.money_mask').mask('000.000.000.000.000,00', { reverse: true });
     </script>

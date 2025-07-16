@@ -17,4 +17,8 @@ class ProdutosRepository implements InterfaceProdutos{
         return $this->model->findAll($querys);
     }
 
+    public function produtoById($id){
+        return $this->model->produtoById($id);
+    }
+
 }

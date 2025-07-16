@@ -1,9 +1,9 @@
 <x-layout>
     <div class="mt-5">
-        <div class=" alpha-color border border-2 border-dark rounded mb-2 row mx-2">
+        <div class=" title-color border border-secondary rounded mb-2 row mx-2">
             <div class="col-1 d-flex justify-content-start align-items-center">
                 <a class="text-decoration-none" href="{{route('inicio.index')}}">
-                    <i class="ph ph-arrow-circle-left" style="font-size:35px; color:black"></i>
+                    <i class="ph ph-arrow-circle-left" style="font-size:35px; color:white"></i>
                 </a>
             </div>
             <div class="col-10">
@@ -12,7 +12,7 @@
          </div>
          <div class="row d-flex justify-content-end m-2">
             <div class="col-2 d-flex justify-content-end">
-               <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações" >
+               <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
                   <h2 style="font-size: 15px">TROCAR SLIDES</h2>
                </x-botaoModal>
             </div>
@@ -151,12 +151,16 @@ button {
             $('#textoConfirmacao').text("Tem certeza que deseja excluir o produto " + dados.nome + "?");
         
         }else if(element.id == "btnMudaSlide"){
-            const posicaoSelecionada = $('input[name="posicao"]:checked').val();
-              if(posicaoSelecionada){
-                console.log(posicaoSelecionada)
-                $("#_method_muda_slides").attr('value', 'patch');
-                $("#formSlide").attr('action', "{{route('slides.edita')}}" + "/" + dados.id);
+            $('input[name="posicao"]').off('change').on('change', function () {
+                const valor = $(this).val();
+                console.log(dados.id);
+                console.log(dados.id);
+                if(posicaoSelecionada){
+                  $("#_method_muda_slides").attr('value', 'patch');
+                  $("#formSlide").attr('action', "{{route('slides.edita')}}" + "/" + dados.id);
                 }
+            });
+
         }
         
     }

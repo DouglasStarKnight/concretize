@@ -47,6 +47,7 @@ route::prefix('slides')->as('slides.')->controller(SlidesController::class)->gro
 route::prefix('produtos')->as('produtos.')->controller(ProdutosController::class)->group(function(){
     route::get('/index', 'index')->name('index');
     route::get('/listagem',  'listagem')->name('listagem');
+    route::get('/descricao/{id?}',  'descricao')->name('descricao');
     route::get('/findAll',  'findAll')->name('findAll');
 });
 
