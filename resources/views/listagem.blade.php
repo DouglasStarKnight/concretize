@@ -3,15 +3,15 @@
   $quantidadeP = 0;
   ?>
 
-  @forelse($produtos as $p)
-    <div id="maisVendidos" style="background-color:#ffffff" class="my-5 rounded">
-      <div class="row g-0 border border-black rounded-top">
-        <h4 class="text-center my-1">MAIS VENDIDOS</h4>
-      </div>
-      <div class="produtos g-0 row border border-top-0 border-black rounded-bottom-2">
-        <div class="swiper mySwiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide p-2" style="width: auto;">
+<div id="maisVendidos" style="background-color:#ffffff" class="my-5 rounded">
+  <div class="row g-0 border border-black rounded-top">
+    <h4 class="text-center my-1">MAIS VENDIDOS</h4>
+  </div>
+  <div class="produtos g-0 row border border-top-0 border-black rounded-bottom-2">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        @forelse($produtos as $p)
+        <div class="swiper-slide p-2" style="width: auto;">
               <div class="border rounded p-2" style="width: 220px;">
                 <div class="image mb-2">
                   <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto"
@@ -55,10 +55,10 @@
                 <h2 class="text-light text-center m-0 py-2">Nenhum Produto Encontrado</h2>
               </div>
             </div>
-  @endforelse
-  </div>
-  </div>
-  </div>
+          @endforelse
+        </div>
+      </div>
+    </div>
   </div>
 </x-layout>
 <style>

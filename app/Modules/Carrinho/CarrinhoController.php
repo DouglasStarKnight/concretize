@@ -31,13 +31,13 @@ class CarrinhoController extends Controller
         return $this->carrinhoService->cria($data);
     }
 
-    public function edita(UpdateCarrinho $request, int $id){
-        $data = $request->validated();
-       return $this->carrinhoService->edita($data, $id);
-    }
+    // public function edita(UpdateCarrinho $request, int $id){
+    //     $data = $request->validated();
+    //    return $this->carrinhoService->edita($data, $id);
+    // }
 
-    public function delete(Request $request, int $id){
-        return $this->carrinhoService->excluir($request, $id);
+    public function delete(Request $req,int $id){
+        return $this->carrinhoService->excluir($req, $id);
     }
 
 }

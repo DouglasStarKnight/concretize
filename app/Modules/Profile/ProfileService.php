@@ -19,7 +19,8 @@ class ProfileService
         $this->model = $model;
     }
 
-    public function index() {
+    public function index($id) {
+        // dd($id);
         $user = $this->model->select('id','nome', 'email', 'data_nascimento', 'image')->get();
         return view('profile',['user' => $user]);
     }

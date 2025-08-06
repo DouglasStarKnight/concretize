@@ -33,4 +33,11 @@ public function findAll(){
     ];
 }
 
+public function findById($id){
+  DB::table($this->table . ' as us')
+  ->select('*')
+  ->where('id', $id)
+  ->get();
+}
+
 }

@@ -23,7 +23,6 @@ class CarrinhoRepository implements InterfaceCarrinho{
     }
 
     public function excluir($id) {
-        // dd($id);
         return $this->repositoryBase->delete($this->model, $id);
     }
 }

@@ -15,8 +15,10 @@ class ProfileController extends Controller
         // $this->adminModel = $adminModel;
     }
 
-    public function index(){
-        return $this->profileService->index();
+    public function index($id = null){
+        // dd($id);
+        $user_id = $id ? auth()->id() : null; 
+        return $this->profileService->index($id);
     }
 
     public function cria(){

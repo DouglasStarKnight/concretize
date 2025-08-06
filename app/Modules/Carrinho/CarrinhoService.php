@@ -31,7 +31,6 @@ class CarrinhoService
 
     public function cria($data){
         try{
-
             $body = [
                 'nome' => $data['nome'],
                 'produto_id' => $data['produto_id'],
@@ -40,9 +39,6 @@ class CarrinhoService
                 'image' => $data['image']
             ];
             $this->carrinhoRepository->cria($body);
-            // if(){
-
-            // }
             return  redirect()->route('inicio.index')->with(['message' => 'Produto adicionado ao carrinho!']);
         }catch(Exception $err){
             return redirect('admin.index')->withErrors($err->getMessage());

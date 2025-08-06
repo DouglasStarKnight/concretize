@@ -30,7 +30,10 @@
                                 {{-- <img src="{{ asset('image/oriPerfil.jpeg') }}" class="rounded" alt="Perfil" height="60px" width="60px"> --}}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{route('profile.index')}}">Perfil</a></li>
+                                <li>
+                                    {{-- <form action="{{}}"></form> --}}
+                                    <a class="dropdown-item" href="{{route('profile.index')}}">Perfil</a>
+                                </li>
                                 <li><a class="dropdown-item" href="{{route('admin.index')}}">Administração</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 @auth

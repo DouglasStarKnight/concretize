@@ -52,7 +52,7 @@ route::prefix('produtos')->as('produtos.')->controller(ProdutosController::class
 });
 
 route::prefix('profile')->as('profile.')->controller(ProfileController::class)->group(function(){
-    route::get('/index', 'index')->name('index');
+    route::get('/index/{id?}', 'index')->name('index');
     route::post('/atualiza',  'atualiza')->name('atualiza');
 });
 
@@ -60,5 +60,6 @@ route::prefix('carrinho')->as('carrinho.')->controller(CarrinhoController::class
     route::get('/index', 'index')->name('index');
     route::get('/pagamento', 'pagamento')->name('pagamento');
     route::post('/cria', 'cria')->name('cria');
+    route::DELETE('/delete/{id?}', 'delete')->name('delete');
 });
 

@@ -17,12 +17,16 @@ class ProfileRepository implements InterfaceProfile{
         return $this->model->findAll();
     }
 
-    public function cria(){
+    public function cria($data){
         return $this->repositoryBase->insert($this->model, $data);
     }
 
     public function atualiza($data, $id){
         return $this->repositoryBase->update($this->model, $id, $data);
+    }
+
+    public function findById($id){
+        return $this->model->findById($id);
     }
 
 }
