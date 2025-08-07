@@ -6,7 +6,7 @@
       </a>
     </div>
     <div class="col-10">
-      <h2 class="text-light text-center m-0 py-2">FINALZIAR PEDIDO</h2>
+      <h2 class="text-light text-center m-0 py-2">FINALIZAR PEDIDO</h2>
     </div>
   </div>
   <div class="row">
@@ -68,12 +68,10 @@
 <script>
   $('input[name="pagamento"]').on('change', function () {
   let valor = $('input[name="pagamento"]:checked').val();
-// console.log(valor)
-    // $('#money').hide()
-    // $('#cards').hide()
-
+console.log(valor)
     if(valor == "dinheiro"){
       $('#money').prop('hidden', false)
+      $('#cards').prop('hidden', true)
     }else if(valor == "card-credit" || valor == "card-debito"){
       $('#cards').prop('hidden', false)
     }else{
@@ -81,6 +79,6 @@
       $('#cards').hide('hidden', true)
     }
   });
-  // $('.money_mask').mask('000.000.000.000.000,00', {reverse: true});
+  
 
 </script>

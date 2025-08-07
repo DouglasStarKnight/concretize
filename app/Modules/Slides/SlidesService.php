@@ -43,6 +43,7 @@ class SlidesService
     }
     public function slidesAtualiza($data, $id){
         try{
+            dd($id, $data);
             $registro = SlidesModel::find($id);
 
             if($registro->caminho){
@@ -56,7 +57,7 @@ class SlidesService
                 $path = storage::disk('s3')->put('slides', $data['caminho']);
             }
            $slides = SlidesModel::where('posicao', $data['posicao'] )->update(['caminho' => $path]);
-        //    return back()->route('admin.index')->with(['message', 'Slide alterado com sucesso.']);
+           return back()->route('admin.index')->with(['message', 'Slide alterado com sucesso.']);
         }catch(Exception $err){
             // return back()->route('admin.index')->withErrors($err->getMessage());
         }

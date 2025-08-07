@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
   
-  $('.money_mask').mask('000.000.000.000.000,00', { reverse: true });
+  
   const toast = document.getElementById('toast');
   if (toast) {
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
@@ -18,6 +18,7 @@ $(document).ready(function () {
       });
     });
   });
+  $('.money_mask').mask('000.000.000.000.000,00', { reverse: true });
   
   // $.ajaxSetup({
   //   headers: {

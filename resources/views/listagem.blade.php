@@ -3,15 +3,15 @@
   $quantidadeP = 0;
   ?>
 
-<div id="maisVendidos" style="background-color:#ffffff" class="my-5 rounded">
-  <div class="row g-0 border border-black rounded-top">
-    <h4 class="text-center my-1">MAIS VENDIDOS</h4>
-  </div>
-  <div class="produtos g-0 row border border-top-0 border-black rounded-bottom-2">
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        @forelse($produtos as $p)
-        <div class="swiper-slide p-2" style="width: auto;">
+  <div id="maisVendidos" style="background-color:#ffffff" class="my-5 rounded">
+    <div class="row g-0 border border-black rounded-top">
+      <h4 class="text-center my-1">MAIS VENDIDOS</h4>
+    </div>
+    <div class="produtos g-0 row border border-top-0 border-black rounded-bottom-2">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper justify-content-center">
+          @forelse($produtos as $p)
+            <div class="swiper-slide p-2" style="width: auto;">
               <div class="border rounded p-2" style="width: 220px;">
                 <div class="image mb-2">
                   <img src="{{ Storage::disk('s3')->url($p->image) }}" alt="Imagem do Produto"
@@ -48,12 +48,8 @@
               </div>
             </div>
           @empty
-            <div class=" title-color border border-secondary rounded mt-5 row mx-2">
-              <div class="col-1 d-flex justify-content-start align-items-center">
-              </div>
-              <div class="col-10">
+            <div class="title-color border border-secondary rounded my-2 row mx-2 w-75">
                 <h2 class="text-light text-center m-0 py-2">Nenhum Produto Encontrado</h2>
-              </div>
             </div>
           @endforelse
         </div>
@@ -71,25 +67,5 @@
   }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-  quantidadeP = 0;
-
-  function quantidade(element, produtoId, action) {
-    const parent = $(element).closest('div.produtos');
-    const input = parent.find(`#input_qtd${produtoId}`);
-    const span = parent.find(`.spanQuantidade${produtoId}`);
-
-    let quantidadeP = parseInt(input.val());
-
-    if (action === 'plus') {
-      quantidadeP++;
-    } else if (action === 'minus') {
-      if (quantidadeP > 0) {
-        quantidadeP--;
-      }
-    }
-    input.val(quantidadeP);
-    span.text(quantidadeP);
-  };
 </script>
