@@ -38,6 +38,7 @@ route::prefix('admin')->as('admin.')->controller(AdminController::class)->group(
     route::post('/edita/{id?}', 'edita')->name('edita');
     route::delete('/delete/{id?}', 'delete')->name('delete');
     route::get('/index', 'index')->name('index');
+    route::post('/destaque', 'destaque')->name('destaque');
 });
 route::prefix('slides')->as('slides.')->controller(SlidesController::class)->group(function(){
     route::post('/cria', 'slidesCria')->name('cria');

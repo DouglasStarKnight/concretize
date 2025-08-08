@@ -43,24 +43,27 @@ class SlidesService
     }
     public function slidesAtualiza($data, $id){
         try{
-            dd($id, $data);
             $registro = SlidesModel::find($id);
-
+            
             if($registro->caminho){
                 storage::disk('s3')->delete($registro->caminho);
-                storage::disk('s3')->put('slides', $data['slides']);
-            }else{
-                storage::disk('s3')->put('slides', $data['slides']);
             }
-
-            if(isset($data['caminho'])){
-                $path = storage::disk('s3')->put('slides', $data['caminho']);
+            if ($data['caminho']) {
+                $extension = $data['caminho']->extension();
+                $hash_name = md5($data['caminho']->getClientOriginalName() . strtotime("now")) . "." . $extension;
+                $caminhoarquivo_img = 'slides/' . $hash_name;
+                
+                Storage::disk('s3')->put(($caminhoarquivo_img), file_get_contents($data['caminho']));
             }
-           $slides = SlidesModel::where('posicao', $data['posicao'] )->update(['caminho' => $path]);
-           return back()->route('admin.index')->with(['message', 'Slide alterado com sucesso.']);
+            $body = [
+                'posicao' => $data['posicao'],
+                'caminho' => $caminhoarquivo_img
+            ];
+            
+           $this->slidesRepository->atualiza($id, $body);
+            return redirect()->back()->with(['message', 'Slide alterado com sucesso.']);
         }catch(Exception $err){
-            // return back()->route('admin.index')->withErrors($err->getMessage());
+            return redirect()->back()->withErrors($err->getMessage());
         }
-
     }
 }

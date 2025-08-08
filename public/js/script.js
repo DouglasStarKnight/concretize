@@ -18,6 +18,17 @@ $(document).ready(function () {
       });
     });
   });
+  let option_select2 = {
+  theme: 'bootstrap-5',
+  allowClear: true,
+  placeholder: 'Selecione...',
+  width: '100%', // 'auto%' estava incorreto
+  language: "pt-BR",
+  minimumInputLength: 3, // só mostra opções após 3 caracteres digitados
+};
+
+  $('.select2').select2(option_select2);
+
   $('.money_mask').mask('000.000.000.000.000,00', { reverse: true });
   
   // $.ajaxSetup({

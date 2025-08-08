@@ -24,8 +24,7 @@ class AdminModel extends Model
    'estoque',
    'tipo_de_venda',
  ];
-public function findAll()
-{
+public function findAll() {
     $produtos = DB::table('produtos as produtos')
         ->select(
             'produtos.id',
@@ -42,5 +41,16 @@ public function findAll()
         ->leftJoin('categoria', 'produtos.categoria_id', '=', 'categoria.id')
         ->get();
     return $produtos;
+}
+
+public function buscaDestaques(){
+    $dados = DB::table('destaque as dest')
+    ->leftJoin('produtos as produto', function($join){
+        $join->on(DB::raw("FIND_IN_SET(produto.id, dest.produtos_id)"), '>', DB::raw('0'));
+    })
+    ->select('produto.*')
+    // ->groupBy('dest.id')
+    ->get();
+    // dd($dados);
 }
 }

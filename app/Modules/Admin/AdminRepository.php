@@ -6,12 +6,12 @@ namespace App\Modules\Admin;
 use App\Modules\Admin\AdminModel;
 use App\Modules\Admin\InterfaceAdmin;
 use App\Modules\CrudBase\RepositoryBase;
+use App\Modules\Destaque\DestaqueModel;
 use App\Modules\Slides\SlidesModel;
 
 class AdminRepository implements InterfaceAdmin{
 
-    public function __construct(private AdminModel $model, private RepositoryBase $repositoryBase, private SlidesModel $slidesModel){
-        // $this->adminModel = $adminModel;
+    public function __construct(private DestaqueModel $destaqueModel ,private AdminModel $model, private RepositoryBase $repositoryBase, private SlidesModel $slidesModel){
     }
 
     public function cria($data){
@@ -23,7 +23,11 @@ class AdminRepository implements InterfaceAdmin{
     }
 
     public function excluir($id) {
-        // dd($id);
         return $this->repositoryBase->delete($this->model, $id);
     }
+
+    public function destaque($data){
+        return $this->repositoryBase->insert($this->destaqueModel, $data);
+    }
+    
 }

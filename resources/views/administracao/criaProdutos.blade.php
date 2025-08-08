@@ -1,5 +1,5 @@
 <x-layout>
-  <div class="mt-5">
+  <div class="my-5">
     <div class=" title-color border border-secondary rounded mb-2 row mx-2">
       <div class="col-1 d-flex justify-content-start align-items-center">
         <a class="text-decoration-none" href="{{ route('inicio.index') }}">
@@ -18,49 +18,53 @@
         </x-botaoModal>
       </div>
       <div class="col-2 d-flex justify-content-end">
+        <x-botaoModal id_button="btnDestaque" modal_id="modal-destaque" class="btn-warning border border-dark"
+          style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
+          <h2 style="font-size: 15px">PRODUTOS DESTAQUES</h2>
+        </x-botaoModal>
+      </div>
+      <div class="col-2 d-flex justify-content-end">
         <x-botaoModal id_button="btnCriaProduto" modal_id="modal-produto" class="btn-warning border border-dark"
           style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
           <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
         </x-botaoModal>
       </div>
     </div>
-    <div id="tableExcluir" class="mx-2">
-      <table class="table table-striped">
-        <thead>
-          <tr class="border border-2 border-dark rounded title-color">
-            <th class="col-auto ">#</th>
-            <th class="col-auto ">NOME</th>
-            <th class="col-auto ">VALOR</th>
-            <th class="col-auto ">CATEGORIA</th>
-            <th class="col-auto">ESTOQUE</th>
-            <th class="col-auto">TIPO DE VENDA</th>
-            <th class="col-auto ">AÇÕES</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($produtos as $produto)
-            <tr class="border border-2">
-              <th class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">{{ $produto->id }}</th>
-              <th class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">{{ $produto->nome }}</th>
-              <th class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-1 money_mask">{{ $produto->valor_produto }}</th>
-              <th class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-1">{{ $produto->categoria_nome }}</th>
-              <th class="col-xxl-2 col-lx-2 col-lg-2 col-md-2 col-sm-2">{{ $produto->estoque }}</th>
-              <th class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">{{ $produto->tipo_de_venda }}</th>
-              <th class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">
-                <x-botaoModal id_button="btnTableEdita" modal_id="modal-produto" type="button" class="btn btn-primary"
-                  onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
-                  <i class="fa-solid fa-pencil"></i>
-                </x-botaoModal>
-                <x-botaoModal id_button="btnTableExcluir" modal_id="deletaProduto" type="button" class="btn btn-danger"
-                  onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
-                  <i class="fa-solid fa-trash"></i>
-                </x-botaoModal>
-              </th>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
+
+    <div>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="produtos-tab" data-bs-toggle="tab" data-bs-target="#produtos"
+            type="button" role="tab" aria-controls="produtos" aria-selected="true">
+            Produtos
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="destaques-tab" data-bs-toggle="tab" data-bs-target="#destaques" type="button"
+            role="tab" aria-controls="destaques" aria-selected="false">
+            Destaques
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="funcionarios-tab" data-bs-toggle="tab" data-bs-target="#funcionarios"
+            type="button" role="tab" aria-controls="funcionarios" aria-selected="false">
+            Funcionários
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3" id="myTabContent">
+        <div class="tab-pane fade show active" id="produtos" role="tabpanel" aria-labelledby="produtos-tab">
+          @include('administracao.reparticao.produtos')
+        </div>
+        <div class="tab-pane fade" id="destaques" role="tabpanel" aria-labelledby="destaques-tab">
+          @include('administracao.reparticao.destaques')
+        </div>
+        <div class="tab-pane fade" id="funcionarios" role="tabpanel" aria-labelledby="funcionarios-tab">
+        </div>
+      </div>
     </div>
+    
     {{--  modal para munipulação de dados --}}
     <form method="POST" id="form_produto" enctype="multipart/form-data">
       @csrf
@@ -69,6 +73,18 @@
         @include('administracao.forms.formProduto')
         <x-slot name="footer">
           <button id="confirmaCria" type="submit" class="btn btn-primary">Salvar</button>
+        </x-slot>
+      </x-modal>
+    </form>
+
+    {{--  modal para Cria destaques --}}
+    <form method="POST" id="form_destaque">
+      @csrf
+      <x-modal modal_id="modal-destaque" title="Insira as informações">
+        <input hidden name="_methodDestaque" id="_method_manipula_produtos" />
+        @include('administracao.forms.formDestaque')
+        <x-slot name="footer">
+          <button type="submit" class="btn btn-primary">Salvar</button>
         </x-slot>
       </x-modal>
     </form>
@@ -98,11 +114,8 @@
     </form>
   </div>
 
-
 </x-layout>
 <style>
-  .criaProdutos {}
-
   input {
     height: 40px;
     border-radius: 5px;
@@ -114,7 +127,6 @@
 
   button {
     border-radius: 5px;
-
   }
 
   .title-color {
@@ -122,8 +134,10 @@
   }
 </style>
 <script>
-    function manipulacao_modais(element, dados) {
-        posicao = null;
+  produtos = {!! json_encode($produtos) !!};
+
+  function manipulacao_modais(element, dados) {
+    posicao = null;
     if (element.id == "btnCriaProduto") {
       $('#input_nome').val(null)
       $('#valor_produto').val(null)
@@ -133,7 +147,6 @@
       $("#form_produto").attr('action', "{{ route('admin.cria') }}");
 
     } else if (element.id == "btnTableEdita") {
-      console.log(dados)
       $('#input_nome').val(dados.nome)
       $('#valor_produto').val(dados.valor_produto)
       $('#input_estoque').val(dados.estoque)
@@ -148,18 +161,37 @@
 
     } else if (element.id == "btnMudaSlide") {
       $('input[name="posicao"]').off('change').on('change', function() {
-        dados.forEach(slide => {
-          let posicao = $(this).val();
-          
-          if ($('input[name="posicao"]')) {
-              console.log(dados)
-            $("#_method_muda_slides").attr('value', 'patch');
-            $("#formSlide").attr('action', "{{ route('slides.edita') }}" + "/" + dados.id);
-          }
-        });
+        let posicao = $(this).val();
+        let slideSelecionado = dados.find(slide => slide.posicao == posicao);
+        if (slideSelecionado) {
+          $("#_method_muda_slides").attr('value', 'patch');
+          $("#formSlide").attr('action', "{{ route('slides.edita') }}" + "/" + slideSelecionado.id);
+        }
       });
+    } else if (element.id === "btnDestaque") {
+      $('#_methodDestaque').attr('value', 'post');
+      $('#form_destaque').attr('action', "{{ route('admin.destaque') }}");
+    }
+  }
 
+  $(document).ready(function() {
+    if (produtos.length === 0) {
+      $('#produtos_destaque').html('<option disabled>Nenhum produto encontrado</option>');
+    } else {
+      let options = '';
+      produtos.forEach(function(produto) {
+        options += `<option value="${produto.id}">${produto.nome}</option>`;
+      });
+      $('#produtos_destaque').html(options);
     }
 
-  }
+    // Inicializa o select2
+    $('#produtos_destaque').select2({
+      theme: 'bootstrap-5',
+      allowClear: true,
+      placeholder: 'Selecione...',
+      width: '100%',
+      language: "pt-BR"
+    });
+  });
 </script>

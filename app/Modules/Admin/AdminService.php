@@ -79,4 +79,17 @@ class AdminService
         return redirect()->back()->with(['message' => 'Produto excluído com sucesso!']);
     }
 
+    public function destaque($req){
+        try{
+            $body = [
+                'nome' => isset($req['nome']) ? $req['nome'] : null,
+                'produtos_id' => implode(",", $req['produtos_id'])
+            ];
+            $this->adminRepository->destaque($body);
+            return redirect()->back()->with('message', 'Grupo de produtos criado sucesso!');
+        }catch(Exception $err){
+            return redirect()->back()->with(['message' => 'Grupo de produtos criados com sucesso!']);
+        }
+    }
+
 }
