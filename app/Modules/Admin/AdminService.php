@@ -29,8 +29,9 @@ class AdminService
             $path = Storage::disk('s3')->put('produtos', $data['image']);
 
             if (!$path) {
-                return ['message' => 'Falha ao salvar imagem.'];
+                return redirect()->back()->withErrors('Falha ao salvar imagem.');
             }
+            // dd($path);
 
             $body = [
                 'nome' => $data['nome'],
@@ -60,7 +61,7 @@ class AdminService
                     $path = storage::disk('s3')->put('produtos', $data['image']);
                 }
             }
-    
+
              $body = ([
                 'nome' => isset($data['nome']) ? $data['nome'] : null,
                 'categoria_id' => isset($data['categoria_id']) ? $data['categoria_id'] : null,
