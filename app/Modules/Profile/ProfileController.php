@@ -16,9 +16,9 @@ class ProfileController extends Controller
     }
 
     public function index($id = null){
-        // dd($id);
-        $user_id = $id ? auth()->id() : null; 
-        return $this->profileService->index($id);
+        // dd(auth()->id());
+        $user_id = auth()->id() ?? null; 
+        return $this->profileService->index($user_id);
     }
 
     public function cria(){

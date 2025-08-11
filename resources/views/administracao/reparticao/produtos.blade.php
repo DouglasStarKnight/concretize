@@ -28,7 +28,7 @@
                   onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
                   <i class="fa-solid fa-pencil"></i>
                 </x-botaoModal>
-                <x-botaoModal id_button="btnTableExcluir" modal_id="deletaProduto" type="button" class="btn btn-danger"
+                <x-botaoModal id_button="btnTableExcluir" modal_id="modal-deleta" type="button" class="btn btn-danger"
                   onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
                   <i class="fa-solid fa-trash"></i>
                 </x-botaoModal>

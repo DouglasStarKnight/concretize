@@ -29,5 +29,14 @@ class AdminRepository implements InterfaceAdmin{
     public function destaque($data){
         return $this->repositoryBase->insert($this->destaqueModel, $data);
     }
+
+    public function destaqueEdita($data, $id){
+        return $this->repositoryBase->update($this->destaqueModel,$id, $data);
+    }
+
+    public function exclui_destaque($id) {
+
+        return $this->repositoryBase->delete($this->destaqueModel, $id);
+    }
     
 }

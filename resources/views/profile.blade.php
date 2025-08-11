@@ -25,25 +25,26 @@
           <h6 class="fw-bold letters-color">Informações Pessoais</h6>
         </div>
         <div class="row">
+          @foreach ($user['data'] as $us )
+          @dd($us)
           <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-4">
             <label for="nome">NOME</label>
-            <input type="text" class="form-control" placeholder="Digite seu nome">
+            <input type="text" class="form-control" value="{{$us->nome}}" placeholder="Digite seu nome">
           </div>
           <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-4">
             <label for="nome">DATA DE NASCIMENTO</label>
-            <input type="text" class="form-control" placeholder="Data de nascimento">
+            <input type="text" class="form-control" value="{{isset($us->data_nascimento) ? date("d/m/Y", strtotime($us->data_nascimento)) : null }}" placeholder="Data de nascimento">
           </div>
           <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-4">
             <label for="nome">E-MAIL</label>
-            <input type="text" class="form-control" placeholder="Informe um E-MAIL">
+            <input type="text" class="form-control" value="{{isset($us->email) ? $us->email : null}}" placeholder="Informe um E-MAIL">
           </div>
           <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-4">
             <label for="nome">TESTE</label>
             <input type="text" class="form-control">
           </div>
-
+          @endforeach
         </div>
-
       </div>
     </div>
   </div>

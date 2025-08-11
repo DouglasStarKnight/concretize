@@ -93,4 +93,21 @@ class AdminService
         }
     }
 
+    public function destaqueEdita($req, $id) {
+        try{
+            $body = [
+                'nome' => isset($req['nome']) ? $req['nome'] : null,
+                'produtos_id' => implode(",", $req['produtos_id'])
+            ];
+            $this->adminRepository->destaqueEdita($body, $id);
+            return redirect()->back()->with('message', 'Grupo de produtos editado sucesso!');
+        }catch(Exception $err){
+            return redirect()->back()->with(['message' => 'Grupo de produtos criados com sucesso!']);
+        }
+    }
+    public function exclui_destaque($req, $id){
+        $this->adminRepository->exclui_destaque($id);
+        return redirect()->back()->with(['message' => 'Produto excluído com sucesso!']);
+    }
+
 }

@@ -18,7 +18,7 @@
         </x-botaoModal>
       </div>
       <div class="col-2 d-flex justify-content-end">
-        <x-botaoModal id_button="btnDestaque" modal_id="modal-destaque" class="btn-warning border border-dark"
+        <x-botaoModal id_button="btn-destaque" modal_id="modal-destaque" class="btn-warning border border-dark"
           style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
           <h2 style="font-size: 15px">PRODUTOS DESTAQUES</h2>
         </x-botaoModal>
@@ -76,27 +76,27 @@
         </x-slot>
       </x-modal>
     </form>
-
-    {{--  modal para Cria destaques --}}
-    <form method="POST" id="form_destaque">
-      @csrf
-      <x-modal modal_id="modal-destaque" title="Insira as informações">
-        <input hidden name="_methodDestaque" id="_method_manipula_produtos" />
-        @include('administracao.forms.formDestaque')
+    
+    {{-- modal para excluir produtos --}}
+    <form id="formDeletar" method="POST">
+      <x-modal modal_id="modal-deleta" title="Confirmar Exclusão">
+        @csrf
+        <input hidden name="_method" id="_method_excluir" />
+        <p id="textoConfirmacao"></p>
         <x-slot name="footer">
-          <button type="submit" class="btn btn-primary">Salvar</button>
+          <button id="confirmaExclusao" type="submit" class="btn btn-danger">Excluir</button>
         </x-slot>
       </x-modal>
     </form>
 
-    {{-- modal para excluir produtos --}}
-    <form id="formDeletar" method="POST">
-      <x-modal modal_id="deletaProduto" title="Confirmar Exclusão">
-        @csrf
-        <input hidden name="_method" id="_method_excluir_produtos" />
-        <p id="textoConfirmacao"></p>
+    {{--  modal para manipulação de destaques --}}
+    <form method="POST" id="form_destaque">
+      @csrf
+      <x-modal modal_id="modal-destaque" title="Insira as informações">
+        <input hidden name="_method_destaque" id="_method_manipula_produtos" />
+        @include('administracao.forms.formDestaque')
         <x-slot name="footer">
-          <button id="confirmaExclusao" type="submit" class="btn btn-danger">Excluir</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
         </x-slot>
       </x-modal>
     </form>
@@ -155,7 +155,7 @@
       $("#form_produto").attr('action', "{{ route('admin.edita') }}" + "/" + dados.id);
 
     } else if (element.id == "btnTableExcluir") {
-      $("#_method_excluir_produtos").attr('value', 'delete');
+      $("#_method_excluir").attr('value', 'delete');
       $("#formDeletar").attr('action', "{{ route('admin.delete') }}" + "/" + dados.id);
       $('#textoConfirmacao').text("Tem certeza que deseja excluir o produto " + dados.nome + "?");
 
@@ -168,12 +168,24 @@
           $("#formSlide").attr('action', "{{ route('slides.edita') }}" + "/" + slideSelecionado.id);
         }
       });
-    } else if (element.id === "btnDestaque") {
-      $('#_methodDestaque').attr('value', 'post');
+    } else if (element.id === "btn-destaque") {
+      console.log($('#form_destaque').trigger('reset'))
+      $('#form_destaque').trigger('reset');
+      $('#_method_destaque').attr('value', 'post');
       $('#form_destaque').attr('action', "{{ route('admin.destaque') }}");
+    } else if (element.id === "btn-edita-grupos") {
+      $('#input_destaque').val(dados.nome);
+      $('#produtos_destaque').val(dados.produtos_id_array).trigger('change');
+      $('#_method_destaque').attr('value', 'post');
+      $('#form_destaque').attr('action', "{{ route('admin.destaqueEdita') }}" + "/" + dados.id);
+    } else if (element.id == "btn-exclui-grupos") {
+      $("#_method_excluir").attr('value', 'delete');
+      $('#textoConfirmacao').text("Tem certeza que deseja excluir este grupo?");
+      $("#formDeletar").attr('action', "{{ route('admin.exclui_destaque') }}" + "/" + dados.id);
+
     }
   }
-
+  
   $(document).ready(function() {
     if (produtos.length === 0) {
       $('#produtos_destaque').html('<option disabled>Nenhum produto encontrado</option>');
@@ -184,7 +196,7 @@
       });
       $('#produtos_destaque').html(options);
     }
-
+    
     // Inicializa o select2
     $('#produtos_destaque').select2({
       theme: 'bootstrap-5',

@@ -45,12 +45,16 @@ public function findAll() {
 
 public function buscaDestaques(){
     $dados = DB::table('destaque as dest')
-        ->leftJoin('produtos as produto', function($join) {
-            $join->whereRaw("FIND_IN_SET(produto.id, dest.produtos_id) > 0");
-        })
-        ->select('dest.id', 'dest.nome', 'produto.id', 'dest.produtos_id')
-        ->groupBy('dest.id', 'dest.nome', 'produto.id', 'dest.produtos_id')
-        ->get();
+    ->join('produtos as produto', function($join) {
+        $join->whereRaw("FIND_IN_SET(produto.id, dest.produtos_id)");
+    })
+    ->select(
+        'dest.*',
+        DB::raw('GROUP_CONCAT(produto.nome ORDER BY produto.nome SEPARATOR ", ") as nomes_produtos')
+    )
+    ->groupBy('dest.id')
+    ->get();
+
     // dd($dados);
 }
 }

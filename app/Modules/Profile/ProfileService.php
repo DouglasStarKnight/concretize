@@ -20,8 +20,7 @@ class ProfileService
     }
 
     public function index($id) {
-        // dd($id);
-        $user = $this->model->select('id','nome', 'email', 'data_nascimento', 'image')->get();
+        $user = $this->profileRepository->findAll();
         return view('profile',['user' => $user]);
     }
 

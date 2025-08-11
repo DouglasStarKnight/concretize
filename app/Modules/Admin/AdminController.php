@@ -11,6 +11,7 @@ use App\Modules\Categoria\CategoriaModel;
 use App\Modules\Destaque\DestaqueModel;
 use App\Modules\Slides\SlidesModel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\In;
 
 class AdminController extends Controller
 {
@@ -26,6 +27,7 @@ class AdminController extends Controller
         $categoria = $this->categoriaModel->findAll();
         $slides = $this->slidesModel->findAll();
         $destaques = $this->destaqueModel->findAll();
+        // dd($destaques);
         return view('administracao.criaProdutos', [
             'produtos' => $produtos,
             'slides' => $slides,
@@ -51,5 +53,10 @@ class AdminController extends Controller
     public function destaque(Request $req){
         return $this->adminService->destaque($req);
     }
-
+    public function destaqueEdita(Request $req, int $id){
+        return $this->adminService->destaqueEdita($req, $id);
+    }
+    public function exclui_destaque(Request $req, int $id){
+        return $this->adminService->exclui_destaque($req, $id);
+    }
 }

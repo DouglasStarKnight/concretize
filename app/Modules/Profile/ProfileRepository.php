@@ -13,7 +13,7 @@ class ProfileRepository implements InterfaceProfile{
         $this->model = $model;
     }
 
-    public function index(){
+    public function findAll(){
         return $this->model->findAll();
     }
 
