@@ -20,33 +20,30 @@ class ProfileService
     }
 
     public function index($id) {
-        $user = $this->profileRepository->findAll();
+        $user = $this->profileRepository->findById($id);
+        // dd($id, $user);
         return view('profile',['user' => $user]);
     }
 
-    public function cria(){
-        try{
-            $body = "";
-            $this->profileRepository->cria($body);
-        }catch(Exception $err){
-            return redirect('profile.index')->withErrors($err->getMessage());
-        }
-    }
-
-    public function atualiza($req, $id){
-        if(isset($req['image'])){
-            $path = Storage::disk('s3')->put('produtos', $req['image']);
-            if (!$path) {
-        //         return ['message' => 'Falha ao salvar imagem.'];
+    public function atualiza($data, $id){
+        $registro = ProfileModel::find($id);
+            if(isset($data['image'])){
+                if(isset($registro->image)){
+                    storage::disk('s3')->delete($registro->image);
+                   $path = storage::disk('s3')->put('produtos', $data['image']);
+                }else{
+                    $path = storage::disk('s3')->put('produtos', $data['image']);
+                }
             }
-        }
 
-        $body = [
-            'nome' => isset($req['nome']) ? $req['nome'] : null,
-            'data_nascimento' => isset($req['data_nascimento']) ? $req['data_nascimento'] : null,
-            'email' => isset($req['email']) ? $req['email'] : null,
-            'image' => isset($path) ? $path : null,
-        ];
+             $body = ([
+                'nome' => isset($data['nome']) ? $data['nome'] : null,
+                'email' => isset($data['email']) ? $data['email'] : null,
+                // 'password' => isset($data['password']) ? $data['password'] : null,
+                // 'data_nascimento' => isset($data['data_nascimento']) ? $data['data_nascimento'] : null,
+                'image' => isset($path) ? $path : $registro->image
+            ]);
+            // dd($data, $body, $path);
         $this->profileRepository->atualiza($body, $id);
 
         return redirect()->route('profile.index')->with(['message' => 'perfil atualizado.']);

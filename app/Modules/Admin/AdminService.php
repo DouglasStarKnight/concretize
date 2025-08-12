@@ -27,11 +27,9 @@ class AdminService
     public function cria($data){
         try{
             $path = Storage::disk('s3')->put('produtos', $data['image']);
-
             if (!$path) {
                 return redirect()->back()->withErrors('Falha ao salvar imagem.');
             }
-            // dd($path);
 
             $body = [
                 'nome' => $data['nome'],

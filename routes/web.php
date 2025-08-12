@@ -56,7 +56,7 @@ route::prefix('produtos')->as('produtos.')->controller(ProdutosController::class
 
 route::prefix('profile')->as('profile.')->controller(ProfileController::class)->group(function(){
     route::get('/index/{id?}', 'index')->name('index');
-    route::post('/atualiza',  'atualiza')->name('atualiza');
+    route::post('/edita/{id?}', 'edita')->name('edita');
 });
 
 route::prefix('carrinho')->as('carrinho.')->controller(CarrinhoController::class)->group(function(){

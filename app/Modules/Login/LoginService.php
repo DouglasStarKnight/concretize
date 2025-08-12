@@ -19,7 +19,7 @@ class LoginService
             $credentials = $req->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 $req->session()->regenerate();
-                return redirect()->intended(route('inicio.index'));
+                return redirect()->intended(route('inicio.index'))->with(['message' => 'Logado com sucesso!']);
             }
         }catch(Exception $err){
             return redirect('admin.index')->withErrors($err->getMessage());
@@ -32,7 +32,7 @@ class LoginService
     try {
         $req->session()->invalidate();
         $req->session()->regenerateToken();
-        return redirect()->route('inicio.index');
+        return redirect()->route('inicio.index')->with(['message' => 'Logout com sucesso!']);
     } catch (\Throwable $e) {
 
     }

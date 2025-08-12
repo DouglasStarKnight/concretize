@@ -3,7 +3,7 @@
     <x-slides :slides="$slides"/>
     @endif
 
-    @include('home.cards', ['produtos' => $produtos])
+    @include('home.cards', ['produtos' => $produtos, 'destaques' => $destaques])
     @include('home.departamentos')
 </x-layout>
 <style>

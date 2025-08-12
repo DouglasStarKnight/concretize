@@ -34,10 +34,14 @@ public function findAll(){
 }
 
 public function findById($id){
-  DB::table($this->table . ' as us')
-  ->select('*')
+  $data = DB::table($this->table . ' as us')
+  ->select('us.*')
   ->where('id', $id)
   ->get();
+
+  return [ 
+    'data' => $data
+  ];
 }
 
 }

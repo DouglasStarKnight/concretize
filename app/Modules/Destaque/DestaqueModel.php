@@ -29,6 +29,7 @@ class DestaqueModel extends Model
         'produto.id as produto_id',
         'produto.nome as produto_nome',
         'produto.valor_produto',
+        'produto.image',
         'produto.estoque'
     )
     ->orderBy('produto.id')
@@ -45,6 +46,7 @@ $dadosProcessados = $data->groupBy('destaque_id')->map(function ($itens) {
                 'id' => $prod->produto_id,
                 'nome' => $prod->produto_nome,
                 'valor_produto' => $prod->valor_produto,
+                'image' => $prod->image,
                 'estoque' => $prod->estoque,
             ];
         })->values()->toArray()
@@ -52,7 +54,7 @@ $dadosProcessados = $data->groupBy('destaque_id')->map(function ($itens) {
 })->values();
 
 
-dd($dadosProcessados);
+// dd($dadosProcessados);
     return [
         'data' => $dadosProcessados
     ];

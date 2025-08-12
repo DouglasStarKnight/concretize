@@ -169,16 +169,17 @@
         }
       });
     } else if (element.id === "btn-destaque") {
-      console.log($('#form_destaque').trigger('reset'))
+      $('#produtos_destaque').val(null).trigger('reset');
       $('#form_destaque').trigger('reset');
       $('#_method_destaque').attr('value', 'post');
       $('#form_destaque').attr('action', "{{ route('admin.destaque') }}");
-    } else if (element.id === "btn-edita-grupos") {
+    } else if (element.id === "btn-edita-destaque") {
       $('#input_destaque').val(dados.nome);
-      $('#produtos_destaque').val(dados.produtos_id_array).trigger('change');
+      const ids = dados.produtos.map(produto => produto.id);
+      $('#produtos_destaque').val(ids).trigger('change');
       $('#_method_destaque').attr('value', 'post');
       $('#form_destaque').attr('action', "{{ route('admin.destaqueEdita') }}" + "/" + dados.id);
-    } else if (element.id == "btn-exclui-grupos") {
+    } else if (element.id == "btn-exclui-destaque") {
       $("#_method_excluir").attr('value', 'delete');
       $('#textoConfirmacao').text("Tem certeza que deseja excluir este grupo?");
       $("#formDeletar").attr('action', "{{ route('admin.exclui_destaque') }}" + "/" + dados.id);

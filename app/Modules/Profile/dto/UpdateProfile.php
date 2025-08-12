@@ -20,7 +20,7 @@ class UpdateProfile extends FormRequest {
     return [
       'nome.string' => 'Digite seu nome.',
       'data_nascimento.data' => 'Digite sua data de nascimento.',
-      // 'image.image' => 'Modelo de imagem não aceito.',
+      'image.image' => 'Modelo de imagem não aceito.',
       'email.email' => 'Digite um e-mail valido.',
     ];
   }
