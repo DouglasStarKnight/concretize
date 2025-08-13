@@ -10,28 +10,7 @@
         <h2 class="text-light text-center m-0 py-2">ADMINISTRAÇÃO</h2>
       </div>
     </div>
-    <div class="row d-flex justify-content-end m-2">
-      <div class="col-2 d-flex justify-content-end">
-        <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark"
-          style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($slides) !!})">
-          <h2 style="font-size: 15px">TROCAR SLIDES</h2>
-        </x-botaoModal>
-      </div>
-      <div class="col-2 d-flex justify-content-end">
-        <x-botaoModal id_button="btn-destaque" modal_id="modal-destaque" class="btn-warning border border-dark"
-          style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
-          <h2 style="font-size: 15px">PRODUTOS DESTAQUES</h2>
-        </x-botaoModal>
-      </div>
-      <div class="col-2 d-flex justify-content-end">
-        <x-botaoModal id_button="btnCriaProduto" modal_id="modal-produto" class="btn-warning border border-dark"
-          style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
-          <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
-        </x-botaoModal>
-      </div>
-    </div>
-
-    <div>
+    <div class="mt-5">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="produtos-tab" data-bs-toggle="tab" data-bs-target="#produtos"

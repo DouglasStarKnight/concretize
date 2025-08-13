@@ -12,9 +12,11 @@
       </div>
     </div>
     <div class="row box-content">
+      @foreach ($user['data'] as $us)
       <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-8 col-sm-10">
-        <img src="{{ asset('image/oriPerfil.jpeg') }}" class="border rounded-circle" alt="img perfil" height="100px">
+        <img src="{{ Storage::disk('s3')->url($us->image) }}" class="border rounded-circle" alt="img perfil" height="100px" width="100px">
       </div>
+      @endforeach
       <div class="col-12">
         <div class="row my-4">
           <h6 class="fw-bold letters-color">Informações Pessoais</h6>

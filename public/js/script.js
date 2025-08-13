@@ -22,7 +22,7 @@ $(document).ready(function () {
   theme: 'bootstrap-5',
   allowClear: true,
   placeholder: 'Selecione...',
-  width: '100%', // 'auto%' estava incorreto
+  width: '100%',
   language: "pt-BR",
   minimumInputLength: 3, // só mostra opções após 3 caracteres digitados
 };

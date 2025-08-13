@@ -13,7 +13,9 @@ use App\Modules\Register\RegisterController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
+Route::get('/teste', function() {
+    return 'ok';
+});
 Route::prefix('register')->as('register.')->controller(RegisterController::class)->group(function () {
     Route::get('/index', 'showForm')->name('index');
     Route::post('/cria', 'cria')->name('cria');
@@ -32,15 +34,15 @@ route::prefix('inicio')->as('inicio.')->controller(InicioController::class)->gro
     Route::get('/index', 'showForm')->name('index');
 });
 
-route::prefix('admin')->as('admin.')->controller(AdminController::class)->group(function(){
-    route::post('/cria', 'cria')->name('cria');
-    route::get('/findAll', 'findAll')->name('findAll');
-    route::post('/edita/{id?}', 'edita')->name('edita');
-    route::delete('/delete/{id?}', 'delete')->name('delete');
-    route::get('/index', 'index')->name('index');
-    route::post('/destaque', 'destaque')->name('destaque');
-    route::post('/destaqueEdita/{id?}', 'destaqueEdita')->name('destaqueEdita');
-    route::delete('/exclui_destaque/{id?}', 'exclui_destaque')->name('exclui_destaque');
+Route::prefix('admin')->as('admin.')->controller(AdminController::class)->group(function(){
+    Route::post('/cria', 'cria')->name('cria');
+    Route::get('/findAll', 'findAll')->name('findAll');
+    Route::post('/edita/{id?}', 'edita')->name('edita');
+    Route::delete('/delete/{id?}', 'delete')->name('delete');
+    Route::get('/index', 'index')->name('index');
+    Route::post('/destaque', 'destaque')->name('destaque');
+    Route::post('/destaqueEdita/{id?}', 'destaqueEdita')->name('destaqueEdita');
+    Route::delete('/exclui_destaque/{id?}', 'exclui_destaque')->name('exclui_destaque');
 });
 route::prefix('slides')->as('slides.')->controller(SlidesController::class)->group(function(){
     route::post('/cria', 'slidesCria')->name('cria');

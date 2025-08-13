@@ -40,7 +40,9 @@ public function findAll() {
         )
         ->leftJoin('categoria', 'produtos.categoria_id', '=', 'categoria.id')
         ->get();
-    return $produtos;
+    return [
+      'produtos' => $produtos
+    ];
 }
 
 public function buscaDestaques(){

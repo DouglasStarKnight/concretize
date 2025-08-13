@@ -21,7 +21,6 @@ class ProfileService
 
     public function index($id) {
         $user = $this->profileRepository->findById($id);
-        // dd($id, $user);
         return view('profile',['user' => $user]);
     }
 
@@ -35,7 +34,6 @@ class ProfileService
                     $path = storage::disk('s3')->put('produtos', $data['image']);
                 }
             }
-
              $body = ([
                 'nome' => isset($data['nome']) ? $data['nome'] : null,
                 'email' => isset($data['email']) ? $data['email'] : null,

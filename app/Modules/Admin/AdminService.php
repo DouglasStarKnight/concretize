@@ -2,27 +2,39 @@
 
 namespace App\Modules\Admin;
 
+use Exception;
 use App\Models\User;
 use App\Modules\Admin\AdminModel;
+use app\Modules\Slides\SlidesModel;
 use Illuminate\Support\Facades\Hash;
 use App\Modules\Admin\AdminRepository;
-use app\Modules\Produtos\ProdutosModel;
-use app\Modules\Slides\SlidesModel;
-use Exception;
 use Illuminate\Auth\Events\Registered;
+use App\Modules\Destaque\DestaqueModel;
+use app\Modules\Produtos\ProdutosModel;
 use Illuminate\Support\Facades\Storage;
+use App\Modules\Categoria\CategoriaModel;
 
 class AdminService
 {
 
-    public function __construct(private AdminModel $adminModel, private AdminRepository $adminRepository){
-        $this->adminModel = $adminModel;
+    public function __construct(private AdminModel $adminModel, private AdminRepository $adminRepository, private DestaqueModel $destaqueModel, private SlidesModel $slidesModel, private CategoriaModel $categoriaModel){
     }
 
     public function findAll(){
         $produtos = $this->adminModel->findAll();
 
-        return view('administracao.criaProdutos');
+        // $buscaGrupos = $this->adminModel->buscaDestaques();
+        // $produtos = $this->adminModel->findAll();
+        // dd($produtos);
+        $categoria = $this->categoriaModel->findAll();
+        $slides = $this->slidesModel->findAll();
+        $destaques = $this->destaqueModel->findAll();
+        return view('administracao.index', [
+            'produtos' => $produtos,
+            'slides' => $slides,
+            'categorias' => $categoria,
+            'destaques' => $destaques
+        ]);
     }
     public function cria($data){
         try{

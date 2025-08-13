@@ -1,3 +1,9 @@
+<div style="justify-self: end" class="my-2">
+        <x-botaoModal id_button="btn-destaque" modal_id="modal-destaque" class="btn-warning border border-dark"
+          style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
+          <h2 style="font-size: 15px">PRODUTOS DESTAQUES</h2>
+        </x-botaoModal>
+      </div>
 @foreach ($destaques['data'] as $destaque)
   <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">

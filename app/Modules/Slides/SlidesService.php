@@ -61,7 +61,7 @@ class SlidesService
             ];
             
            $this->slidesRepository->atualiza($id, $body);
-            return redirect()->back()->with(['message', 'Slide alterado com sucesso.']);
+            return redirect()->back()->with(['message' => 'Slide alterado com sucesso.']);
         }catch(Exception $err){
             return redirect()->back()->withErrors($err->getMessage());
         }

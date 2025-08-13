@@ -25,33 +25,34 @@
           <input type="hidden" id="inputCart" value="">
         </a>
       </div>
-      <div class="perfil col-2">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown-center">
-            <a class="nav-link d-flex justify-content-center align-items-center dropdown-toggle p-0" href="#"
-              role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="{{ asset('image/oriPerfil.jpeg') }}" class="rounded-circle" alt="img perfil" height="60px">
-              {{-- <img src="{{ asset('image/oriPerfil.jpeg') }}" class="rounded" alt="Perfil" height="60px" width="60px"> --}}
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="{{ route('profile.index') }}">Perfil</a>
-              </li>
-              {{-- @if (auth()->user()->perfil == 1) --}}
-                <li><a class="dropdown-item" href="{{ route('admin.index') }}">Administração</a></li>
-              {{-- @endif --}}
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              @auth
-                <li><a class="dropdown-item" href="{{ route('login.logout') }}">Logout</a></li>
-              @endauth
-              @guest
-                <li><a class="dropdown-item" href="{{ route('login.index') }}">Login</a></li>
-              @endguest
-            </ul>
-          </li>
-        </ul>
+      {{-- @dd(auth()->user()) --}}
+      <div class="perfil col-2 d-flex justify-content-center">
+        <div class="dropdown-center">
+          <ul class="navbar-nav">
+            <li class="nav-item ">
+              <a class="nav-link d-flex justify-content-center align-items-center dropdown-toggle p-0" href="#"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ asset('image/oriPerfil.jpeg') }}" class="rounded-circle" alt="img perfil" height="60px">
+                {{-- <img src="{{ asset('image/oriPerfil.jpeg') }}" class="rounded" alt="Perfil" height="60px" width="60px"> --}}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li>
+                  <a class="dropdown-item" href="{{auth()->user() ? route('profile.index') : route('login.index') }}">Perfil</a>
+                </li>
+                  <li><a class="dropdown-item" href="{{ route('admin.index') }}">Administração</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                @auth
+                  <li><a class="dropdown-item" href="{{ route('login.logout') }}">Logout</a></li>
+                @endauth
+                @guest
+                  <li><a class="dropdown-item" href="{{ route('login.index') }}">Login</a></li>
+                @endguest
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   </div>
