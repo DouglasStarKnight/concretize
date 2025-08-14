@@ -15,7 +15,7 @@
     background-color:#000080;
 }
 .imagem-hover:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
    transition: transform 0.3s ease;
 }
 </style>

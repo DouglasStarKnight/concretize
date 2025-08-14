@@ -12,10 +12,11 @@
   <div class="row my-4 produtos">
     <div class="col-xxl-9 col-lx-9 col-lg-9 col-md-12 col-12">
       <div class="bg-light">
-        <div>
-          <h4 class="text-start mx-4">Itens no carrinho:</h4>
+        @if($carrinho['carrinho']->isNotEmpty())
+        <div class="text-center  border rounded">
+          <h4 >Produtos adicionados:</h4>
         </div>
-        <div class="border-bottom mx-4"></div>
+        <div class="mx-4"></div>
         <table class="table table-light">
           <thead>
             <tr>
@@ -64,6 +65,9 @@
         <div class="row m-3 justify-self-end">
           <h6>Sub Total(3 produtos):<span class="fw-bold total"></span></h6>
         </div>
+        @else
+        <div class="text-center py-5"><h1>Nunhum item adicionado</h1></div>
+        @endif
       </div>
     </div>
     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-12">
@@ -95,7 +99,7 @@
       </div>
     </div>
   </div>
-  @include('carrinho.cards', ['produtos' => $carrinho['carrinho']])
+  {{-- @include('carrinho.cards', ['produtos' => $carrinho['carrinho']]) --}}
   {{-- Form para excluir um produto do carrinho --}}
   <form id="form-excluir" method="POST">
     @csrf

@@ -15,7 +15,6 @@ $quantidadeP = 0;
       <div class="swiper-wrapper">
         @foreach ($destaques ?? collect() as $destaque)
         @foreach ($destaque['produtos'] ?? [] as $p)
-        {{-- @dump($destaque) --}}
             <div class="swiper-slide p-2" style="width: auto;">
               <form id="form_pedidos{{ $p['id'] }}" method="POST"
                 onsubmit="manipulaDados(this, {{ $p['id'] }})">
@@ -94,7 +93,6 @@ $quantidadeP = 0;
 
   function manipulaDados(form, produtoId) {
     event.preventDefault()
-    // console.log($(`#form_pedidos${produtoId}`).find(`#input_img${produtoId}`).val())
     $(`#form_pedidos${produtoId}`).find(`#input_nome${produtoId}`).val();
     $(`#form_pedidos${produtoId}`).find(`#input_valor${produtoId}`).val();
     $(`#form_pedidos${produtoId}`).find(`#input_qtd${produtoId}`).val();
