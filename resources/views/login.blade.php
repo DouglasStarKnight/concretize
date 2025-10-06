@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="d-flex justify-content-center align-items-center h-100 row">
-        <div id="principal" class="border border-5 col-6">
+        <div id="principal" class="border border-5 col-6 fundo">
             <div class="content">
                 <div class=" ms-3 mt-3">
                     <a href="{{route('inicio.index')}}" class="text-decoration-none">
@@ -83,4 +83,9 @@ body {
 .alpha-color{
     background-color: #fd7e14;
 }
+
+/* .fundo{
+   background: #113c82;
+background: radial-gradient(circle,rgba(17, 60, 130, 1) 0%, rgba(0, 0, 217, 1) 35%, rgba(12, 145, 207, 1) 100%);
+} */
 </style>

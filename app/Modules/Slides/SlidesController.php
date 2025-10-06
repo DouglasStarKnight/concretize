@@ -23,7 +23,6 @@ class SlidesController extends Controller
 
     public function slidesEdita(CreateSlides $req, int $id = null) {
         $data = $req->validated();
-        // dd($data);
         return $this->slidesService->slidesAtualiza($data, $id);
     }
 

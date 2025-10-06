@@ -17,7 +17,6 @@ class SlidesService
 
     public function index(){
          $slides = $this->slidesModel->findAll();
-         dd($slides);
          return view('inicio', ['slides' => $slides]);
     }
 

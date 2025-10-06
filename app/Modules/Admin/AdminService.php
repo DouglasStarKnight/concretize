@@ -25,7 +25,6 @@ class AdminService
 
         // $buscaGrupos = $this->adminModel->buscaDestaques();
         // $produtos = $this->adminModel->findAll();
-        // dd($produtos);
         $categoria = $this->categoriaModel->findAll();
         $slides = $this->slidesModel->findAll();
         $destaques = $this->destaqueModel->findAll();

@@ -21,7 +21,6 @@ class CarrinhoService
 
     public function index(){
         $carrinho = $this->carrinhoModel->findAll();
-        // dd($carrinho);
 
         return view('carrinho.index', ['carrinho' => $carrinho]);
     }

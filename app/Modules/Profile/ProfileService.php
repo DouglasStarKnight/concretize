@@ -41,7 +41,6 @@ class ProfileService
                 // 'data_nascimento' => isset($data['data_nascimento']) ? $data['data_nascimento'] : null,
                 'image' => isset($path) ? $path : $registro->image
             ]);
-            // dd($data, $body, $path);
         $this->profileRepository->atualiza($body, $id);
 
         return redirect()->route('profile.index')->with(['message' => 'perfil atualizado.']);

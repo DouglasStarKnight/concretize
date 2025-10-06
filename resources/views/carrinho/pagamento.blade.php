@@ -68,7 +68,6 @@
 <script>
   $('input[name="pagamento"]').on('change', function () {
   let valor = $('input[name="pagamento"]:checked').val();
-console.log(valor)
     if(valor == "dinheiro"){
       $('#money').prop('hidden', false)
       $('#cards').prop('hidden', true)

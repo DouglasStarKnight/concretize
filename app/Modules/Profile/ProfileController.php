@@ -23,7 +23,6 @@ class ProfileController extends Controller
 
     public function edita(UpdateProfile $req, int $id){
         $data = $req->validated();
-        // dd($data);
         return $this->profileService->atualiza($data, $id);
     }
 

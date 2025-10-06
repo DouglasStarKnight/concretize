@@ -27,7 +27,6 @@ public function findAll(){
     $data = DB::table('users as user')
     ->select('user.id', 'user.nome', 'user.data_nascimento', 'user.password', 'user.image', 'user.email')
     ->get();
-    // dd($data);
     return [
        'data' => $data
     ];

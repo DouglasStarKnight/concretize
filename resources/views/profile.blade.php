@@ -47,7 +47,7 @@
               <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-sm-2 ">
                 <button type="submit"
                   class="btn alpha-color border rounded text-white add-to-cart-btn bg-gradient fw-bold">
-                  EDITAR
+                  SALVAR
                 </button>
               </div>
             </form>

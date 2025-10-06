@@ -23,7 +23,7 @@ class InicioService
         $slides = $this->slidesModel->findAll();
         $destaques = $this->destaqueModel->findAll();
         $produtos = $this->adminModel::select('id', 'nome', 'valor_produto', 'categoria_id', 'image')->get();
-        return view('home.inicio' ,['produtos' => $produtos, 'slides' => $slides, 'destaques' => $destaques['data']]);
+        return view('home.index' ,['produtos' => $produtos, 'slides' => $slides, 'destaques' => $destaques['data']]);
     }
   
 }

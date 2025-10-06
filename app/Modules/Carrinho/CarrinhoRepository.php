@@ -14,7 +14,6 @@ class CarrinhoRepository implements InterfaceCarrinho{
     }
 
     public function cria($data){
-        // dd($data);
         return $this->repositoryBase->insert($this->model, $data);
     }
 

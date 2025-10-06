@@ -14,7 +14,7 @@
       <div class="bg-light">
         @if($carrinho['carrinho']->isNotEmpty())
         <div class="text-center  border rounded">
-          <h4 >Produtos adicionados:</h4>
+          <h4 >PRODUTOS ADICIONADOS:</h4>
         </div>
         <div class="mx-4"></div>
         <table class="table table-light">
@@ -35,7 +35,7 @@
                   <td>
                     <div>
                       <img name="image" src="{{ Storage::disk('s3')->url($c->image) }}" alt="Imagem do Produto"
-                        style="height:auto; width:100px" />
+                        style="height:80px; width:80px" />
                     </div>
                   </td>
                   <td>
@@ -61,9 +61,9 @@
             @endforeach
           </tbody>
         </table>
-        <div class="border-bottom mx-4"></div>
+        {{-- <div class="border-bottom mx-4"></div> --}}
         <div class="row m-3 justify-self-end">
-          <h6>Sub Total(3 produtos):<span class="fw-bold total"></span></h6>
+          <h6><span class="qtd-produtos"></span><span class="fw-bold total"></span></h6>
         </div>
         @else
         <div class="text-center py-5"><h1>Nunhum item adicionado</h1></div>
@@ -76,7 +76,7 @@
           <div>Cê tem cupom meu mano?</div>
           <input type="text" class="form-control w-75 justify-self-center">
           <div class="my-4">
-            <h6>Sub Total(3 produtos):<span class="fw-bold total"></span></h6>
+            <h6><span class="qtd-produtos"></span><span class="fw-bold total"></span></h6>
           </div>
           <div class="justify-self-center mt-2">
             <a href="{{ route('carrinho.pagamento') }}">
@@ -99,15 +99,12 @@
       </div>
     </div>
   </div>
-  {{-- @include('carrinho.cards', ['produtos' => $carrinho['carrinho']]) --}}
-  {{-- Form para excluir um produto do carrinho --}}
   <form id="form-excluir" method="POST">
     @csrf
     <input type="hidden" name="method_excluir" id="method_excluir">
     @method('DELETE')
   </form>
   {{-- Fim do form para excluir um produto do carrinho --}}
-
   {{-- Form para ir para a tela de finalizar pedido --}}
   <form method="POST" id="form_pedido">
     @csrf
@@ -144,6 +141,8 @@
       atualizarValor(p.id, subtotal);
     });
     atualizarTotal();
+
+    $('.qtd-produtos').append('SubTotal(' + produto.length +' produtos):')
   };
 
   function quantidade(element, dados, action) {
@@ -180,9 +179,7 @@
     }
     atualizarValor(dados.id, subtotal);
     atualizarTotal();
-    console.log(quantidade === 0)
     if (element.id === 'btn-excluir' && quantidade === 0) {
-      console.log('oi')
       $('#method_excluir').val('DELETE');
       $('#form-excluir').attr('action', "{{ route('carrinho.delete') }}" + "/" + dados.id);
       $('#form-excluir').submit();

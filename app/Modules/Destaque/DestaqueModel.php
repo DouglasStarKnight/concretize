@@ -52,9 +52,6 @@ $dadosProcessados = $data->groupBy('destaque_id')->map(function ($itens) {
         })->values()->toArray()
     ];
 })->values();
-
-
-// dd($dadosProcessados);
     return [
         'data' => $dadosProcessados
     ];

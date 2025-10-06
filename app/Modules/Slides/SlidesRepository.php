@@ -16,7 +16,6 @@ class SlidesRepository implements InterfaceSlides{
     }
 
     public function atualiza($id, $data){
-        // dd($data, $id);
         return $this->repositoryBase->update($this->model, $id, $data);
     }
 }

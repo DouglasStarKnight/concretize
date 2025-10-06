@@ -27,7 +27,6 @@ class CarrinhoController extends Controller
 
     public function cria(CreateCarrinho $req) {
         $data = $req->validated();
-        // dd($data);
         return $this->carrinhoService->cria($data);
     }
 
