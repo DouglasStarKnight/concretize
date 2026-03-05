@@ -9,7 +9,7 @@
   </x-botaoModal>
 </div>
 <div id="tableExcluir" class="mx-2">
-  <div class="border border-bottom-0 border-2 border-dark rounded-top text-center">
+  <div class="rounded-top text-center">
     <h5 class="py-2 m-0">Produtos Cadastrados</h5>
   </div>
   <table class="table table-striped">
@@ -34,13 +34,20 @@
           <td class="col-xxl-2 col-lx-2 col-lg-2 col-md-2 col-sm-2">{{ isset($produto->estoque) ? $produto->estoque : '' }}</td>
           <td class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">{{ isset($produto->tipo_de_venda) ? $produto->tipo_de_venda : '' }}</td>
           <td class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">
-            <x-botaoModal id_button="btnTableEdita" modal_id="modal-produto" type="button" class="btn btn-primary"
-              onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
+            <x-botaoModal 
+              id_button="btnTableEdita" 
+              modal_id="modal-produto" 
+              class="btn btn-sm btn-primary"
+              onclick="manipulacao_modais('editaProduto', {{ $produto->id }})">
               <i class="fa-solid fa-pencil"></i>
             </x-botaoModal>
-            <x-botaoModal id_button="btnTableExcluir" modal_id="modal-deleta" type="button" class="btn btn-danger"
-              onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
-              <i class="fa-solid fa-trash"></i>
+
+            <x-botaoModal 
+                id_button="btnTableExcluir" 
+                modal_id="modal-deleta" 
+                class="btn btn-sm btn-danger"
+                onclick="manipulacao_modais('excluiProduto', {{ $produto->id }})">
+                <i class="fa-solid fa-trash"></i>
             </x-botaoModal>
           </td>
         </tr>

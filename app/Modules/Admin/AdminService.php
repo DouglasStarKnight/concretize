@@ -98,7 +98,7 @@ class AdminService
             $this->adminRepository->destaque($body);
             return redirect()->back()->with('message', 'Grupo de produtos criado sucesso!');
         }catch(Exception $err){
-            return redirect()->back()->with(['message' => 'Grupo de produtos criados com sucesso!']);
+            return redirect('admin.index')->withErrors($err->getMessage());
         }
     }
 

@@ -25,7 +25,6 @@
           <input type="hidden" id="inputCart" value="">
         </a>
       </div>
-      {{-- @dd(auth()->user()) --}}
       <div class="perfil col-2 d-flex justify-content-center">
         <div class="dropdown-center">
           <ul class="navbar-nav">

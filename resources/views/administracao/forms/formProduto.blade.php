@@ -1,35 +1,44 @@
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <div class="row g-3"> <div class="col-md-6">
+                <label class="form-label fw-bold text-secondary" for="input_nome">Nome do Produto</label>
+                <input id="input_nome" class="form-control form-control-lg" name="nome" type="text" placeholder="Ex: Cimento CP-II" required>
+            </div>
 
-<div class="row g-0">
-    <div class="col-xl-6 col-lg-6 col-md-6">
-        <label class="col-12" for="nome"><h5>Nome do produto</h5></label>
-        <input id="input_nome" class="col-12 form-control" name="nome" type="text" placeholder="Digite o nome do material">
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6">
-        <label class="col-12" for="valor"><h5>Valor do produto?</h5></label>
-        <input id="valor_produto" class="col-12 form-control" name="valor_produto" type="text" placeholder="Digite o valor do produto">
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6">
-        <label for="estoque"><h5>quantidade no estoque</h5></label>
-        <input id="input_estoque" class="form-control" type="number" name="estoque" id="estoque" placeholder="Digite a quantidade no estoque">
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6">
-                <h5>Categoria do Produto</h5>
-                <select class="form-select" name="categoria_id" id="category">
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-secondary" for="valor_produto">Valor Unitário</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light">R$</span>
+                    <input id="valor_produto" class="form-control form-control-lg" name="valor_produto" type="text" placeholder="0,00">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-secondary" for="input_estoque">Quantidade em Estoque</label>
+                <input id="input_estoque" class="form-control form-control-lg" type="number" name="estoque" placeholder="0">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-secondary" for="category">Categoria</label>
+                <select class="form-select form-select-lg" name="categoria_id" id="category">
+                    <option selected disabled>Selecione uma categoria...</option>
                     @foreach ($categorias as $categoria)
-                        <option id="option_categoria" value="{{$categoria->id}}">{{$categoria->nome}}</option>
+                        <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
                     @endforeach
                 </select>
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6">
-        <div class="row">
-            <div class="col-12">
-                <label for="imagem"><h5>Imagem do Produto</h5></label>
-                <input id="input_image" class="form-control" type="file" name="image" accept="image/*">
             </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-secondary" for="tipo_venda">Tipo de Venda</label>
+                <input id="tipo_venda" class="form-control form-control-lg" type="text" name="tipo_de_venda" placeholder="Ex: Unitária, Atacado...">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-secondary" for="input_image">Imagem do Produto</label>
+                <input id="input_image" class="form-control form-control-lg" type="file" name="image" accept="image/*">
+                <div class="form-text text-muted">Formatos aceitos: JPG, PNG. Máx 2MB.</div>
+            </div>
+
         </div>
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6">
-        <label for="tipo_de_venda"><h5>Tipo de venda</h5></label>
-        <input id="tipo_venda" class="form-control" type="text" name="tipo_de_venda" placeholder="Unitária|Atacado|fracionada...">
     </div>
 </div>

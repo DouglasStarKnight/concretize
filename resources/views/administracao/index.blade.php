@@ -95,95 +95,125 @@
 
 </x-layout>
 <style>
-  input {
-    height: 40px;
-    border-radius: 5px;
+  :root {
+    --primary-orange: #fd7e14;
+    --dark-blue: #000080;
+    --light-gray: #f8f9fa;
   }
 
-  select {
-    border-radius: 5px
-  }
+  
+  .title-color { background-color: var(--primary-orange) !important; border: none !important; }
+  .btn-warning { background-color: var(--primary-orange); color: white; border: none; font-weight: bold; }
+  .btn-warning:hover { background-color: #e66d00; color: white; }
 
-  button {
-    border-radius: 5px;
-  }
+  
+  .nav-tabs .nav-link { color: var(--dark-blue); font-weight: 600; border: none; }
+  .nav-tabs .nav-link.active { border-bottom: 3px solid var(--primary-orange); color: var(--primary-orange); }
 
-  .title-color {
-    background-color: #fd7e14;
-  }
+  
+  .table thead th { background-color: var(--dark-blue); color: white; text-transform: uppercase; font-size: 0.85rem; border: none; }
+  .table-striped tbody tr:nth-of-type(odd) { background-color: rgba(107, 107, 244, 0.03); }
+  input, select, .select2-selection { border: 1px solid #ced4da !important; border-radius: 8px !important; }
+  
+  .card-admin { border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; padding: 20px; }
 </style>
 <script>
-  produtos = {!! json_encode($produtos) !!};
+  
+  const globalData = {
+    produtos: {!! json_encode($produtos['produtos'] ?? []) !!},
+    destaques: {!! json_encode($destaques['data'] ?? []) !!},
+    slides: {!! json_encode($slides ?? []) !!}
+  };
 
-  function manipulacao_modais(element, dados) {
-    posicao = null;
-    if (element.id == "btnCriaProduto") {
-      $('#input_nome').val(null)
-      $('#valor_produto').val(null)
-      $('#t').val(null)
-      $('#tipo_venda').val(null)
-      $("#_method_manipula_produtos").attr('value', 'post');
-      $("#form_produto").attr('action', "{{ route('admin.cria') }}");
+  function manipulacao_modais(tipo, id = null) {
+    const formProduto = $('#form_produto');
+    const formDestaque = $('#form_destaque');
+    const formDeletar = $('#formDeletar');
+    const formSlide = $('#formSlide');
+    
+    // RESET GERAL - Limpa campos e estados de validação
+    formProduto.trigger('reset');
+    formDestaque.trigger('reset');
+    $('#produtos_destaque').val(null).trigger('change');
 
-    } else if (element.id == "btnTableEdita") {
-      $('#input_nome').val(dados.nome)
-      $('#valor_produto').val(dados.valor_produto)
-      $('#input_estoque').val(dados.estoque)
-      $('#tipo_venda').val(dados.tipo_de_venda)
-      $("#_method_manipula_produtos").attr('value', 'post');
-      $("#form_produto").attr('action', "{{ route('admin.edita') }}" + "/" + dados.id);
+    switch(tipo) {
+      case 'criaProduto':
+        $("#_method_manipula_produtos").val('post');
+        formProduto.attr('action', "{{ route('admin.cria') }}");
+        break;
 
-    } else if (element.id == "btnTableExcluir") {
-      $("#_method_excluir").attr('value', 'delete');
-      $("#formDeletar").attr('action', "{{ route('admin.delete') }}" + "/" + dados.id);
-      $('#textoConfirmacao').text("Tem certeza que deseja excluir o produto " + dados.nome + "?");
-
-    } else if (element.id == "btnMudaSlide") {
-      $('input[name="posicao"]').off('change').on('change', function() {
-        let posicao = $(this).val();
-        let slideSelecionado = dados.find(slide => slide.posicao == posicao);
-        if (slideSelecionado) {
-          $("#_method_muda_slides").attr('value', 'patch');
-          $("#formSlide").attr('action', "{{ route('slides.edita') }}" + "/" + slideSelecionado.id);
+      case 'editaProduto':
+        const prod = globalData.produtos.find(p => p.id == id);
+        if(prod) {
+          $('#input_nome').val(prod.nome);
+          $('#valor_produto').val(prod.valor_produto);
+          $('#input_estoque').val(prod.estoque);
+          $('#tipo_venda').val(prod.tipo_de_venda);
+          $("#_method_manipula_produtos").val('post');
+          formProduto.attr('action', "{{ route('admin.edita') }}/" + id);
         }
-      });
-    } else if (element.id === "btn-destaque") {
-      $('#produtos_destaque').val(null).trigger('reset');
-      $('#form_destaque').trigger('reset');
-      $('#_method_destaque').attr('value', 'post');
-      $('#form_destaque').attr('action', "{{ route('admin.destaque') }}");
-    } else if (element.id === "btn-edita-destaque") {
-      $('#input_destaque').val(dados.nome);
-      const ids = dados.produtos.map(produto => produto.id);
-      $('#produtos_destaque').val(ids).trigger('change');
-      $('#_method_destaque').attr('value', 'post');
-      $('#form_destaque').attr('action', "{{ route('admin.destaqueEdita') }}" + "/" + dados.id);
-    } else if (element.id == "btn-exclui-destaque") {
-      $("#_method_excluir").attr('value', 'delete');
-      $('#textoConfirmacao').text("Tem certeza que deseja excluir este grupo?");
-      $("#formDeletar").attr('action', "{{ route('admin.exclui_destaque') }}" + "/" + dados.id);
+        break;
 
+      case 'excluiProduto':
+        const prodDel = globalData.produtos.find(p => p.id == id);
+        $("#_method_excluir").val('delete');
+        formDeletar.attr('action', "{{ route('admin.delete') }}/" + id);
+        $('#textoConfirmacao').text(`Tem certeza que deseja excluir o produto "${prodDel ? prodDel.nome : ''}"?`);
+        break;
+
+      /* --- DESTAQUES --- */
+      case 'btn-destaque': // Novo grupo
+        $('#_method_destaque').val('post');
+        formDestaque.attr('action', "{{ route('admin.destaque') }}");
+        break;
+
+      case 'btn-edita-destaque':
+        const group = globalData.destaques.find(d => d.id == id);
+        if(group) {
+          $('#input_destaque').val(group.nome);
+          const ids = group.produtos.map(p => p.id);
+          $('#produtos_destaque').val(ids).trigger('change');
+          $('#_method_destaque').val('post'); // Ou 'patch' dependendo da sua rota
+          formDestaque.attr('action', "{{ route('admin.destaqueEdita') }}/" + id);
+        }
+        break;
+
+      case 'btn-exclui-destaque':
+        const groupDel = globalData.destaques.find(d => d.id == id);
+        $("#_method_excluir").val('delete');
+        formDeletar.attr('action', "{{ route('admin.exclui_destaque') }}/" + id);
+        $('#textoConfirmacao').text(`Tem certeza que deseja excluir o grupo de destaque "${groupDel ? groupDel.nome : ''}"?`);
+        break;
+
+      /* --- SLIDES --- */
+      case 'mudaSlide':
+        $('input[name="posicao"]').off('change').on('change', function() {
+          let pos = $(this).val();
+          let slide = globalData.slides.find(s => s.posicao == pos);
+          if (slide) {
+            $("#_method_muda_slides").val('patch');
+            formSlide.attr('action', "{{ route('slides.edita') }}/" + slide.id);
+          }
+        });
+        break;
     }
   }
-  
+
   $(document).ready(function() {
-    if (produtos.length === 0) {
-      $('#produtos_destaque').html('<option disabled>Nenhum produto encontrado</option>');
-    } else {
-      let options = '';
-      produtos.forEach(function(produto) {
-        options += `<option value="${produto.id}">${produto.nome}</option>`;
-      });
-      $('#produtos_destaque').html(options);
-    }
+    const $select = $('#produtos_destaque');
     
-    // Inicializa o select2
-    $('#produtos_destaque').select2({
+    // Alimenta o Select2 com os produtos disponíveis no globalData
+    if (globalData.produtos.length > 0) {
+        let options = globalData.produtos.map(p => new Option(p.nome, p.id, false, false));
+        $select.append(options);
+    }
+
+    $select.select2({
       theme: 'bootstrap-5',
+      placeholder: 'Selecione os produtos...',
       allowClear: true,
-      placeholder: 'Selecione...',
       width: '100%',
-      language: "pt-BR"
+      dropdownParent: $('#modal-destaque') // Garante que o select2 funcione dentro do modal
     });
   });
 </script>
