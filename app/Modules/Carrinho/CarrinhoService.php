@@ -38,7 +38,6 @@ class CarrinhoService
                 'image' => $data['image']
             ];
             $this->carrinhoRepository->cria($body);
-            return  redirect()->route('inicio.index')->with(['message' => 'Produto adicionado ao carrinho!']);
         }catch(Exception $err){
             return redirect('admin.index')->withErrors($err->getMessage());
         }

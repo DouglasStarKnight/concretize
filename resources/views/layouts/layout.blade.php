@@ -30,11 +30,7 @@
       'layout' => false,
       'class' => '',
   ])
-
-  @if ($layout)
-    {{-- <x-nav-bar></x-nav-bar> --}}
-  @endif
-
+    <x-nav-bar/>
   <x-notificacao />
   <div id="app-layout" class="{{ $class }}">
     {{ $slot }}

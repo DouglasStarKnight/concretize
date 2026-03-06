@@ -8,7 +8,7 @@
     <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
   </x-botaoModal>
 </div>
-<div id="tableExcluir" class="mx-2 card-admin border-0 shadow-sm overflow-hidden">
+<div id="tableProdutos" class="mx-2 card-admin border-0 shadow-sm overflow-hidden">
   {{-- Header da Tabela mais limpo --}}
   <div class="title-color p-3 text-center rounded-top">
     <h5 class="text-white m-0 fw-bold">Produtos Cadastrados</h5>
@@ -39,30 +39,27 @@
                 </span>
             </td>
             <td class="text-center">
-                {{-- Badge dinâmica para estoque --}}
                 <span class="badge {{ ($produto->estoque < 10) ? 'bg-danger-subtle text-danger' : 'bg-success-subtle text-success' }} rounded-pill">
                     {{ $produto->estoque ?? '0' }}
                 </span>
             </td>
             <td>{{ $produto->tipo_de_venda ?? '' }}</td>
             <td class="pe-3 text-end">
-              <div class="btn-group shadow-sm rounded-pill overflow-hidden" role="group">
+              <div class=" btn-group shadow-sm rounded-pill overflow-hidden" role="group">
                 <button
                     type="button"
-                    id="editaProduto"
                     data-bs-toggle="modal"
                     data-bs-target="#modal-produto"
-                    class="btn btn-sm btn-white border-0 py-2 px-3"
+                    class="btn editaProduto btn-sm btn-white border-0 py-2 px-3"
                     onclick="manipulacao_modais(this, {{ json_encode($produto) }})"
                     title="Editar">
                     <i class="fa-solid fa-pencil text-primary"></i>
                 </button>
                 <button
                     type="button"
-                    id="excluiProduto"
                     data-bs-toggle="modal"
                     data-bs-target="#modal-deleta"
-                    class="btn btn-sm btn-white border-0 py-2 px-3"
+                    class="btn excluiProduto btn-sm btn-white border-0 py-2 px-3"
                     onclick="manipulacao_modais(this, {{ json_encode($produto) }})"
                     title="Excluir">
                     <i class="fa-solid fa-trash text-danger"></i>
@@ -75,7 +72,7 @@
     </table>
   </div>
   <div class="title-color p-3 text-center rounded-bottom">
-    <h5 class="text-white m-0 fw-bold">Paginação</h5>
+    <h5 class="text-white m-0 fw-bold">Futura Paginação</h5>
   </div>
 </div>
 {{-- <nav aria-label="..." class="d-flex justify-content-center">

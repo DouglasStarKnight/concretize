@@ -1,3 +1,12 @@
+window.mostrarToast = function(mensagem, tipo = 'success') {
+    $('#toast-body').html(mensagem);
+    
+    const toastElement = document.getElementById('toast'); 
+    if (toastElement) {
+        const toast = bootstrap.Toast.getOrCreateInstance(toastElement);
+        toast.show();
+    }
+  };
 
 $(document).ready(function () {
   
@@ -7,7 +16,7 @@ $(document).ready(function () {
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
     toastBootstrap.show();
   }
-  
+
   const forms = document.querySelectorAll('form');
   forms.forEach(form => {
     form.addEventListener('submit', function () {
@@ -31,15 +40,4 @@ $(document).ready(function () {
 
   $('.money_mask').mask('000.000.000.000.000,00', { reverse: true });
   
-  // $.ajaxSetup({
-  //   headers: {
-  //     'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content
-  //   }
-  // });
-  // const widthWindow = screen.width;
-  // if (widthWindow < 768) {
-  //   $('#entregamos').hide();
-  // } else {
-  //   $('#entregamos').show();
-  // }
 });

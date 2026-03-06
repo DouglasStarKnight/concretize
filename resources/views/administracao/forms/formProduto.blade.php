@@ -9,7 +9,7 @@
                 <label class="form-label fw-bold text-secondary" for="valor_produto">Valor Unitário</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light">R$</span>
-                    <input id="valor_produto" class="form-control form-control-lg" name="valor_produto" type="text" placeholder="0,00">
+                    <input id="valor_produto" class="form-control form-control-lg money_mask" name="valor_produto" type="text" placeholder="0,00">
                 </div>
             </div>
 

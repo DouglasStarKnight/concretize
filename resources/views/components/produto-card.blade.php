@@ -60,7 +60,7 @@ $quantidadeP = 0;
         @foreach ($destaques ?? collect() as $destaque)
           @foreach ($destaque['produtos'] ?? [] as $p)
             <div class="swiper-slide p-3">
-              <form id="form_pedidos{{ $p['id'] }}" method="POST" onsubmit="manipulaDados(this, {{ $p['id'] }})">
+              <form id="form_pedidos{{ $p['id'] }}" method="POST" onsubmit="manipulaDados(event, this, {{ $p['id'] }})">
                 @csrf
                 <input hidden name="_method" id="_method" />
                 <input id="input_valor{{ $p['id'] }}" name="produto_id" type="hidden" value="{{ $p['id'] }}">
@@ -110,7 +110,6 @@ $quantidadeP = 0;
 
 <script>
   function quantidade(element, produtoId, action) {
-    // Mantive sua lógica exata de busca no DOM para não quebrar
     const parent = $(element).closest('div.produtos');
     const input = parent.find(`#input_qtd${produtoId}`);
     const span = parent.find(`.spanQuantidade${produtoId}`);
@@ -125,7 +124,6 @@ $quantidadeP = 0;
     input.val(q);
     span.text(q);
 
-    // Atualização do contador global do carrinho (se existir)
     const spanCart = $('#cart-count');
     if(spanCart.length) {
         let quantCart = parseInt(spanCart.text()) || 0;
@@ -134,17 +132,32 @@ $quantidadeP = 0;
     }
   };
 
-  function manipulaDados(form, produtoId) {
+  function manipulaDados(event,form, produtoId) {
     event.preventDefault();
     const $form = $(form);
     $form.find("#_method").val('post');
-    $form.attr('action', "{!! route('carrinho.cria') !!}");
+    const actionUrl = "{!! route('carrinho.cria') !!}";
+    const formData = $form.serialize();
 
-    // Feedback simples no botão sem remover o evento
     const btn = $form.find('button');
+    const textOriginal = btn.text();
     btn.prop('disabled', true).text('Processando...');
+    $.ajax({
+      url: actionUrl,
+      type: 'POST',
+      data: formData,
+      success: function(response) {
+        if(response.sucesso) {
+               
+          btn.prop('disabled', false).text(textOriginal);
 
-    form.submit();
+          mostrarErroToast("Produto Cadastrado com Sucesso!");
+    }
+      },
+      error: function(xhr, status, error) {
+        console.log('error aqui:', error, xhr, status);
+      }
+    })
   }
 
   var swiper = new Swiper(".mySwiper", {

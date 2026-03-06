@@ -51,7 +51,6 @@ class AdminService
                 'image' => $path,
             ];
             $this->adminRepository->cria($body);
-            return  redirect()->back()->with(['message' => 'Produto adicionado com sucesso.']);
         }catch(Exception $err){
             return redirect('admin.index')->withErrors($err->getMessage());
         }
@@ -61,7 +60,6 @@ class AdminService
 
     public function edita($data, $id){
         try{
-            // dd($data, $id);
             $registro = AdminModel::find($id);
             if(isset($data['image'])){
                 if(isset($registro->image)){
