@@ -20,13 +20,13 @@
         .slide-img { height: 450px; object-fit: cover; width: 100%; }
 
         /* Departamentos */
-        .dep-card { 
-            background: white; border-radius: 50%; width: 120px; height: 120px; 
+        .dep-card {
+            background: white; border-radius: 50%; width: 120px; height: 120px;
             display: flex; align-items: center; justify-content: center;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             margin: 0 auto 15px; border: 2px solid transparent;
         }
-        .dep-card:hover { 
+        .dep-card:hover {
             transform: translateY(-10px); border-color: var(--accent-orange);
             box-shadow: 0 15px 30px rgba(255, 101, 0, 0.2);
         }
@@ -108,7 +108,7 @@
                 <i class="ph ph-stack text-warning" style="font-size: 2rem;"></i>
                 <h3 class="m-0 fw-bold" style="color: var(--primary-blue);">DEPARTAMENTOS</h3>
             </div>
-            
+
             <div class="swiper deptSwiper pb-4">
                 <div class="swiper-wrapper">
                     @php
@@ -138,22 +138,34 @@
                 <i class="ph ph-sparkle text-warning" style="font-size: 1.8rem;"></i>
                 <h4 class="m-0 fw-bold" style="color: var(--primary-blue);">ESPECIAIS PARA VOCÊ</h4>
             </div>
-            
+
             <div class="row g-4">
-                @if (isset($destaques) && count($destaques) > 0)
-                    @foreach ($destaques as $destaque)
-                        <div class="col-md-3 col-sm-6">
-                            <x-produto-card :title="$destaque['nome']" :destaques="collect([$destaque])" />
-                        </div>
-                    @endforeach
-                @else
-                    @foreach($produtos ?? [] as $produto)
-                        <div class="col-md-3 col-sm-6">
-                            <x-produto-card :produto="$produto"/>
-                        </div>
-                    @endforeach
-                @endif
+    @if (isset($destaques) && count($destaques) > 0)
+        {{--
+           Para Destaques: Como cada componente x-produto-card já é um carrossel,
+           chamamos ele em largura total (col-12) para que o Swiper tenha espaço
+           para exibir os vários produtos lado a lado.
+        --}}
+        @foreach ($destaques as $destaque)
+            <div class="col-12 mb-4">
+                <x-produto-card :title="$destaque['nome']" :destaques="collect([$destaque])" />
             </div>
+        @endforeach
+
+    @else
+        {{--
+           Para Produtos avulsos: Se o x-produto-card estiver preparado para
+           receber apenas UM produto e NÃO for um carrossel nesse caso,
+           mantemos o grid col-md-3.
+
+           MAS, se o x-produto-card SEMPRE for o carrossel que editamos acima,
+           você deve passar a lista completa de uma vez:
+        --}}
+        <div class="col-12">
+            <x-produto-card title="Nossos Produtos" :produtos="$produtos" />
+        </div>
+    @endif
+</div>
         </section>
     </div>
 

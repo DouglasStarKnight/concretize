@@ -1,123 +1,150 @@
 <x-layout>
-  <div class="title-color border border-secondary rounded row m-1">
-    <div class="col-1 d-flex justify-content-start align-items-center">
-      <a class="text-decoration-none" href="{{ route('inicio.index') }}">
-        <i class="ph ph-arrow-circle-left" style="font-size:35px; color:#f0f3f4"></i>
+  {{-- Header do Carrinho --}}
+  <div class="title-color shadow-sm rounded row m-1 align-items-center bg-dark">
+    <div class="col-1 d-flex justify-content-center">
+      <a class="text-decoration-none transition-hover" href="{{ route('inicio.index') }}">
+        <i class="ph ph-arrow-left-circle" style="font-size:32px; color:#ffffff"></i>
       </a>
     </div>
     <div class="col-10">
-      <h2 class="text-light text-center m-0 py-2">CARRINHO DE COMPRAS</h2>
+      <h4 class="text-light text-center m-0 py-3 fw-bold">CARRINHO DE COMPRAS</h4>
     </div>
   </div>
-  <div class="row my-4 produtos">
-    <div class="col-xxl-9 col-lx-9 col-lg-9 col-md-12 col-12">
-      <div class="bg-light">
+
+  <div class="row my-4 produtos g-4">
+    {{-- Lista de Produtos --}}
+    <div class="col-lg-9 col-md-12">
+      <div class="card border-0 shadow-sm rounded">
         @if($carrinho['carrinho']->isNotEmpty())
-        <div class="text-center  border rounded">
-          <h4 >PRODUTOS ADICIONADOS:</h4>
+        <div class="card-header bg-white border-bottom py-3">
+          <h5 class="mb-0 fw-bold"><i class="ph ph-shopping-cart me-2"></i>Itens Selecionados</h5>
         </div>
-        <div class="mx-4"></div>
-        <table class="table table-light">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">image</th>
-              <th scope="col">produto</th>
-              <th scope="col">Quantidade</th>
-              <th scope="col">valor</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($carrinho['carrinho'] as $c)
-              <div class="row my-2  mx-4 mat" data-id="{{ $c->id }}">
-                <tr>
-                  <th scope="row">{{$c->id}}</th>
-                  <td>
-                    <div>
-                      <img name="image" src="{{ Storage::disk('s3')->url($c->image) }}" alt="Imagem do Produto"
-                        style="height:80px; width:80px" />
+
+        <div class="table-responsive p-3">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th class="text-muted small uppercase">Produto</th>
+                <th></th> {{-- Espaço para nome --}}
+                <th class="text-center text-muted small uppercase">Quantidade</th>
+                <th class="text-end text-muted small uppercase">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($carrinho['carrinho'] as $c)
+                <tr class="mat" data-id="{{ $c->id }}">
+                  <td style="width: 100px;">
+                    <div class="rounded border overflow-hidden bg-white" style="width: 80px; height: 80px;">
+                      <img src="{{ Storage::disk('s3')->url($c->image) }}" alt="{{ $c->nome }}"
+                        class="img-fluid w-100 h-100 object-fit-contain" />
                     </div>
                   </td>
                   <td>
-                    <div class="col-5" style="align-self: center">
-                      <span>{{ $c->nome }}</span>
-                    </div>
+                    <span class="fw-bold d-block">{{ $c->nome }}</span>
+                    <small class="text-muted">ID: #{{$c->id}}</small>
                   </td>
                   <td>
-                    <div class="d-flex justify-content-center align-items-center gap-2">
-                      <div id="btn-excluir" onclick="quantidade(this, {{ json_encode($c) }}, 'minus')"
-                        class="btn btn-light p-0 fw-bold btn-minus"><i class="fa-solid fa-circle-minus fa-xl"></i></div>
-                      <div class="text-center">
-                        <input name="quantidade" type="hidden" id="input_qtd{{ $c->id }}"
-                          value="{{ $c->quantidade }}">
-                        <h5 class="spanQuantidade{{ $c->id }}">{{ $c->quantidade }}</h5>
+                    <div class="d-flex justify-content-center align-items-center gap-3">
+                      <button type="button" onclick="quantidade(this, {{ json_encode($c) }}, 'minus')"
+                        class="btn btn-link p-0 text-danger btn-minus shadow-none">
+                        <i class="fa-solid fa-circle-minus fa-xl"></i>
+                      </button>
+
+                      <div class="text-center" style="min-width: 30px;">
+                        <input name="quantidade" type="hidden" id="input_qtd{{ $c->id }}" value="{{ $c->quantidade }}">
+                        <span class="spanQuantidade{{ $c->id }} fw-bold fs-5">{{ $c->quantidade }}</span>
                       </div>
-                      <div onclick="quantidade(this, {{ json_encode($c) }}, 'plus')"
-                        class="btn btn-light p-0 fw-bold btn-plus"><i class="fa-solid fa-circle-plus fa-xl"></i></div>
+
+                      <button type="button" onclick="quantidade(this, {{ json_encode($c) }}, 'plus')"
+                        class="btn btn-link p-0 text-primary btn-plus shadow-none">
+                        <i class="fa-solid fa-circle-plus fa-xl"></i>
+                      </button>
                     </div>
                   </td>
-                  <td><span class="valor{{ $c->id }}" data-id="{{ $c->id }}"></span></td>
+                  <td class="text-end fw-bold fs-6 pt-3">
+                    <span class="valor{{ $c->id }}" data-id="{{ $c->id }}"></span>
+                  </td>
                 </tr>
-            @endforeach
-          </tbody>
-        </table>
-        {{-- <div class="border-bottom mx-4"></div> --}}
-        <div class="row m-3 justify-self-end">
-          <h6><span class="qtd-produtos"></span><span class="fw-bold total"></span></h6>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer bg-white border-top py-3 text-end text-dark">
+            <span class="qtd-produtos me-2 text-muted"></span>
+            <span class="fw-bold total fs-4 text-primary"></span>
         </div>
         @else
-        <div class="text-center py-5"><h1>Nunhum item adicionado</h1></div>
+        <div class="text-center py-5">
+            <i class="ph ph-shopping-cart text-muted mb-3" style="font-size: 60px;"></i>
+            <h3 class="text-muted">Seu carrinho está vazio</h3>
+            <a href="{{ route('inicio.index') }}" class="btn btn-outline-primary mt-3">Continuar comprando</a>
+        </div>
         @endif
       </div>
     </div>
-    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-12">
-      <div class="row">
-        <div class="bg-light text-center py-2 rounded col-xxl-12 col-xl-12 col-lg-12 col-md-6 col-6">
-          <div>Cê tem cupom meu mano?</div>
-          <input type="text" class="form-control w-75 justify-self-center">
-          <div class="my-4">
-            <h6><span class="qtd-produtos"></span><span class="fw-bold total"></span></h6>
-          </div>
-          <div class="justify-self-center mt-2">
-            <a href="{{ route('carrinho.pagamento') }}">
-              <x-botaoModal class="btn alpha-color border rounded text-white add-to-cart-btn bg-gradient fw-bold"
-                id_button="btnConfirma" modal_id="modal-pedido">
-                Não funciona!
-              </x-botaoModal>
-            </a>
+
+    {{-- Resumo e Ações laterais --}}
+    <div class="col-lg-3 col-md-12">
+      <div class="sticky-top" style="top: 20px;">
+        <div class="card border-0 shadow-sm mb-4 rounded">
+          <div class="card-body p-4">
+            <label class="fw-bold mb-2">Possui um cupom?</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Código">
+              <button class="btn btn-outline-dark" type="button">Aplicar</button>
+            </div>
+            <hr>
+            <div class="text-center">
+              <p class="small text-muted mb-1 qtd-produtos text-start"></p>
+              <h3 class="fw-bold total text-dark text-start mb-4"></h3>
+
+              <a href="{{ route('carrinho.pagamento') }}" class="text-decoration-none">
+                <x-botaoModal class="btn btn-success w-100 py-3 fw-bold shadow-sm"
+                  id_button="btnConfirma" modal_id="modal-pedido">
+                  FECHAR PEDIDO
+                </x-botaoModal>
+              </a>
+            </div>
           </div>
         </div>
-        <div class="bg-light text-center py-2 mt-5 mt-md-0 rounded col-xxl-12 col-xl-12 col-lg-12 col-md-6 col-6">
-          <div class="">Calma lá paizão, Bora calcular esse frete ai?</div>
-          <input type="text" class="form-control w-75 justify-self-center">
-          <div class="justify-self-center mt-2">
-            <button class="btn alpha-color border rounded text-white add-to-cart-btn bg-gradient fw-bold">
-              Calcular frete(Ñ funciona)
-            </button>
+
+        <div class="card border-0 shadow-sm rounded">
+          <div class="card-body p-4">
+            <label class="fw-bold mb-2">Calcular Frete</label>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="00000-000">
+              <button class="btn btn-dark btn-add-cart fw-bold py-2">
+                <i class="ph ph-truck"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <form id="form-excluir" method="POST">
-    @csrf
-    <input type="hidden" name="method_excluir" id="method_excluir">
-    @method('DELETE')
-  </form>
-  {{-- Fim do form para excluir um produto do carrinho --}}
-  {{-- Form para ir para a tela de finalizar pedido --}}
+
+  {{-- Forms ocultos e Modais (Mantidos conforme lógica original) --}}
+  <form id="form-excluir" method="POST">@csrf<input type="hidden" name="method_excluir" id="method_excluir">@method('DELETE')</form>
   <form method="POST" id="form_pedido">
     @csrf
-    <x-modal modal_id="modal-pedido" title="Escolha metodo de pagamento">
+    <x-modal modal_id="modal-pedido" title="Escolha o método de pagamento">
       <input hidden name="_method" id="_method_manipula_pedido" />
       @include('carrinho.forms.formPedido')
       <x-slot name="footer">
-        <button id="confirmaPedido" type="submit" class="btn btn-primary">Finalizar</button>
+        <button id="confirmaPedido" type="submit" class="btn btn-primary w-100">Finalizar Pedido</button>
       </x-slot>
     </x-modal>
   </form>
-  {{-- Fim do form para ir para a tela de finalizar pedido --}}
 </x-layout>
+
+<style>
+    .transition-hover { transition: transform 0.2s; }
+    .transition-hover:hover { transform: scale(1.1); }
+    .object-fit-contain { object-fit: contain; }
+    .btn-link:hover { opacity: 0.8; }
+    .card { overflow: hidden; }
+</style>
 
 <script>
   const produto = {!! json_encode($carrinho['carrinho']) !!};

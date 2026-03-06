@@ -1,5 +1,5 @@
 <div id="departamento" class="bg-white p-4 rounded-4 shadow-sm my-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
         <div class="d-flex align-items-center gap-2">
             <div style="width: 5px; height: 25px; background: #ff6500; border-radius: 10px;"></div>
             <h4 class="m-0 fw-bold" style="color: #000080;">DEPARTAMENTOS</h4>
@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="swiper departamento_Swiper pb-4">
+    <div class="swiper departamento_Swiper py-3">
         <div class="swiper-wrapper">
             @php
                 $deps = [

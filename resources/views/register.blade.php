@@ -3,91 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>REGISTRE-SE</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Concretize | Registre-se</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+
+    <style>
+        :root {
+            --primary-orange: #fd7e14;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 20px 0;
+        }
+
+        #register-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-top: 6px solid var(--primary-orange);
+            max-width: 700px;
+            width: 95%;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #333;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: scale(1.1);
+            color: var(--primary-orange);
+        }
+
+        .logo-img {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            border: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+        }
+
+        .form-control:focus {
+            background-color: #fff;
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 0.25rem rgba(253, 126, 20, 0.15);
+        }
+
+        .btn-register {
+            background-color: var(--primary-orange);
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register:hover {
+            background-color: #e66d00;
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+        }
+
+        .login-link {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .login-link:hover {
+            color: var(--primary-orange);
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center h-100 row">
-        <div id="principal" class="border border-5 col-6">
-            <div class="content">
-                <div class=" ms-3 mt-3">
-                    <a href="{{route('inicio.index')}}" class="text-decoration-none">
-                        <i class="ph ph-arrow-circle-left" style="font-size:35px; color:black"></i>
-                    </a>
+
+    <main id="register-container">
+        <a href="{{route('inicio.index')}}" class="back-link">
+            <i class="ph ph-arrow-circle-left" style="font-size:32px;"></i>
+        </a>
+
+        <div class="text-center mb-4">
+            <img src="{{ asset('image/logo.png') }}" alt="logo" class="logo-img">
+            <h2 class="fw-bold mb-1">Crie sua conta</h2>
+            <p class="text-muted">Preencha os dados abaixo para começar</p>
+        </div>
+
+        <form method="POST" action="{{ route('register.cria') }}">
+            @csrf
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="nome" class="form-label">Nome Completo</label>
+                    <input type="text" id="nome" class="form-control" name="nome" placeholder="Seu nome" required>
                 </div>
-                <div id="header" class="d-flex my-4 justify-content-center">
-                    <img style="width:150px" src="{{ asset('image/logo.png') }}" alt="logo">
+
+                <div class="col-md-6">
+                    <label for="date" class="form-label">Data de Nascimento</label>
+                    <input type="date" id="date" class="form-control" name="data_nascimento" required>
                 </div>
-                <div class="row justify-content-center mx-1">
-                    <div class=" border-2 rounded m-2 p-0 alpha-color col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12">
-                        <h1 class="text-center text-light my-2">REGISTRE-SE</h1>
-                    </div>
+
+                <div class="col-md-6">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" id="email" class="form-control" name="email" placeholder="seu@email.com" required>
                 </div>
-                <div id="content">
-                    <form class="form-register" method="POST" action="{{ route('register.cria') }}">
-                        @csrf
-                        <div class="d-flex row">
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
-                                <div class="">
-                                    <label for="nome" class="text-center">NOME:</label>
-                                </div>
-                                <div class="">
-                                    <input type="text" id="nome" class="form-control" name="nome" placeholder="Digite seu nome">
-                                </div>
-                            </div>
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
-                                <div class="">
-                                    <label for="password">Data:</label>
-                                </div>
-                                <div class="">
-                                    <input type="date" id="date" class="form-control" name="data_nascimento" placeholder="Digite sua data de nascimento">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex row">
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
-                                <div class="">
-                                    <label for="email" class="text-center">E-mail:</label>
-                                </div>
-                                <div class="">
-                                    <input type="email" id="email" class="form-control" name="email" placeholder="Digite seu E-mail">
-                                </div>
-                            </div>
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
-                                <div class="">
-                                    <label for="password">Senha:</label><br>
-                                </div>
-                                <div class="">
-                                    <input type="password" id="password" class="form-control" name="password" placeholder="Digite uma senha">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Salvar</button>
-                        </div>
-                        <div class="d-flex justify-content-end me-3">
-                            <a href="{{route('login.index')}}">Possui cadastro? Faça login</a>
-                        </div>
-                    </form>
+
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" id="password" class="form-control" name="password" placeholder="Mínimo 6 caracteres" required>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <div class="text-center mt-5">
+                <button type="submit" class="btn btn-primary btn-register mb-3">Finalizar Cadastro</button>
+                <div>
+                    <a href="{{route('login.index')}}" class="login-link">
+                        Já possui uma conta? <strong>Faça login</strong>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-<style>
-body {
-    height: 100vh;
-}
-#principal {
-    /* height: 88vh; */
-    border-color: #fd7e14 !important;
-    border-radius: 20px;
-}
-.alpha-color{
-    background-color: #fd7e14;
-}
-
-</style>

@@ -61,6 +61,7 @@ class AdminService
 
     public function edita($data, $id){
         try{
+            // dd($data, $id);
             $registro = AdminModel::find($id);
             if(isset($data['image'])){
                 if(isset($registro->image)){
