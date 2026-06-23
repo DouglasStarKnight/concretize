@@ -3,91 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>REGISTRE-SE</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Concretize | Registre-se</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center h-100 row">
-        <div id="principal" class="border border-5 col-6">
-            <div class="content">
-                <div class=" ms-3 mt-3">
-                    <a href="{{route('inicio.index')}}" class="text-decoration-none">
-                        <i class="ph ph-arrow-circle-left" style="font-size:35px; color:black"></i>
-                    </a>
-                </div>
-                <div id="header" class="d-flex my-4 justify-content-center">
-                    <img style="width:150px" src="{{ asset('image/logo.png') }}" alt="logo">
-                </div>
-                <div class="row justify-content-center mx-1">
-                    <div class=" border-2 rounded m-2 p-0 alpha-color col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12">
-                        <h1 class="text-center text-light my-2">REGISTRE-SE</h1>
+
+<div class="auth-wrapper">
+    <main class="auth-card" style="max-width: 720px;">
+        <a href="{{ route('inicio.index') }}" class="back-link" aria-label="Voltar à home">
+            <i class="ph ph-arrow-left" style="font-size: 20px;"></i>
+        </a>
+
+        <div class="auth-body">
+            <div class="text-center mb-4">
+                <img src="{{ asset('image/logo.png') }}" alt="Concretize" class="auth-logo mb-3">
+                <h2 class="fw-bold mb-1">Crie sua conta</h2>
+                <p class="text-muted mb-0">Preencha os dados abaixo para começar</p>
+            </div>
+
+            <form method="POST" action="{{ route('register.cria') }}">
+                @csrf
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="nome" class="form-label">Nome completo</label>
+                        <input type="text" id="nome" class="form-control" name="nome" placeholder="Seu nome" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="date" class="form-label">Data de nascimento</label>
+                        <input type="date" id="date" class="form-control" name="data_nascimento" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" id="email" class="form-control" name="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Mínimo 6 caracteres" required minlength="6">
                     </div>
                 </div>
-                <div id="content">
-                    <form class="form-register" method="POST" action="{{ route('register.cria') }}">
-                        @csrf
-                        <div class="d-flex row">
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
-                                <div class="">
-                                    <label for="nome" class="text-center">NOME:</label>
-                                </div>
-                                <div class="">
-                                    <input type="text" id="nome" class="form-control" name="nome" placeholder="Digite seu nome">
-                                </div>
-                            </div>
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
-                                <div class="">
-                                    <label for="password">Data:</label>
-                                </div>
-                                <div class="">
-                                    <input type="date" id="date" class="form-control" name="data_nascimento" placeholder="Digite sua data de nascimento">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex row">
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
-                                <div class="">
-                                    <label for="email" class="text-center">E-mail:</label>
-                                </div>
-                                <div class="">
-                                    <input type="email" id="email" class="form-control" name="email" placeholder="Digite seu E-mail">
-                                </div>
-                            </div>
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
-                                <div class="">
-                                    <label for="password">Senha:</label><br>
-                                </div>
-                                <div class="">
-                                    <input type="password" id="password" class="form-control" name="password" placeholder="Digite uma senha">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Salvar</button>
-                        </div>
-                        <div class="d-flex justify-content-end me-3">
-                            <a href="{{route('login.index')}}">Possui cadastro? Faça login</a>
-                        </div>
-                    </form>
+                <div class="mt-4 pt-2 d-flex flex-column align-items-center">
+                    <button type="submit" class="btn btn-accent px-5 py-2 mb-3">
+                        Finalizar cadastro <i class="ph ph-arrow-right ms-1"></i>
+                    </button>
+                    <div>
+                        <span class="text-muted small">Já possui uma conta?</span>
+                        <a href="{{ route('login.index') }}"
+                           class="text-accent fw-bold text-decoration-none ms-1">Faça login</a>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-<style>
-body {
-    height: 100vh;
-}
-#principal {
-    /* height: 88vh; */
-    border-color: #fd7e14 !important;
-    border-radius: 20px;
-}
-.alpha-color{
-    background-color: #fd7e14;
-}
-
-</style>

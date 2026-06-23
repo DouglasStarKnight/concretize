@@ -1,5 +1,8 @@
 <x-layout layout>
-  @include('listagem.cards', ['produtos' => $produtos])
+  <x-produto-card-listagem
+    :produtos="$produtos"
+    :tipo="$tipo"
+  />
 </x-layout>
 <style>
   .alpha-color {

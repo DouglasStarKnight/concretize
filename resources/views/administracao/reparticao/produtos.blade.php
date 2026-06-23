@@ -1,61 +1,86 @@
-<div style="justify-self: end" class="my-2">
-  <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide" class="btn-warning border border-dark" style="margin: 5px"
-    title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($slides) !!})">
-    <h2 style="font-size: 15px">TROCAR SLIDES</h2>
-  </x-botaoModal>
-  <x-botaoModal id_button="btnCriaProduto" modal_id="modal-produto" class="btn-warning border border-dark"
-    style="margin: 5px" title="Insira as informações" onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
-    <h2 style="font-size: 15px">ADICIONAR PRODUTO</h2>
-  </x-botaoModal>
-</div>
-<div id="tableExcluir" class="mx-2">
-  <div class="border border-bottom-0 border-2 border-dark rounded-top text-center">
-    <h5 class="py-2 m-0">Produtos Cadastrados</h5>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div>
+    <h5 class="m-0 fw-bold text-brand">Produtos cadastrados</h5>
+    <small class="text-muted">Gerencie o catálogo da sua loja</small>
   </div>
-  <table class="table table-striped">
-    <thead>
-      <tr class="border border-2 border-dark rounded title-color">
-        <th class="col-auto ">#</th>
-        <th class="col-auto ">NOME</th>
-        <th class="col-auto ">VALOR</th>
-        <th class="col-auto ">CATEGORIA</th>
-        <th class="col-auto">ESTOQUE</th>
-        <th class="col-auto">TIPO DE VENDA</th>
-        <th class="col-auto ">AÇÕES</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($produtos['produtos'] as $produto)
-        <tr class="border border-2">
-          <td class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">{{ !empty($produto->id) ? $produto->id : '' }}</td>
-          <td class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">{{ isset($produto->nome) ? $produto->nome : '' }}</td>
-          <td class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-1 money_mask">{{ isset($produto->valor_produto) ? $produto->valor_produto : '' }}</td>
-          <td class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-1">{{ isset($produto->categoria_nome) ? $produto->categoria_nome : '' }}</td>
-          <td class="col-xxl-2 col-lx-2 col-lg-2 col-md-2 col-sm-2">{{ isset($produto->estoque) ? $produto->estoque : '' }}</td>
-          <td class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">{{ isset($produto->tipo_de_venda) ? $produto->tipo_de_venda : '' }}</td>
-          <td class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">
-            <x-botaoModal id_button="btnTableEdita" modal_id="modal-produto" type="button" class="btn btn-primary"
-              onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
-              <i class="fa-solid fa-pencil"></i>
-            </x-botaoModal>
-            <x-botaoModal id_button="btnTableExcluir" modal_id="modal-deleta" type="button" class="btn btn-danger"
-              onclick="manipulacao_modais(this, {!! json_encode($produto) !!})">
-              <i class="fa-solid fa-trash"></i>
-            </x-botaoModal>
-          </td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
+  <div class="d-flex gap-2">
+    <x-botaoModal id_button="btnMudaSlide" modal_id="mudaSlide"
+      title="Trocar slides do banner"
+      onclick="manipulacao_modais(this, {!! json_encode($slides) !!})">
+      <i class="ph ph-image me-1"></i> Trocar slides
+    </x-botaoModal>
+    <x-botaoModal id_button="btnCriaProduto" modal_id="modal-produto"
+      title="Adicionar novo produto"
+      onclick="manipulacao_modais(this, {!! json_encode($produtos) !!})">
+      <i class="ph ph-plus-circle me-1"></i> Adicionar produto
+    </x-botaoModal>
+  </div>
 </div>
-{{-- <nav aria-label="..." class="d-flex justify-content-center">
-  <ul class="pagination">
-    <li class="page-item"><a href="#" class="page-link">Anterior</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item active">
-      <a class="page-link" href="#" aria-current="page">2</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">Proxima</a></li>
-  </ul>
-</nav> --}}
+<div id="tableProdutos" class="card-admin">
+  <div class="table-responsive">
+    <table class="table table-striped align-middle mb-0">
+      <thead>
+        <tr>
+          <th class="bg-primary text-white" style="border-radius: 5px 0px 0px 0px; width:30%;">#</th>
+          <th class="bg-primary text-white">Nome</th>
+          <th class="bg-primary text-white">Valor</th>
+          <th class="bg-primary text-white">Categoria</th>
+          <th class="bg-primary text-white">Estoque</th>
+          <th class="bg-primary text-white">Tipo de venda</th>
+          <th class="bg-primary text-white" style="border-radius: 0px 5px 0px 0px;">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @forelse ($produtos['produtos'] as $produto)
+          <tr>
+            <td class="ps-4 fw-bold text-muted">#{{ $produto->id ?? '' }}</td>
+            <td class="fw-semibold">{{ $produto->nome ?? '' }}</td>
+            <td class="money_mask text-success fw-semibold">R$ {{ $produto->valor_produto ?? '0,00' }}</td>
+            <td>
+              <span class="badge bg-secondary-subtle text-dark">{{ $produto->categoria_nome ?? 'Geral' }}</span>
+            </td>
+            <td class="text-center">
+              <span class="badge {{ ($produto->estoque < 10) ? 'bg-danger-subtle text-dark' : 'bg-success-subtle text-dark' }} rounded-pill px-3">
+                {{ $produto->estoque ?? '0' }}
+              </span>
+            </td>
+            <td class="text-muted">{{ $produto->tipo_de_venda ?? '—' }}</td>
+            <td class="pe-4 text-end">
+              <div class="btn-group" role="group">
+                <button type="button"
+                        data-bs-toggle="modal" data-bs-target="#modal-produto"
+                        class="btn editaProduto btn-sm btn-light border"
+                        onclick="manipulacao_modais(this, {{ json_encode($produto) }})"
+                        title="Editar">
+                  <i class="fa-solid fa-pencil text-primary"></i>
+                </button>
+                <button type="button"
+                        data-bs-toggle="modal" data-bs-target="#modal-deleta"
+                        class="btn excluiProduto btn-exclui-produto btn-sm btn-light border"
+                        onclick="manipulacao_modais(this, {{ json_encode($produto) }})"
+                        title="Excluir">
+                  <i class="fa-solid fa-trash text-danger"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="7" class="text-center py-5 text-muted">
+              <i class="ph ph-package" style="font-size:2.5rem;"></i>
+              <p class="mt-2 mb-0">Nenhum produto cadastrado ainda.</p>
+            </td>
+          </tr>
+        @endforelse
+      </tbody>
+    </table>
+  </div>
+
+  {{-- Rodapé / paginação --}}
+  <div class="d-flex justify-content-between align-items-center px-4 py-3 border-top bg-light">
+    <small class="text-muted">
+      Mostrando {{ count($produtos['produtos'] ?? []) }} produto(s)
+    </small>
+    {{-- <nav>{{ $produtos->links() }}</nav> --}}
+  </div>
+</div>

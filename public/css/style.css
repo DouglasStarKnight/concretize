@@ -37,3 +37,137 @@ background: linear-gradient(0deg,rgba(255, 146, 74, 1) 0%, rgba(255, 102, 0, 1) 
 .header-color {
     background: linear-gradient(180deg,rgba(9, 29, 102, 1) 0%, rgba(11, 40, 82, 1) 42%, rgba(0, 5, 54, 1) 78%);
 }
+
+/* ==========================================
+   Autenticação (Login e Registro)
+   ========================================== */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #000066 0%, #000033 100%);
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.auth-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.auth-body {
+    padding: 40px 30px;
+}
+
+@media (min-width: 576px) {
+    .auth-body {
+        padding: 50px 45px;
+    }
+}
+
+.auth-logo {
+    max-height: 55px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Botão de Voltar */
+.back-link {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.back-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-3px);
+}
+
+/* Ajuste específico para quando o link de voltar está dentro de um card branco */
+.auth-card .back-link {
+    background-color: #f8f9fa;
+    color: #212529 !important;
+    border: 1px solid #dee2e6;
+}
+
+.auth-card .back-link:hover {
+    background-color: #e9ecef;
+}
+
+/* Cores e Elementos de Acento */
+.text-accent {
+    color: #ff6500 !important;
+}
+
+.btn-accent {
+    background-color: #ff6500;
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 101, 0, 0.2);
+}
+
+.btn-accent:hover {
+    background-color: #e05900;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(255, 101, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Formulários */
+.form-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #495057;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1.5px solid #dee2e6;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #ff6500;
+    box-shadow: 0 0 0 3px rgba(255, 101, 0, 0.15);
+}
+
+.input-group-text {
+    border-radius: 10px 0 0 10px !important;
+    border: 1.5px solid #dee2e6;
+    border-right: none;
+    font-size: 1.1rem;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.input-group .form-control {
+    border-radius: 0 10px 10px 0 !important;
+}

@@ -16,8 +16,7 @@ class RegisterController extends Controller
         return view('register');
     }
 
-    public function cria(CreateRegister $request)
-    {
+    public function cria(CreateRegister $request) {
         $data = $request->validated();
         return $this->registerService->cria($data);
 

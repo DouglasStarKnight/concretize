@@ -14,17 +14,20 @@ class RegisterService
     }
 
     // Método para criar um novo usuário
-    public function cria(array $data)
-    {
-
-        $body = [
-            'nome' => $data['nome'],
-            'password' => hash::make($data['password']),
-            'data_nascimento' => $data['data_nascimento'],
-            'email' => $data['email'],
-        ];
-
-        $this->registerRepository->cria($body);
-        return redirect()->route('login.index')->with('success', 'Cadastro realizado com sucesso!');
+    public function cria(array $data) {
+        try {
+            $body = [
+                'name' => $data['nome'],
+                'password' => hash::make($data['password']),
+                'data_nascimento' => $data['data_nascimento'],
+                'email' => $data['email'],
+            ];
+            
+            $this->registerRepository->cria($body);
+            return redirect()->route('login.index')->with('success', 'Cadastro realizado com sucesso!');
+            
+        } catch (\Exception $err) {
+            return redirect()->back()->withErrors($err->getMessage());
+        }
     }
 }

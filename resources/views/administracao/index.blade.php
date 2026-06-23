@@ -43,11 +43,11 @@
         </div>
       </div>
     </div>
-    
+
     {{--  modal para munipulação de dados --}}
     <form method="POST" id="form_produto" enctype="multipart/form-data">
       @csrf
-      <x-modal modal_id="modal-produto" title="Insira as informações">
+      <x-modal modal_id="modal-produto" class="modal-lg" title="Insira as informações">
         <input hidden name="_method" id="_method_manipula_produtos" />
         @include('administracao.forms.formProduto')
         <x-slot name="footer">
@@ -55,39 +55,43 @@
         </x-slot>
       </x-modal>
     </form>
-    
+
     {{-- modal para excluir produtos --}}
     <form id="formDeletar" method="POST">
       <x-modal modal_id="modal-deleta" title="Confirmar Exclusão">
         @csrf
         <input hidden name="_method" id="_method_excluir" />
-        <p id="textoConfirmacao"></p>
+        <p id="textoConfirmacao">Deseja excluir o produto?</p>
         <x-slot name="footer">
           <button id="confirmaExclusao" type="submit" class="btn btn-danger">Excluir</button>
         </x-slot>
       </x-modal>
     </form>
 
-    {{--  modal para manipulação de destaques --}}
+    {{-- Modal para manipulação de destaques --}}
     <form method="POST" id="form_destaque">
       @csrf
-      <x-modal modal_id="modal-destaque" title="Insira as informações">
-        <input hidden name="_method_destaque" id="_method_manipula_produtos" />
+      <x-modal modal_id="modal-destaque" title="Informações do Destaque">
+        <input type="hidden" name="_method" id="_method_destaque" />
         @include('administracao.forms.formDestaque')
+
         <x-slot name="footer">
-          <button type="submit" class="btn btn-primary">Salvar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-primary">Salvar Destaque</button>
         </x-slot>
       </x-modal>
     </form>
 
-    {{-- modal para trocar slides --}}
+    {{-- Modal para trocar slides --}}
     <form id="formSlide" method="POST" enctype="multipart/form-data">
+      @csrf
       <x-modal modal_id="mudaSlide" title="Mudar Slides">
-        @csrf
-        <input hidden name="_method" id="_method_muda_slides" />
+        <input type="hidden" name="_method" id="_method_muda_slides" />
         @include('administracao.forms.formSlide')
+
         <x-slot name="footer">
-          <button id="confirmaslide" type="submit" class="btn btn-danger">Salvar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button id="confirmaslide" type="submit" class="btn btn-danger">Salvar Slide</button>
         </x-slot>
       </x-modal>
     </form>
@@ -95,95 +99,210 @@
 
 </x-layout>
 <style>
-  input {
-    height: 40px;
-    border-radius: 5px;
+  :root {
+    --primary-orange: #fd7e14;
+    --dark-blue: #000080;
+    --light-gray: #f8f9fa;
   }
 
-  select {
-    border-radius: 5px
+  .nav-tabs .nav-link:hover {
+    color: var(--primary-orange) !important;
+    background-color: var(--light-gray) !important;
+    border-color: transparent;
+    border-bottom: 3px solid #dee2e6;
   }
 
-  button {
-    border-radius: 5px;
+  .nav-tabs .nav-link.active {
+    background-color: white !important;
+    border-bottom: 3px solid var(--primary-orange) !important;
+    color: var(--primary-orange) !important;
+  }
+
+  .accordion-button:hover {
+    background-color: var(--light-gray) !important;
+    /* Cor de fundo ao passar o mouse */
+    color: var(--primary-orange) !important;
+    /* Cor do texto ao passar o mouse */
   }
 
   .title-color {
-    background-color: #fd7e14;
+    background-color: var(--primary-orange) !important;
+    border: none !important;
+  }
+
+  .btn-warning {
+    background-color: var(--primary-orange);
+    color: white;
+    border: none;
+    font-weight: bold;
+  }
+
+  .btn-warning:hover {
+    background-color: #e66d00;
+    color: white;
+  }
+
+
+  .nav-tabs .nav-link {
+    color: var(--dark-blue);
+    font-weight: 600;
+    border: none;
+  }
+
+  .nav-tabs .nav-link.active {
+    border-bottom: 3px solid var(--primary-orange);
+    color: var(--primary-orange);
+  }
+
+
+  .table thead th {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border: none;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(107, 107, 244, 0.03);
+  }
+
+  input,
+  select,
+  .select2-selection {
+    border: 1px solid #ced4da !important;
+    border-radius: 8px !important;
+  }
+
+  .card-admin {
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background: white;
+    /* padding: 20px; */
   }
 </style>
 <script>
   produtos = {!! json_encode($produtos) !!};
 
-  function manipulacao_modais(element, dados) {
-    posicao = null;
-    if (element.id == "btnCriaProduto") {
-      $('#input_nome').val(null)
-      $('#valor_produto').val(null)
-      $('#t').val(null)
-      $('#tipo_venda').val(null)
-      $("#_method_manipula_produtos").attr('value', 'post');
-      $("#form_produto").attr('action', "{{ route('admin.cria') }}");
+  function preencherSelectProdutos(listaProdutos) {
+    const $select = $('#produtos_destaque');
+    console.log($select)
+    $select.empty();
+    if (!listaProdutos || listaProdutos.length === 0) {
+      $select.append(new Option('Nenhum produto encontrado', '', false, false));
+    } else {
+      listaProdutos.forEach(p => {
+        $select.append(new Option(p.nome, p.id, false, false));
+      });
+    }
+    $select.trigger('change');
+  }
 
-    } else if (element.id == "btnTableEdita") {
-      $('#input_nome').val(dados.nome)
-      $('#valor_produto').val(dados.valor_produto)
-      $('#input_estoque').val(dados.estoque)
-      $('#tipo_venda').val(dados.tipo_de_venda)
-      $("#_method_manipula_produtos").attr('value', 'post');
-      $("#form_produto").attr('action', "{{ route('admin.edita') }}" + "/" + dados.id);
+  function manipulacao_modais(element, dados = null) {
+    const idTrigger = element.id || element.classList[0];
 
-    } else if (element.id == "btnTableExcluir") {
-      $("#_method_excluir").attr('value', 'delete');
-      $("#formDeletar").attr('action', "{{ route('admin.delete') }}" + "/" + dados.id);
-      $('#textoConfirmacao').text("Tem certeza que deseja excluir o produto " + dados.nome + "?");
+    const $formProduto = $('#form_produto');
+    const $formDestaque = $('#form_destaque');
+    const $formDeletar = $('#formDeletar');
 
-    } else if (element.id == "btnMudaSlide") {
-      $('input[name="posicao"]').off('change').on('change', function() {
-        let posicao = $(this).val();
-        let slideSelecionado = dados.find(slide => slide.posicao == posicao);
-        if (slideSelecionado) {
-          $("#_method_muda_slides").attr('value', 'patch');
-          $("#formSlide").attr('action', "{{ route('slides.edita') }}" + "/" + slideSelecionado.id);
+    $formProduto.trigger('reset');
+    $formDestaque.trigger('reset');
+
+    // Restaura o texto original e habilita os botões de submit ao abrir/manipular a modal
+    $formProduto.find('button[type="submit"]').prop('disabled', false).html('Salvar');
+    $formDestaque.find('button[type="submit"]').prop('disabled', false).html('Salvar Destaque');
+    $formDeletar.find('button[type="submit"]').prop('disabled', false).html('Excluir');
+    $('#formSlide').find('button[type="submit"]').prop('disabled', false).html('Salvar Slide');
+
+    if (idTrigger === "btnCriaProduto") {
+      $("#_method_manipula_produtos").val('POST');
+      $formProduto.attr('action', "{{ route('admin.cria') }}");
+
+    } else if (element.classList.contains('editaProduto') && dados) {
+      $('#input_nome').val(dados.nome);
+      $('#valor_produto').val(dados.valor_produto);
+      $('#input_estoque').val(dados.estoque);
+      $('#tipo_venda').val(dados.tipo_de_venda);
+      $('#category').val(dados.categoria_id);
+      $("#_method_manipula_produtos").val('POST');
+      $formProduto.attr('action', "{{ route('admin.edita', '') }}/" + dados.id);
+
+    } else if (element.classList.contains('btn-exclui-produto') && dados) {
+      $("#_method_excluir").val('DELETE');
+      $formDeletar.attr('action', "{{ route('admin.delete', '') }}/" + dados.id);
+      $('#textoConfirmacao').text(`Deseja excluir o produto ${dados.nome}?`);
+
+      // LÓGICA DE DESTAQUES
+    } else if (idTrigger === "btn-destaque") {
+      preencherSelectProdutos(produtos.produtos);
+      $('#_method_destaque').val('POST');
+      $formDestaque.attr('action', "{{ route('admin.destaque') }}");
+
+    } else if (idTrigger === "btn-edita-destaque" && dados) {
+      preencherSelectProdutos(produtos.produtos);
+      $('#input_destaque').val(dados.nome);
+      const ids = dados.produtos.map(p => p.id);
+      $('#produtos_destaque').val(ids).trigger('change');
+      $('#_method_destaque').val('POST');
+      $formDestaque.attr('action', "{{ route('admin.destaqueEdita', '') }}/" + dados.id);
+    }
+
+  }
+
+  $(document).ready(function() {
+
+    // Captura o submit dos seus formulários
+    $('#form_produto, #formDeletar, #form_destaque').on('submit', function(e) {
+      e.preventDefault();
+
+      let form = $(this);
+      let url = form.attr('action');
+      let formData = new FormData(this);
+
+      let submitBtn = form.find('button[type="submit"]');
+      let textoOriginalBtn = 'Salvar';
+      if (form.attr('id') === 'formDeletar') {
+        textoOriginalBtn = 'Excluir';
+      } else if (form.attr('id') === 'form_destaque') {
+        textoOriginalBtn = 'Salvar Destaque';
+      }
+      submitBtn.prop('disabled', true).html(
+        '<span class="spinner-border spinner-border-sm"></span> Salvando...');
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          $('.modal').modal('hide');
+          mostrarToast(response.message || 'Sucesso!', 'success');
+          submitBtn.prop('disabled', false).html(textoOriginalBtn)
+          $('#tableProdutos').load(window.location.href + ' #tableProdutos > *', function() {});
+        },
+        error: function(xhr) {
+          let mensagemErro = 'Ocorreu um erro inesperado.';
+
+          if (xhr.responseJSON && xhr.responseJSON.message) {
+            mensagemErro = xhr.responseJSON.message;
+          }
+          mostrarToast(mensagemErro, 'danger');
+
+          console.error(xhr.responseText);
+        },
+        complete: function() {
+          submitBtn.prop('disabled', false).html(textoOriginalBtn);
         }
       });
-    } else if (element.id === "btn-destaque") {
-      $('#produtos_destaque').val(null).trigger('reset');
-      $('#form_destaque').trigger('reset');
-      $('#_method_destaque').attr('value', 'post');
-      $('#form_destaque').attr('action', "{{ route('admin.destaque') }}");
-    } else if (element.id === "btn-edita-destaque") {
-      $('#input_destaque').val(dados.nome);
-      const ids = dados.produtos.map(produto => produto.id);
-      $('#produtos_destaque').val(ids).trigger('change');
-      $('#_method_destaque').attr('value', 'post');
-      $('#form_destaque').attr('action', "{{ route('admin.destaqueEdita') }}" + "/" + dados.id);
-    } else if (element.id == "btn-exclui-destaque") {
-      $("#_method_excluir").attr('value', 'delete');
-      $('#textoConfirmacao').text("Tem certeza que deseja excluir este grupo?");
-      $("#formDeletar").attr('action', "{{ route('admin.exclui_destaque') }}" + "/" + dados.id);
+    });
 
-    }
-  }
-  
-  $(document).ready(function() {
-    if (produtos.length === 0) {
-      $('#produtos_destaque').html('<option disabled>Nenhum produto encontrado</option>');
-    } else {
-      let options = '';
-      produtos.forEach(function(produto) {
-        options += `<option value="${produto.id}">${produto.nome}</option>`;
-      });
-      $('#produtos_destaque').html(options);
-    }
-    
-    // Inicializa o select2
     $('#produtos_destaque').select2({
       theme: 'bootstrap-5',
       allowClear: true,
       placeholder: 'Selecione...',
       width: '100%',
-      language: "pt-BR"
+      language: "pt-BR",
+      dropdownParent: $(
+        '#modal-destaque') //Para funcionar dentro de modais Bootstrap
     });
   });
 </script>
