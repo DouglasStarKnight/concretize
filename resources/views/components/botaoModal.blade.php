@@ -1,7 +1,7 @@
 @props([
   'id_button' => '',
   'modal_id' => (string) 'modal_id',
-  'class' => 'btn-primary',
+  'class' => 'btn-accent',
   'style' => '',
   'onclick' => '',
   '_disabled' => false

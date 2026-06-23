@@ -47,7 +47,7 @@
     {{--  modal para munipulação de dados --}}
     <form method="POST" id="form_produto" enctype="multipart/form-data">
       @csrf
-      <x-modal modal_id="modal-produto" title="Insira as informações">
+      <x-modal modal_id="modal-produto" class="modal-lg" title="Insira as informações">
         <input hidden name="_method" id="_method_manipula_produtos" />
         @include('administracao.forms.formProduto')
         <x-slot name="footer">
@@ -72,7 +72,6 @@
     <form method="POST" id="form_destaque">
       @csrf
       <x-modal modal_id="modal-destaque" title="Informações do Destaque">
-        {{-- ID único para o método de destaque --}}
         <input type="hidden" name="_method" id="_method_destaque" />
         @include('administracao.forms.formDestaque')
 
@@ -157,8 +156,6 @@
 
 
   .table thead th {
-    /* background-color: var(--dark-blue); */
-    color: white;
     text-transform: uppercase;
     font-size: 0.85rem;
     border: none;
@@ -179,7 +176,7 @@
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     background: white;
-    padding: 20px;
+    /* padding: 20px; */
   }
 </style>
 <script>
@@ -209,12 +206,17 @@
     $formProduto.trigger('reset');
     $formDestaque.trigger('reset');
 
+    // Restaura o texto original e habilita os botões de submit ao abrir/manipular a modal
+    $formProduto.find('button[type="submit"]').prop('disabled', false).html('Salvar');
+    $formDestaque.find('button[type="submit"]').prop('disabled', false).html('Salvar Destaque');
+    $formDeletar.find('button[type="submit"]').prop('disabled', false).html('Excluir');
+    $('#formSlide').find('button[type="submit"]').prop('disabled', false).html('Salvar Slide');
+
     if (idTrigger === "btnCriaProduto") {
       $("#_method_manipula_produtos").val('POST');
       $formProduto.attr('action', "{{ route('admin.cria') }}");
 
     } else if (element.classList.contains('editaProduto') && dados) {
-        console.log(dados)
       $('#input_nome').val(dados.nome);
       $('#valor_produto').val(dados.valor_produto);
       $('#input_estoque').val(dados.estoque);
@@ -242,17 +244,6 @@
       $('#_method_destaque').val('POST');
       $formDestaque.attr('action', "{{ route('admin.destaqueEdita', '') }}/" + dados.id);
     }
-    // else if (idTrigger === "btnMudaSlide") {
-    //     // Lógica de slide...
-    //     $('input[name="posicao"]').off('change').on('change', function() {
-    //         let pos = $(this).val();
-    //         let slide = dados.find(s => s.posicao == pos);
-    //         if (slide) {
-    //             $("#_method_muda_slides").val('PATCH');
-    //             $("#formSlide").attr('action', "{{ route('slides.edita', '') }}/" + slide.id);
-    //         }
-    //     });
-    // }
 
   }
 
@@ -267,7 +258,12 @@
       let formData = new FormData(this);
 
       let submitBtn = form.find('button[type="submit"]');
-      let textoOriginalBtn = submitBtn.html();
+      let textoOriginalBtn = 'Salvar';
+      if (form.attr('id') === 'formDeletar') {
+        textoOriginalBtn = 'Excluir';
+      } else if (form.attr('id') === 'form_destaque') {
+        textoOriginalBtn = 'Salvar Destaque';
+      }
       submitBtn.prop('disabled', true).html(
         '<span class="spinner-border spinner-border-sm"></span> Salvando...');
 

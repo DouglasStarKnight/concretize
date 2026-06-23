@@ -1,12 +1,25 @@
 window.mostrarToast = function(mensagem, tipo = 'success') {
     $('#toast-body').html(mensagem);
     
-    const toastElement = document.getElementById('toast'); 
+    const toastElement = document.getElementById('toast_error'); 
     if (toastElement) {
+        const icon = toastElement.querySelector('.toast-header i');
+        const title = toastElement.querySelector('.toast-header strong');
+        if (icon && title) {
+            if (tipo === 'success') {
+                icon.className = 'fa-solid fa-circle-check';
+                icon.style.color = '#2ec4b6';
+                title.textContent = 'Sucesso!';
+            } else {
+                icon.className = 'fa-solid fa-triangle-exclamation';
+                icon.style.color = '#ffa348';
+                title.textContent = 'Aviso!';
+            }
+        }
         const toast = bootstrap.Toast.getOrCreateInstance(toastElement);
         toast.show();
     }
-  };
+};
 
 $(document).ready(function () {
   

@@ -1,4 +1,5 @@
 @props([
+    'class' => '',
     'modal_id' => '',
     'footer' => '',
     'modalFooter' => true,
@@ -12,18 +13,19 @@
      tabindex="-1"
      aria-labelledby="label-{{ $modal_id }}">
 
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog {{ $class ?? '' }} modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content border-0 shadow-lg">
 
             {{-- Header: Melhorado o contraste e visual --}}
-            <div class="modal-header bg-warning bg-gradient py-3">
-                <h5 class="modal-title fw-bold text-dark" id="label-{{ $modal_id }}">
+            <div class="modal-header btn-accent bg-gradient py-3">
+                <h5 class="modal-title fw-bold text-light" id="label-{{ $modal_id }}">
                     {{ $title }}
                 </h5>
                 <button type="button"
                         class="btn-close shadow-none"
                         data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                        aria-label="Close">
+                </button>
             </div>
 
             {{-- Body: Adicionado um padding mais suave --}}

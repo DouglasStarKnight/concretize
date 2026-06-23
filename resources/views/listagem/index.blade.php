@@ -1,7 +1,8 @@
 <x-layout layout>
- <x-produto-card-listagem
-:produtos="$produtos"
-/>
+  <x-produto-card-listagem
+    :produtos="$produtos"
+    :tipo="$tipo"
+  />
 </x-layout>
 <style>
   .alpha-color {

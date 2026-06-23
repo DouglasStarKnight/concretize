@@ -99,7 +99,7 @@
       <div class="container-fluid col-5 p-0" style="overflow: visible !important;">
         <form action="{{ route('produtos.index') }}" method="GET" class="d-flex justify-content-center w-100 px-3" role="search">
           <div class="input-group w-100 shadow-sm">
-            <input class="form-control border-0 search-input" name="find" placeholder="O que você vai construir hoje?" aria-label="Search">
+            <input class="form-control rounded-start search-input" name="find" placeholder="O que você vai construir hoje?" aria-label="Search">
             <button class="btn search-btn d-flex align-items-center justify-content-center" type="submit">
               <i class="fa-solid fa-magnifying-glass fs-5"></i>
             </button>
@@ -118,7 +118,7 @@
           <i class="fa-solid fa-cart-shopping" style="font-size: 30px;" id="openModalCarrinho"></i>
           <input type="hidden" id="inputCart" value="">
 
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light" style="font-size: 0.65rem;">
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light" style="font-size: 0.65rem;">
             0
             <span class="visually-hidden">itens</span>
           </span>

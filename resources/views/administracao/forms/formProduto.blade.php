@@ -1,26 +1,23 @@
 <div class="card shadow-sm border-0">
     <div class="card-body p-4">
         <div class="row g-3"> <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary" for="input_nome">Nome do Produto</label>
-                <input id="input_nome" class="form-control form-control-lg" name="nome" type="text" placeholder="Ex: Cimento CP-II" required>
+                <label class="fw-bold text-secondary" for="input_nome">Nome do Produto</label>
+                <input id="input_nome" class="form-control" name="nome" type="text" placeholder="Ex: Cimento CP-II" required>
             </div>
-
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary" for="valor_produto">Valor Unitário</label>
+                <label class="fw-bold text-secondary" for="valor_produto">Valor Unitário</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light">R$</span>
-                    <input id="valor_produto" class="form-control form-control-lg money_mask" name="valor_produto" type="text" placeholder="0,00">
+                    <input id="valor_produto" class="form-control money_mask" name="valor_produto" type="text" placeholder="0,00">
                 </div>
             </div>
-
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary" for="input_estoque">Quantidade em Estoque</label>
-                <input id="input_estoque" class="form-control form-control-lg" type="number" name="estoque" placeholder="0">
+                <label class="fw-bold text-secondary" for="input_estoque">Quantidade em Estoque</label>
+                <input id="input_estoque" class="form-control" type="number" name="estoque" placeholder="Informe a quantidade...">
             </div>
-
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary" for="category">Categoria</label>
-                <select class="form-select form-select-lg" name="categoria_id" id="category">
+                <label class="fw-bold text-secondary" for="category">Categoria</label>
+                <select class="form-select" name="categoria_id" id="category">
                     <option selected disabled>Selecione uma categoria...</option>
                     @foreach ($categorias as $categoria)
                         <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
@@ -29,13 +26,13 @@
             </div>
 
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary" for="tipo_venda">Tipo de Venda</label>
-                <input id="tipo_venda" class="form-control form-control-lg" type="text" name="tipo_de_venda" placeholder="Ex: Unitária, Atacado...">
+                <label class="fw-bold text-secondary" for="tipo_venda">Tipo de Venda</label>
+                <input id="tipo_venda" class="form-control" type="text" name="tipo_de_venda" placeholder="Ex: Unitária, Atacado...">
             </div>
 
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary" for="input_image">Imagem do Produto</label>
-                <input id="input_image" class="form-control form-control-lg" type="file" name="image" accept="image/*">
+                <label class="fw-bold text-secondary" for="input_image">Imagem do Produto</label>
+                <input id="input_image" class="form-control" type="file" name="image" accept="image/*">
                 <div class="form-text text-muted">Formatos aceitos: JPG, PNG. Máx 2MB.</div>
             </div>
 
